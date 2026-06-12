@@ -13,9 +13,10 @@ The GitHub Action runs every 5 minutes and updates `cards.json`.
 ## Card source
 
 ESPN discipline page:
-https://www.espn.com/soccer/stats/_/league/FIFA.WORLD/view/discipline/season/2026/copa-mundial
+https://www.espn.com/soccer/stats/_/league/FIFA.WORLD/view/discipline/season/2026
 
 The updater parses team rows with:
+
 - P = played
 - YC = yellow cards
 - RC = red cards
@@ -26,4 +27,8 @@ The updater parses team rows with:
 - Yellow card = 1 point
 - Red card = 3 points
 
-ESPN shows YC and RC totals. The leaderboard uses those two columns only.
+The leaderboard uses yellow cards and red cards only.
+
+## Robustness note
+
+If ESPN changes or blocks the page, the Action will no longer fail hard. It will preserve the previous `cards.json` values and write a warning into the diagnostics section.
