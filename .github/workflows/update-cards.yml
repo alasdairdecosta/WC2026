@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: "24"
 
-      - name: Update cards.json from API-Football top-card endpoints
+      - name: Update cards.json from API-Football fixture statistics
         env:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
           API_FOOTBALL_LEAGUE_ID: ${{ vars.API_FOOTBALL_LEAGUE_ID || '1' }}
