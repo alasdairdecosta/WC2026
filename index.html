@@ -788,6 +788,13 @@ code {
   }
 }
 
+
+/* Live API diagnostics */
+#lastUpdate {
+  display:block;
+  margin-top:6px;
+}
+
 @media print {
   header {
     position:static;
@@ -867,7 +874,7 @@ code {
 </main>
 
 <footer>
-  Fixture and tournament structure based on FIFA's published 2026 match schedule. Live data source is configurable in the page JavaScript; default is an open-source no-key API, which may be unavailable, change format, or omit card incidents.
+  Fixture and tournament structure based on FIFA's published 2026 match schedule. Live scores are fetched from the WorldCup26 open-source API, with a CORS fallback route for GitHub Pages. If the API has not updated a match yet, the local score will stay unchanged.
 </footer>
 
   </div>
@@ -2130,6 +2137,23 @@ function teamLabel(team) {
 }
 
 
+
+const LIVE_SCORE_ENDPOINTS = [
+  {
+    name: "WorldCup26 direct",
+    url: DATA.defaultApi
+  },
+  {
+    name: "WorldCup26 via CORS fallback",
+    url: "https://api.allorigins.win/raw?url=" + encodeURIComponent(DATA.defaultApi)
+  }
+];
+
+function endpointUrlWithCacheBust(url) {
+  const joiner = url.includes("?") ? "&" : "?";
+  return url + joiner + "_=" + Date.now();
+}
+
 let scores = JSON.parse(localStorage.getItem("wc2026_sweepstake_scores") || "{}");
 let cards = JSON.parse(localStorage.getItem("wc2026_sweepstake_cards") || "{}");
 let autoTimer = null;
@@ -2213,7 +2237,7 @@ function renderFixtures() {
     const s = scoreFor(f.id);
     if (!matchesFilterText(f.id, f.date, f.time, f.group, f.team1, f.team2, f.venue, owner(f.team1), owner(f.team2))) continue;
     const score = (s.score1 !== undefined && s.score2 !== undefined) ? `${s.score1}–${s.score2}` : "v";
-    const status = String(s.status || "scheduled").toLowerCase();
+    const status = statusLabelForDisplay(s.status || "scheduled");
     const klass = status.includes("live") ? "live" : (status.includes("finished") || status.includes("full") ? "finished" : "");
     html += `<div class="match" id="match-${f.id}">
       <div class="matchMeta"><b>#${f.id}</b><div class="meta">${f.date} · ${f.time}</div><span class="status ${klass}">${status}</span></div>
@@ -2578,52 +2602,166 @@ function storeScores() {
 }
 
 function mapApiGame(g) {
-  const candidates1 = [g.team1, g.home_team, g.homeTeam, g.home, g.teamA, g.home_name, g.homeTeamName, g?.teams?.home?.name, g?.home?.name];
-  const candidates2 = [g.team2, g.away_team, g.awayTeam, g.away, g.teamB, g.away_name, g.awayTeamName, g?.teams?.away?.name, g?.away?.name];
-  const t1 = candidates1.find(Boolean), t2 = candidates2.find(Boolean);
-  if (!t1 || !t2) return null;
+  const candidates1 = [
+    g.team1, g.home_team, g.homeTeam, g.home, g.teamA, g.home_name, g.homeTeamName,
+    g.home_team_name_en, g.home_team_label,
+    g?.teams?.home?.name, g?.home?.name
+  ];
+  const candidates2 = [
+    g.team2, g.away_team, g.awayTeam, g.away, g.teamB, g.away_name, g.awayTeamName,
+    g.away_team_name_en, g.away_team_label,
+    g?.teams?.away?.name, g?.away?.name
+  ];
+
+  const t1 = candidates1.find(x => x !== undefined && x !== null && String(x).trim() && String(x).trim() !== "0");
+  const t2 = candidates2.find(x => x !== undefined && x !== null && String(x).trim() && String(x).trim() !== "0");
+
   const s1 = g.score1 ?? g.home_score ?? g.homeScore ?? g.goals_home ?? g?.goals?.home ?? g?.score?.home ?? g?.score?.fullTime?.home;
   const s2 = g.score2 ?? g.away_score ?? g.awayScore ?? g.goals_away ?? g?.goals?.away ?? g?.score?.away ?? g?.score?.fullTime?.away;
-  const status = g.status ?? g.match_status ?? g.state ?? g.fixture?.status?.short ?? g.fixture?.status?.long ?? "scheduled";
-  return {t1, t2, score1:s1, score2:s2, status};
+
+  const finishedRaw = String(g.finished ?? g.is_finished ?? g.isFinished ?? "").toLowerCase();
+  const elapsedRaw = String(g.time_elapsed ?? g.elapsed ?? g.minute ?? g.status ?? g.match_status ?? g.state ?? g.fixture?.status?.short ?? g.fixture?.status?.long ?? "").toLowerCase();
+
+  let status = "scheduled";
+  if (finishedRaw === "true" || finishedRaw === "1" || elapsedRaw.includes("finished") || elapsedRaw === "ft" || elapsedRaw === "fulltime") {
+    status = "finished";
+  } else if (
+    elapsedRaw &&
+    elapsedRaw !== "notstarted" &&
+    elapsedRaw !== "not started" &&
+    elapsedRaw !== "scheduled" &&
+    elapsedRaw !== "upcoming" &&
+    elapsedRaw !== "false"
+  ) {
+    status = elapsedRaw.includes("half") ? "half-time" : "live";
+  }
+
+  const id = g.id ?? g.match_id ?? g.matchId ?? g.game_id ?? g._id;
+  return { id, t1, t2, score1:s1, score2:s2, status, raw:g };
+}
+
+
+function getGamesArray(raw) {
+  if (Array.isArray(raw)) return raw;
+  if (Array.isArray(raw.games)) return raw.games;
+  if (Array.isArray(raw.data)) return raw.data;
+  if (Array.isArray(raw.matches)) return raw.matches;
+  if (Array.isArray(raw.results)) return raw.results;
+  if (raw.game) return [raw.game];
+  return [];
+}
+
+function numericScoreValue(v) {
+  if (v === undefined || v === null) return undefined;
+  const s = String(v).trim().toLowerCase();
+  if (!s || s === "null" || s === "undefined" || s === "-") return undefined;
+  const n = Number(s);
+  return Number.isFinite(n) ? n : undefined;
+}
+
+function statusLabelForDisplay(status) {
+  const s = String(status || "scheduled").toLowerCase();
+  if (s === "notstarted" || s === "not started" || s === "upcoming") return "scheduled";
+  return s;
 }
 
 async function refreshLive() {
-  const endpoint = DATA.defaultApi;
-  document.getElementById("lastUpdate").textContent = " Fetching live data...";
-  try {
-    const res = await fetch(endpoint, {cache:"no-store"});
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    const raw = await res.json();
-    const games = Array.isArray(raw) ? raw : (raw.data || raw.games || raw.matches || raw.results || []);
-    let updated = 0;
-    let cardsUpdated = 0;
-    for (const g of games) {
-      cardsUpdated += extractCardsFromApiGame(g);
-      const m = mapApiGame(g);
-      if (!m) continue;
-      const f = DATA.fixtures.find(x =>
-        (norm(x.team1) === norm(m.t1) && norm(x.team2) === norm(m.t2)) ||
-        (norm(x.team1) === norm(m.t2) && norm(x.team2) === norm(m.t1))
-      );
-      if (!f) continue;
-      let score1 = m.score1, score2 = m.score2;
-      if (norm(f.team1) === norm(m.t2)) { score1 = m.score2; score2 = m.score1; }
-      if (score1 !== undefined && score2 !== undefined && score1 !== null && score2 !== null) {
-        scores[f.id] = {score1:Number(score1), score2:Number(score2), status:String(m.status || "updated")};
-        updated++;
-      } else {
-        scores[f.id] = {...(scores[f.id] || {}), status:String(m.status || "scheduled")};
+  document.getElementById("lastUpdate").textContent = " Fetching live scores...";
+  const errors = [];
+  let lastGamesCount = 0;
+
+  for (const endpoint of LIVE_SCORE_ENDPOINTS) {
+    try {
+      const res = await fetch(endpointUrlWithCacheBust(endpoint.url), {
+        cache: "no-store",
+        headers: { "Accept": "application/json,text/plain,*/*" }
+      });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+
+      const text = await res.text();
+      let raw;
+      try {
+        raw = JSON.parse(text);
+      } catch (jsonError) {
+        const trimmed = text.trim();
+        const firstJson = trimmed.indexOf("{");
+        const firstArray = trimmed.indexOf("[");
+        const start = firstArray >= 0 && (firstArray < firstJson || firstJson < 0) ? firstArray : firstJson;
+        if (start < 0) throw new Error("Response was not JSON");
+        raw = JSON.parse(trimmed.slice(start));
       }
+
+      const games = getGamesArray(raw);
+      lastGamesCount = games.length;
+      if (!games.length) throw new Error("No games found in API response");
+
+      let updated = 0;
+      let statusesRead = 0;
+      let cardsUpdated = 0;
+      const unmatchedSamples = [];
+
+      for (const g of games) {
+        cardsUpdated += extractCardsFromApiGame(g);
+        const m = mapApiGame(g);
+        if (!m) continue;
+
+        let f = null;
+        if (m.id !== undefined && m.id !== null && String(m.id).match(/^\d+$/)) {
+          f = DATA.fixtures.find(x => String(x.id) === String(m.id));
+        }
+
+        if (!f && m.t1 && m.t2) {
+          f = DATA.fixtures.find(x =>
+            (norm(x.team1) === norm(m.t1) && norm(x.team2) === norm(m.t2)) ||
+            (norm(x.team1) === norm(m.t2) && norm(x.team2) === norm(m.t1))
+          );
+        }
+
+        if (!f) {
+          if (unmatchedSamples.length < 3 && (m.t1 || m.t2 || m.id)) unmatchedSamples.push(`${m.id || "?"}: ${m.t1 || "?"} v ${m.t2 || "?"}`);
+          continue;
+        }
+
+        let score1 = numericScoreValue(m.score1);
+        let score2 = numericScoreValue(m.score2);
+
+        if (m.t1 && m.t2 && norm(f.team1) === norm(m.t2) && norm(f.team2) === norm(m.t1)) {
+          const temp = score1;
+          score1 = score2;
+          score2 = temp;
+        }
+
+        const next = { ...(scores[f.id] || {}), status: statusLabelForDisplay(m.status) };
+
+        if (score1 !== undefined && score2 !== undefined) {
+          next.score1 = score1;
+          next.score2 = score2;
+          updated++;
+        } else {
+          statusesRead++;
+        }
+
+        scores[f.id] = next;
+      }
+
+      storeScores();
+      if (cardsUpdated) storeCards();
+      render();
+
+      let msg = ` Last live refresh: ${new Date().toLocaleString()} via ${endpoint.name}. ${updated} scores updated, ${statusesRead} statuses read, ${cardsUpdated} card records read from ${games.length} API matches.`;
+      if (updated === 0) msg += " No score changes were found in the API response yet.";
+      if (unmatchedSamples.length) msg += " Unmatched examples: " + unmatchedSamples.join("; ");
+      document.getElementById("lastUpdate").textContent = msg;
+      return;
+    } catch (e) {
+      errors.push(`${endpoint.name}: ${e.message}`);
     }
-    storeScores();
-    if (cardsUpdated) storeCards();
-    document.getElementById("lastUpdate").textContent = ` Last live refresh: ${new Date().toLocaleString()} (${updated} scores updated, ${cardsUpdated} card records read).`;
-    render();
-  } catch (e) {
-    document.getElementById("lastUpdate").textContent = ` Live refresh failed: ${e.message}. Use Manual scores or check the API endpoint.`;
   }
+
+  document.getElementById("lastUpdate").textContent = ` Live refresh failed. Tried ${LIVE_SCORE_ENDPOINTS.length} route(s). ${errors.join(" | ")}.`;
 }
+
+
 
 function toggleAuto() {
   if (autoTimer) {
@@ -2631,11 +2769,10 @@ function toggleAuto() {
     document.getElementById("autoLabel").textContent = "Auto refresh: off";
   } else {
     refreshLive();
-    autoTimer = setInterval(refreshLive, 120000);
-    document.getElementById("autoLabel").textContent = "Auto refresh: every 2 min";
+    autoTimer = setInterval(refreshLive, 60000);
+    document.getElementById("autoLabel").textContent = "Auto refresh: every 60 sec";
   }
 }
-
 function openManual() {
   document.getElementById("manualJson").value = JSON.stringify(scores, null, 2);
   document.getElementById("manualDialog").classList.remove("hidden");
