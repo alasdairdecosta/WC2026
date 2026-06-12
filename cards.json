@@ -1,6 +1,9 @@
 {
-  "source": "cards.json starter file - GitHub Action will update this from API-Football when configured",
-  "updatedAt": "",
+  "source": "API-Football fixtures/events",
+  "updatedAt": "2026-06-12T12:21:56.513Z",
+  "leagueId": "1",
+  "season": "2026",
+  "eventCount": 0,
   "scoring": {
     "yellow": 1,
     "secondYellow": 2,
