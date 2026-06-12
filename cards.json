@@ -1,6 +1,6 @@
 {
   "source": "API-Football players/topyellowcards + players/topredcards",
-  "updatedAt": "2026-06-12T12:59:38.185Z",
+  "updatedAt": "2026-06-12T13:00:32.207Z",
   "leagueId": "1",
   "season": "2026",
   "scoring": {
@@ -10,7 +10,7 @@
   },
   "caveat": "Red cards from API-Football topredcards are treated as straight reds because this endpoint does not reliably distinguish second-yellow dismissals.",
   "diagnostics": {
-    "updatedAt": "2026-06-12T12:59:37.892Z",
+    "updatedAt": "2026-06-12T13:00:31.787Z",
     "leagueId": "1",
     "season": "2026",
     "yellowRows": 0,
