@@ -12,8 +12,8 @@ The GitHub Action runs every 5 minutes and updates `cards.json`.
 
 ## Card source
 
-ESPN discipline page:
-https://www.espn.com/soccer/stats/_/league/FIFA.WORLD/view/discipline/season/2026
+Primary ESPN discipline page:
+https://www.espn.com/soccer/stats/_/league/FIFA.WORLD/view/discipline
 
 The updater parses team rows with:
 
@@ -29,6 +29,6 @@ The updater parses team rows with:
 
 The leaderboard uses yellow cards and red cards only.
 
-## Robustness note
+## Fallback
 
-If ESPN changes or blocks the page, the Action will no longer fail hard. It will preserve the previous `cards.json` values and write a warning into the diagnostics section.
+If ESPN blocks or changes the page in GitHub Actions, the updater preserves the previous values. If the previous values are all zero, it uses a small initial ESPN snapshot seed so the leaderboard is not blank.

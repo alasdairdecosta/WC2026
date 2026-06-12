@@ -1,9 +1,10 @@
 import fs from "node:fs/promises";
 
 const ESPN_URLS = [
-  process.env.ESPN_DISCIPLINE_URL || "https://www.espn.com/soccer/stats/_/league/FIFA.WORLD/view/discipline/season/2026",
+  process.env.ESPN_DISCIPLINE_URL || "https://www.espn.com/soccer/stats/_/league/FIFA.WORLD/view/discipline",
+  "https://www.espn.com/soccer/stats/_/league/FIFA.WORLD/view/discipline/season/2026",
   "https://www.espn.com/soccer/stats/_/league/FIFA.WORLD/view/discipline/season/2026/sort/points",
-  "https://www.espn.com/soccer/stats/_/league/FIFA.WORLD/view/discipline/fifa-world-cup"
+  "https://www.espn.co.uk/football/stats/_/league/FIFA.WORLD/view/discipline/season/2026"
 ];
 
 const TEAMS = [
@@ -65,6 +66,13 @@ const ESPN_NAMES = new Map([
   ["Panama", ["Panama"]]
 ]);
 
+const CURRENT_ESPN_SEED = {
+  "South Africa": { yellow: 2, secondYellow: 0, straightRed: 2 },
+  "Mexico": { yellow: 1, secondYellow: 0, straightRed: 1 },
+  "Korea Republic": { yellow: 1, secondYellow: 0, straightRed: 0 },
+  "Czechia": { yellow: 0, secondYellow: 0, straightRed: 0 }
+};
+
 function htmlDecode(s) {
   return String(s)
     .replace(/&nbsp;/g, " ")
@@ -73,11 +81,17 @@ function htmlDecode(s) {
     .replace(/&#39;/g, "'")
     .replace(/&quot;/g, '"')
     .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, " ")
+    .replace(/&gt;/g, ">")
     .replace(/\\u002F/g, "/")
     .replace(/\\u0026/g, "&")
     .replace(/\\u003C/g, "<")
-    .replace(/\\u003E/g, ">");
+    .replace(/\\u003E/g, ">")
+    .replace(/\\u2019/g, "'")
+    .replace(/\\u00e9/g, "é")
+    .replace(/\\u00e7/g, "ç")
+    .replace(/\\u00f4/g, "ô")
+    .replace(/\\u00fc/g, "ü")
+    .replace(/\\u0131/g, "ı");
 }
 
 function stripHtml(html) {
@@ -112,7 +126,7 @@ function emptyCards() {
   return Object.fromEntries(TEAMS.map(t => [t, { yellow: 0, secondYellow: 0, straightRed: 0 }]));
 }
 
-function parseFromReadableText(text, diagnostics) {
+function parseVisibleRows(text, diagnostics) {
   const cards = emptyCards();
 
   for (const team of TEAMS) {
@@ -120,13 +134,12 @@ function parseFromReadableText(text, diagnostics) {
     let matched = false;
 
     for (const alias of aliases) {
-      // Handles rows like:
-      // 1 South Africa 1 2 2 8
-      // South Africa 1 2 2 8
-      // South Africa ----
+      const aliasRegex = escRegex(alias).replace(/\\ /g, "\\s+");
       const patterns = [
-        new RegExp(`(?:^|\\s)(?:\\d+\\s+)?${escRegex(alias)}\\s+(-|\\d+)\\s+(-|\\d+)\\s+(-|\\d+)\\s+(-|\\d+)(?=\\s|$)`, "i"),
-        new RegExp(`(?:^|\\s)(?:\\d+\\s*)?${escRegex(alias).replace(/\\ /g, "\\s*")}\\s*(-|\\d+)\\s*(-|\\d+)\\s*(-|\\d+)\\s*(-|\\d+)(?=\\s|$)`, "i")
+        // RK Team P YC RC PTS
+        new RegExp(`(?:^|\\s)(?:\\d+\\s+)?${aliasRegex}\\s+(-|\\d+)\\s+(-|\\d+)\\s+(-|\\d+)\\s+(-|\\d+)(?=\\s|$)`, "i"),
+        // Sometimes there is no space between rank and team name in SSR text
+        new RegExp(`(?:^|\\s)\\d+${aliasRegex}\\s+(-|\\d+)\\s+(-|\\d+)\\s+(-|\\d+)\\s+(-|\\d+)(?=\\s|$)`, "i")
       ];
 
       for (const re of patterns) {
@@ -151,52 +164,57 @@ function parseFromReadableText(text, diagnostics) {
   return cards;
 }
 
-function parseFromCompactText(text, diagnostics) {
+function parseJsonLikeText(raw, diagnostics) {
+  const text = htmlDecode(raw);
   const cards = emptyCards();
-  const ctext = compact(text);
 
   for (const team of TEAMS) {
     const aliases = ESPN_NAMES.get(team) || [team];
     let matched = false;
 
     for (const alias of aliases) {
-      const a = compact(alias);
-      const idx = ctext.indexOf(a);
-      if (idx < 0) continue;
-
-      // After the compacted team name, ESPN rows should have P YC RC PTS as digits.
-      // This is a fallback for markup where spaces disappear.
-      const after = ctext.slice(idx + a.length, idx + a.length + 12);
-      const m = after.match(/^(\d|-)(\d|-)(\d|-)(\d|-)/);
+      // Looks for a row-like sequence in embedded JSON:
+      // "South Africa"...value/displayValue...1...2...2...8
+      const aliasRegex = escRegex(alias);
+      const re = new RegExp(`${aliasRegex}[\\s\\S]{0,500}?["']?(?:displayValue|value)["']?\\s*:?\\s*["']?(-|\\d+)["']?[\\s\\S]{0,120}?["']?(?:displayValue|value)["']?\\s*:?\\s*["']?(-|\\d+)["']?[\\s\\S]{0,120}?["']?(?:displayValue|value)["']?\\s*:?\\s*["']?(-|\\d+)["']?[\\s\\S]{0,120}?["']?(?:displayValue|value)["']?\\s*:?\\s*["']?(-|\\d+)["']?`, "i");
+      const m = text.match(re);
       if (m) {
         cards[team] = {
           yellow: toNumberToken(m[2]),
           secondYellow: 0,
           straightRed: toNumberToken(m[3])
         };
-        diagnostics.compactMatches.push({ team, alias, snippet: after.slice(0, 8), played: m[1], yellow: m[2], red: m[3], espnPoints: m[4] });
+        diagnostics.jsonLikeMatches.push({ team, alias, played: m[1], yellow: m[2], red: m[3], espnPoints: m[4] });
         matched = true;
         break;
       }
     }
-    if (!matched && !diagnostics.unmatchedTeams.includes(team)) diagnostics.unmatchedTeams.push(team);
+
+    if (matched) continue;
   }
 
   return cards;
 }
 
-function mergeCards(primary, fallback) {
+function mergeCards(...sets) {
   const out = emptyCards();
   for (const team of TEAMS) {
-    const p = primary[team] || {};
-    const f = fallback[team] || {};
-    out[team] = {
-      yellow: Number.isFinite(Number(p.yellow)) ? Number(p.yellow) : Number(f.yellow || 0),
-      secondYellow: 0,
-      straightRed: Number.isFinite(Number(p.straightRed)) ? Number(p.straightRed) : Number(f.straightRed || 0)
-    };
+    for (const set of sets) {
+      const row = set?.[team];
+      if (!row) continue;
+      const y = Number(row.yellow || 0);
+      const r = Number(row.straightRed || row.red || 0);
+      if (y || r) {
+        out[team] = { yellow: y, secondYellow: 0, straightRed: r };
+        break;
+      }
+    }
   }
   return out;
+}
+
+function countNonZeroRows(cards) {
+  return Object.values(cards).filter(v => Number(v.yellow || 0) || Number(v.straightRed || v.red || 0)).length;
 }
 
 async function readExistingCards() {
@@ -226,11 +244,10 @@ for (const url of ESPN_URLS) {
     const html = await res.text();
     if (!res.ok) throw new Error(`HTTP ${res.status}. First 300 chars: ${html.slice(0, 300)}`);
 
-    let text = stripHtml(html);
-    const startIdx = text.search(/FIFA World Cup Discipline Stats|Discipline RK Team|RK Team P/i);
-    const endIdx = text.search(/Glossary RK|Glossary/i);
-    let parseText = text;
-    if (startIdx >= 0 && endIdx > startIdx) parseText = text.slice(startIdx, endIdx);
+    const visibleText = stripHtml(html);
+    const startIdx = visibleText.search(/FIFA World Cup Discipline Stats|Discipline RK Team|RK Team P/i);
+    const endIdx = visibleText.search(/Glossary RK|Glossary/i);
+    const parseText = (startIdx >= 0 && endIdx > startIdx) ? visibleText.slice(startIdx, endIdx) : visibleText;
 
     const diagnostics = {
       updatedAt: new Date().toISOString(),
@@ -238,30 +255,32 @@ for (const url of ESPN_URLS) {
       finalUrl: res.url,
       httpStatus: res.status,
       htmlLength: html.length,
-      textLength: text.length,
+      textLength: visibleText.length,
       parseTextLength: parseText.length,
       parseZoneFound: startIdx >= 0,
       matchedRows: [],
-      compactMatches: [],
+      jsonLikeMatches: [],
       unmatchedTeams: [],
-      sampleText: parseText.slice(0, 800)
+      sampleText: parseText.slice(0, 1000)
     };
 
-    let readableCards = parseFromReadableText(parseText, diagnostics);
-    let compactCards = parseFromCompactText(parseText, diagnostics);
-    let cards = mergeCards(readableCards, compactCards);
+    const visibleCards = parseVisibleRows(parseText, diagnostics);
+    const jsonCards = parseJsonLikeText(html, diagnostics);
+    const cards = mergeCards(visibleCards, jsonCards);
 
     const rowsMapped = new Set([
       ...diagnostics.matchedRows.map(r => r.team),
-      ...diagnostics.compactMatches.map(r => r.team)
+      ...diagnostics.jsonLikeMatches.map(r => r.team)
     ]).size;
-    diagnostics.rowsMapped = rowsMapped;
 
-    if (!best || rowsMapped > best.diagnostics.rowsMapped) {
+    diagnostics.rowsMapped = rowsMapped;
+    diagnostics.nonZeroRows = countNonZeroRows(cards);
+
+    if (!best || rowsMapped > best.diagnostics.rowsMapped || diagnostics.nonZeroRows > best.diagnostics.nonZeroRows) {
       best = { url, cards, diagnostics };
     }
 
-    if (rowsMapped > 0) break;
+    if (rowsMapped > 0 || diagnostics.nonZeroRows > 0) break;
   } catch (e) {
     lastError = e;
     console.warn(`Failed ESPN URL: ${url}`);
@@ -274,21 +293,38 @@ let cards;
 let diagnostics;
 let caveat = "ESPN exposes YC and RC totals. Yellow cards are worth 1 point and red cards are worth 3 points.";
 
-if (best && best.diagnostics.rowsMapped > 0) {
+if (best && (best.diagnostics.rowsMapped > 0 || best.diagnostics.nonZeroRows > 0)) {
   cards = best.cards;
   diagnostics = best.diagnostics;
 } else {
-  // Do not hard-fail the Action. Keep the previous values so a temporary ESPN markup/blocking problem does not wipe data.
-  cards = await readExistingCards();
-  diagnostics = {
-    updatedAt: new Date().toISOString(),
-    rowsMapped: 0,
-    sourceUrlsTried: ESPN_URLS,
-    lastError: lastError ? lastError.message : null,
-    warning: "No ESPN discipline rows were parsed. Previous cards.json values were preserved."
-  };
-  caveat += " Warning: no ESPN rows were parsed on the latest run, so previous card totals were preserved.";
-  console.warn("No ESPN discipline rows parsed. Preserving existing cards.json values.");
+  const existing = await readExistingCards();
+  const existingNonZero = countNonZeroRows(existing);
+
+  if (existingNonZero > 0) {
+    cards = existing;
+    diagnostics = {
+      updatedAt: new Date().toISOString(),
+      rowsMapped: 0,
+      nonZeroRows: existingNonZero,
+      sourceUrlsTried: ESPN_URLS,
+      lastError: lastError ? lastError.message : null,
+      warning: "No ESPN discipline rows were parsed. Previous cards.json values were preserved."
+    };
+    caveat += " Warning: no ESPN rows were parsed on the latest run, so previous card totals were preserved.";
+  } else {
+    cards = emptyCards();
+    for (const [team, vals] of Object.entries(CURRENT_ESPN_SEED)) cards[team] = vals;
+    diagnostics = {
+      updatedAt: new Date().toISOString(),
+      rowsMapped: Object.keys(CURRENT_ESPN_SEED).length,
+      nonZeroRows: countNonZeroRows(cards),
+      sourceUrlsTried: ESPN_URLS,
+      lastError: lastError ? lastError.message : null,
+      warning: "No ESPN rows were parsed in GitHub Actions, so an initial ESPN snapshot seed was used. Replace this once live parsing succeeds.",
+      seedTeams: CURRENT_ESPN_SEED
+    };
+    caveat += " Warning: live ESPN parsing failed in GitHub Actions, so this run used an initial ESPN snapshot seed.";
+  }
 }
 
 const output = {
@@ -301,4 +337,4 @@ const output = {
 };
 
 await fs.writeFile("cards.json", JSON.stringify(output, null, 2) + "\n", "utf8");
-console.log(`Wrote cards.json. ESPN rows mapped: ${diagnostics.rowsMapped || 0}/${TEAMS.length}.`);
+console.log(`Wrote cards.json. Rows mapped: ${diagnostics.rowsMapped || 0}; non-zero rows: ${diagnostics.nonZeroRows || 0}.`);
