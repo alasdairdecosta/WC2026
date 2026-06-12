@@ -18,9 +18,11 @@ jobs:
         with:
           node-version: "24"
 
-      - name: Update cards.json from WorldCupAPI
+      - name: Update cards.json from API-Football top-card endpoints
         env:
-          WORLDCUPAPI_KEY: ${{ secrets.WORLDCUPAPI_KEY }}
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          API_FOOTBALL_LEAGUE_ID: ${{ vars.API_FOOTBALL_LEAGUE_ID || '1' }}
+          API_FOOTBALL_SEASON: ${{ vars.API_FOOTBALL_SEASON || '2026' }}
         run: node scripts/update-cards.mjs
 
       - name: Commit updated card data
