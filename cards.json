@@ -1,11 +1,22 @@
 {
   "source": "ESPN FIFA World Cup discipline stats",
-  "updatedAt": "",
+  "updatedAt": "2026-06-12T13:41:59.787Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
-  "diagnostics": {},
+  "caveat": "ESPN exposes YC and RC totals. Yellow cards are worth 1 point and red cards are worth 3 points. Warning: no ESPN rows were parsed on the latest run, so previous card totals were preserved.",
+  "diagnostics": {
+    "updatedAt": "2026-06-12T13:41:59.786Z",
+    "rowsMapped": 0,
+    "sourceUrlsTried": [
+      "https://www.espn.com/soccer/stats/_/league/FIFA.WORLD/view/discipline/season/2026",
+      "https://www.espn.com/soccer/stats/_/league/FIFA.WORLD/view/discipline/season/2026/sort/points",
+      "https://www.espn.com/soccer/stats/_/league/FIFA.WORLD/view/discipline/fifa-world-cup"
+    ],
+    "lastError": null,
+    "warning": "No ESPN discipline rows were parsed. Previous cards.json values were preserved."
+  },
   "cards": {
     "Mexico": {
       "yellow": 0,
@@ -247,6 +258,5 @@
       "secondYellow": 0,
       "straightRed": 0
     }
-  },
-  "caveat": "ESPN exposes YC and RC totals. Yellow cards are worth 1 point and red cards are worth 3 points."
+  }
 }
