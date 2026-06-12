@@ -1,14 +1,12 @@
 {
-  "source": "API-Football fixtures/events",
-  "updatedAt": "2026-06-12T12:30:44.880Z",
-  "leagueId": "1",
-  "season": "2026",
-  "eventCount": 0,
+  "source": "WorldCupAPI /cards starter file",
+  "updatedAt": "",
   "scoring": {
     "yellow": 1,
     "secondYellow": 2,
     "straightRed": 3
   },
+  "diagnostics": {},
   "cards": {
     "Mexico": {
       "yellow": 0,

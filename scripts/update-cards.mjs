@@ -1,30 +1,7 @@
 import fs from "node:fs/promises";
 
-const API_KEY = process.env.API_FOOTBALL_KEY;
-const LEAGUE_ID = process.env.API_FOOTBALL_LEAGUE_ID || "1";
-const SEASON = process.env.API_FOOTBALL_SEASON || "2026";
-const BASE = "https://v3.football.api-sports.io";
-
-const TEAM_ALIASES = new Map([
-  ["United States", "USA"],
-  ["USA", "USA"],
-  ["USMNT", "USA"],
-  ["South Korea", "Korea Republic"],
-  ["Korea Republic", "Korea Republic"],
-  ["Iran", "IR Iran"],
-  ["IR Iran", "IR Iran"],
-  ["Turkey", "Türkiye"],
-  ["Türkiye", "Türkiye"],
-  ["Turkiye", "Türkiye"],
-  ["Ivory Coast", "Côte d'Ivoire"],
-  ["Cote d'Ivoire", "Côte d'Ivoire"],
-  ["Côte d'Ivoire", "Côte d'Ivoire"],
-  ["Cape Verde", "Cabo Verde"],
-  ["Cabo Verde", "Cabo Verde"],
-  ["DR Congo", "Congo DR"],
-  ["Congo DR", "Congo DR"],
-  ["Congo", "Congo DR"]
-]);
+const API_KEY = process.env.WORLDCUPAPI_KEY || process.env.WORLD_CUP_API_KEY;
+const BASE = process.env.WORLDCUPAPI_BASE || "https://api.worldcupapi.com";
 
 const TEAMS = [
   "Mexico","South Africa","Korea Republic","Czechia","Canada","Bosnia and Herzegovina","Qatar","Switzerland",
@@ -34,86 +11,131 @@ const TEAMS = [
   "Austria","Jordan","Portugal","Colombia","Uzbekistan","Congo DR","England","Croatia","Ghana","Panama"
 ];
 
+const ALIASES = new Map([
+  ["United States", "USA"], ["USA", "USA"], ["USMNT", "USA"],
+  ["South Korea", "Korea Republic"], ["Republic of Korea", "Korea Republic"], ["Korea Republic", "Korea Republic"],
+  ["Iran", "IR Iran"], ["IR Iran", "IR Iran"],
+  ["Turkey", "Türkiye"], ["Turkiye", "Türkiye"], ["Türkiye", "Türkiye"],
+  ["Ivory Coast", "Côte d'Ivoire"], ["Cote d'Ivoire", "Côte d'Ivoire"], ["Côte d'Ivoire", "Côte d'Ivoire"],
+  ["Cape Verde", "Cabo Verde"], ["Cabo Verde", "Cabo Verde"],
+  ["DR Congo", "Congo DR"], ["Congo DR", "Congo DR"], ["Congo", "Congo DR"],
+  ["Czech Republic", "Czechia"], ["Czechia", "Czechia"]
+]);
+
 function norm(s) {
   return String(s || "")
     .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     .toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
 }
 
-const TEAM_LOOKUP = new Map();
-for (const team of TEAMS) TEAM_LOOKUP.set(norm(team), team);
-for (const [alias, team] of TEAM_ALIASES) TEAM_LOOKUP.set(norm(alias), team);
+const lookup = new Map();
+for (const t of TEAMS) lookup.set(norm(t), t);
+for (const [a, t] of ALIASES) lookup.set(norm(a), t);
 
 function canonicalTeam(name) {
-  return TEAM_LOOKUP.get(norm(name)) || TEAM_ALIASES.get(name) || name;
+  return lookup.get(norm(name)) || null;
 }
 
-async function api(path) {
-  const res = await fetch(BASE + path, {
-    headers: {
-      "x-apisports-key": API_KEY
-    }
-  });
-  if (!res.ok) throw new Error(`${path} failed with HTTP ${res.status}`);
-  const data = await res.json();
-  if (data.errors && Object.keys(data.errors).length) {
-    console.warn("API errors for", path, data.errors);
-  }
-  return data.response || [];
+function num(v) {
+  if (v === undefined || v === null || v === "") return undefined;
+  const n = Number(v);
+  return Number.isFinite(n) ? n : undefined;
 }
 
-function cardKind(event) {
-  const type = String(event.type || "").toLowerCase();
-  const detail = String(event.detail || event.comments || "").toLowerCase();
-
-  if (!type.includes("card") && !detail.includes("card")) return null;
-
-  if (detail.includes("second") || detail.includes("yellow/red") || detail.includes("yellow red")) {
-    return "secondYellow";
+function pick(obj, keys) {
+  if (!obj || typeof obj !== "object") return undefined;
+  for (const k of keys) {
+    if (obj[k] !== undefined && obj[k] !== null && obj[k] !== "") return obj[k];
   }
-  if (detail.includes("red")) return "straightRed";
-  if (detail.includes("yellow")) return "yellow";
+  return undefined;
+}
 
-  return null;
+function findTeamName(row) {
+  return pick(row, [
+    "team", "teamName", "team_name", "country", "countryName", "country_name",
+    "name", "nation", "team_en", "teamNameEn", "team_name_en"
+  ]);
+}
+
+function extractRows(raw) {
+  if (Array.isArray(raw)) return raw;
+  if (Array.isArray(raw.cards)) return raw.cards;
+  if (Array.isArray(raw.data)) return raw.data;
+  if (Array.isArray(raw.teams)) return raw.teams;
+  if (Array.isArray(raw.disciplinary)) return raw.disciplinary;
+  if (Array.isArray(raw.results)) return raw.results;
+  if (raw.cards && typeof raw.cards === "object") {
+    return Object.entries(raw.cards).map(([team, value]) => ({ team, ...(value || {}) }));
+  }
+  if (raw.data && typeof raw.data === "object") {
+    return Object.entries(raw.data).map(([team, value]) => ({ team, ...(value || {}) }));
+  }
+  return [];
 }
 
 if (!API_KEY) {
-  throw new Error("Missing API_FOOTBALL_KEY GitHub secret");
+  throw new Error("Missing WORLDCUPAPI_KEY GitHub secret");
 }
 
+const url = `${BASE.replace(/\/$/, "")}/cards?key=${encodeURIComponent(API_KEY)}`;
+console.log(`Fetching cards from ${BASE}/cards`);
+const res = await fetch(url, { headers: { "Accept": "application/json" } });
+const text = await res.text();
+
+let raw;
+try {
+  raw = JSON.parse(text);
+} catch {
+  throw new Error(`WorldCupAPI did not return JSON. HTTP ${res.status}. First 300 chars: ${text.slice(0, 300)}`);
+}
+
+if (!res.ok) {
+  throw new Error(`WorldCupAPI /cards failed HTTP ${res.status}: ${JSON.stringify(raw).slice(0, 500)}`);
+}
+
+const rows = extractRows(raw);
 const cards = Object.fromEntries(TEAMS.map(t => [t, { yellow: 0, secondYellow: 0, straightRed: 0 }]));
+const diagnostics = {
+  updatedAt: new Date().toISOString(),
+  endpoint: `${BASE}/cards`,
+  rowCount: rows.length,
+  mappedRows: 0,
+  unmatchedRows: [],
+  sampleKeys: rows[0] ? Object.keys(rows[0]) : [],
+  rawTopLevelKeys: raw && typeof raw === "object" ? Object.keys(raw) : []
+};
 
-console.log(`Fetching API-Football fixtures for league=${LEAGUE_ID}, season=${SEASON}`);
-const fixtures = await api(`/fixtures?league=${encodeURIComponent(LEAGUE_ID)}&season=${encodeURIComponent(SEASON)}`);
-console.log(`Found ${fixtures.length} fixture(s)`);
-
-let eventCount = 0;
-for (const fixture of fixtures) {
-  const fixtureId = fixture?.fixture?.id;
-  if (!fixtureId) continue;
-
-  const events = await api(`/fixtures/events?fixture=${fixtureId}`);
-  for (const event of events) {
-    const kind = cardKind(event);
-    if (!kind) continue;
-
-    const teamName = canonicalTeam(event?.team?.name);
-    if (!cards[teamName]) continue;
-
-    cards[teamName][kind] += 1;
-    eventCount++;
+for (const row of rows) {
+  const rawTeam = findTeamName(row);
+  const team = canonicalTeam(rawTeam);
+  if (!team) {
+    diagnostics.unmatchedRows.push({ rawTeam, row });
+    continue;
   }
+
+  const yellow = num(pick(row, ["yellow", "yellows", "yellowCards", "yellow_cards", "yellow_cards_total", "yc"]));
+  const secondYellow = num(pick(row, ["secondYellow", "second_yellow", "yellowRed", "yellow_red", "secondYellowRed", "yellow_red_cards", "second_yellow_cards"]));
+  const straightRed = num(pick(row, ["straightRed", "straight_red", "red", "reds", "redCards", "red_cards", "red_cards_total", "rc"]));
+
+  const totalRed = num(pick(row, ["totalRedCards", "total_red_cards", "red_card_total"]));
+  cards[team] = {
+    yellow: yellow ?? 0,
+    secondYellow: secondYellow ?? 0,
+    straightRed: straightRed ?? totalRed ?? 0
+  };
+  diagnostics.mappedRows++;
 }
 
 const output = {
-  source: "API-Football fixtures/events",
+  source: "WorldCupAPI /cards",
   updatedAt: new Date().toISOString(),
-  leagueId: LEAGUE_ID,
-  season: SEASON,
-  eventCount,
   scoring: { yellow: 1, secondYellow: 2, straightRed: 3 },
+  diagnostics,
   cards
 };
 
 await fs.writeFile("cards.json", JSON.stringify(output, null, 2) + "\n", "utf8");
-console.log(`Wrote cards.json with ${eventCount} card event(s)`);
+console.log(`Wrote cards.json: ${diagnostics.mappedRows}/${diagnostics.rowCount} rows mapped`);
+if (diagnostics.unmatchedRows.length) {
+  console.log(`Unmatched rows: ${diagnostics.unmatchedRows.length}`);
+}
