@@ -1,31 +1,26 @@
 # OIT World Cup 2026 sweepstake
 
-This version uses API-Football fixture statistics for the card leaderboard.
+This version uses ESPN's public FIFA World Cup 2026 discipline stats page as the free card source.
 
-It calls:
-
-- `/fixtures?league=1&season=2026`
-- `/fixtures/statistics?fixture=FIXTURE_ID`
-
-The statistics endpoint can include team-level `Yellow Cards` and `Red Cards`.
+It does not need an API key.
 
 ## Setup
 
-Upload all files/folders to the root of your GitHub repo.
+Upload all files/folders to the root of your GitHub repo, replacing the existing files.
 
-Add a GitHub Actions repository secret:
+The GitHub Action runs every 5 minutes and updates `cards.json`.
 
-`API_FOOTBALL_KEY`
+## Card source
 
-Add or keep these repository variables:
+ESPN discipline page:
+https://www.espn.com/soccer/stats/_/league/FIFA.WORLD/view/discipline/season/2026/copa-mundial
 
-`API_FOOTBALL_LEAGUE_ID = 1`
-`API_FOOTBALL_SEASON = 2026`
-
-Then go to Actions → Update World Cup card data → Run workflow.
-
-The workflow runs every 5 minutes and updates `cards.json`.
+The updater parses team rows with:
+- P = played
+- YC = yellow cards
+- RC = red cards
+- PTS = ESPN disciplinary points
 
 ## Caveat
 
-Fixture statistics expose total team red cards but do not reliably split straight-red cards from second-yellow dismissals. This package treats `Red Cards` as `straightRed`.
+ESPN shows YC and RC totals. It does not distinguish straight reds from second-yellow dismissals in this table, so this package treats RC as straightRed.

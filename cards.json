@@ -1,29 +1,12 @@
 {
-  "source": "API-Football fixtures/statistics",
-  "updatedAt": "2026-06-12T13:18:40.788Z",
-  "leagueId": "1",
-  "season": "2026",
+  "source": "ESPN FIFA World Cup discipline stats starter file",
+  "updatedAt": "",
   "scoring": {
     "yellow": 1,
     "secondYellow": 2,
     "straightRed": 3
   },
-  "caveat": "Red Cards from fixture statistics are treated as straight reds because fixture statistics do not distinguish second-yellow dismissals.",
-  "diagnostics": {
-    "updatedAt": "2026-06-12T13:18:40.539Z",
-    "leagueId": "1",
-    "season": "2026",
-    "fixtureCount": 0,
-    "checkedFixtureCount": 0,
-    "statsFixtureCalls": 0,
-    "statsRows": 0,
-    "mappedTeamRows": 0,
-    "unmatchedTeams": [],
-    "notes": [
-      "No live or played fixtures found; card totals will remain zero until fixtures are live or finished."
-    ],
-    "caveat": "API-Football fixture statistics expose Yellow Cards and Red Cards by team, but do not reliably split straight reds from second-yellow dismissals. Red Cards are treated as straightRed."
-  },
+  "diagnostics": {},
   "cards": {
     "Mexico": {
       "yellow": 0,
