@@ -1,9 +1,11 @@
 # OIT World Cup 2026 sweepstake
 
-This version uses:
+This version uses API-Football top-card endpoints for the card leaderboard:
 
-- WorldCup26 open API for live scores in the browser.
-- WorldCupAPI `/cards` endpoint for card totals via GitHub Actions.
+- `/players/topyellowcards?league=1&season=2026`
+- `/players/topredcards?league=1&season=2026`
+
+The GitHub Action aggregates player card totals by team and writes `cards.json`.
 
 ## Setup
 
@@ -11,25 +13,17 @@ Upload all files/folders to the root of your GitHub repo.
 
 Add a GitHub Actions repository secret:
 
-`WORLDCUPAPI_KEY`
+`API_FOOTBALL_KEY`
 
-This is the API key from your WorldCupAPI dashboard.
+Optionally add repository variables:
+
+`API_FOOTBALL_LEAGUE_ID = 1`
+`API_FOOTBALL_SEASON = 2026`
 
 Then go to Actions → Update World Cup card data → Run workflow.
 
 The workflow runs every 5 minutes and updates `cards.json`.
 
-The webpage refreshes automatically when opened and every 60 seconds while open.
+## Caveat
 
-## Files
-
-- `index.html` — the page
-- `cards.json` — card totals read by the page
-- `scripts/update-cards.mjs` — pulls `/cards` from WorldCupAPI
-- `.github/workflows/update-cards.yml` — scheduled updater
-
-## Card scoring
-
-- Yellow = 1
-- Second-yellow red = 2
-- Straight red = 3
+API-Football's top-card endpoints are player ranking endpoints. Red cards from `/players/topredcards` are treated as straight reds unless the response exposes a separate second-yellow field. Yellow card totals should be more reliable.

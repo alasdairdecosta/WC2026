@@ -1,7 +1,9 @@
 import fs from "node:fs/promises";
 
-const API_KEY = process.env.WORLDCUPAPI_KEY || process.env.WORLD_CUP_API_KEY;
-const BASE = process.env.WORLDCUPAPI_BASE || "https://api.worldcupapi.com";
+const API_KEY = process.env.API_FOOTBALL_KEY;
+const LEAGUE_ID = process.env.API_FOOTBALL_LEAGUE_ID || "1";
+const SEASON = process.env.API_FOOTBALL_SEASON || "2026";
+const BASE = "https://v3.football.api-sports.io";
 
 const TEAMS = [
   "Mexico","South Africa","Korea Republic","Czechia","Canada","Bosnia and Herzegovina","Qatar","Switzerland",
@@ -19,7 +21,8 @@ const ALIASES = new Map([
   ["Ivory Coast", "Côte d'Ivoire"], ["Cote d'Ivoire", "Côte d'Ivoire"], ["Côte d'Ivoire", "Côte d'Ivoire"],
   ["Cape Verde", "Cabo Verde"], ["Cabo Verde", "Cabo Verde"],
   ["DR Congo", "Congo DR"], ["Congo DR", "Congo DR"], ["Congo", "Congo DR"],
-  ["Czech Republic", "Czechia"], ["Czechia", "Czechia"]
+  ["Czech Republic", "Czechia"], ["Czechia", "Czechia"],
+  ["Bosnia-Herzegovina", "Bosnia and Herzegovina"], ["Bosnia", "Bosnia and Herzegovina"]
 ]);
 
 function norm(s) {
@@ -29,113 +32,123 @@ function norm(s) {
 }
 
 const lookup = new Map();
-for (const t of TEAMS) lookup.set(norm(t), t);
-for (const [a, t] of ALIASES) lookup.set(norm(a), t);
+for (const team of TEAMS) lookup.set(norm(team), team);
+for (const [alias, team] of ALIASES) lookup.set(norm(alias), team);
 
 function canonicalTeam(name) {
   return lookup.get(norm(name)) || null;
 }
 
-function num(v) {
-  if (v === undefined || v === null || v === "") return undefined;
+function numberOrZero(v) {
+  if (v === undefined || v === null || v === "") return 0;
   const n = Number(v);
-  return Number.isFinite(n) ? n : undefined;
+  return Number.isFinite(n) ? n : 0;
 }
 
-function pick(obj, keys) {
-  if (!obj || typeof obj !== "object") return undefined;
-  for (const k of keys) {
-    if (obj[k] !== undefined && obj[k] !== null && obj[k] !== "") return obj[k];
+function getCardsFromRow(row) {
+  const stats = Array.isArray(row.statistics) ? row.statistics : [];
+  let yellow = 0;
+  let red = 0;
+  let teamName = null;
+
+  for (const stat of stats) {
+    const t = stat?.team?.name || stat?.team?.team || stat?.teamName || null;
+    if (t && !teamName) teamName = t;
+    yellow = Math.max(yellow, numberOrZero(stat?.cards?.yellow ?? stat?.cards?.yellow_cards ?? stat?.yellow ?? stat?.yellowCards));
+    red = Math.max(red, numberOrZero(stat?.cards?.red ?? stat?.cards?.red_cards ?? stat?.red ?? stat?.redCards));
   }
-  return undefined;
+
+  teamName = teamName || row?.team?.name || row?.team?.team || row?.teamName || row?.statistics?.team?.name;
+  return { teamName, yellow, red };
 }
 
-function findTeamName(row) {
-  return pick(row, [
-    "team", "teamName", "team_name", "country", "countryName", "country_name",
-    "name", "nation", "team_en", "teamNameEn", "team_name_en"
-  ]);
+async function api(endpoint, page = 1) {
+  const url = `${BASE}/${endpoint}?league=${encodeURIComponent(LEAGUE_ID)}&season=${encodeURIComponent(SEASON)}&page=${page}`;
+  const res = await fetch(url, {
+    headers: { "x-apisports-key": API_KEY }
+  });
+
+  const data = await res.json();
+  if (!res.ok) throw new Error(`${endpoint} HTTP ${res.status}: ${JSON.stringify(data).slice(0, 500)}`);
+  if (data.errors && Object.keys(data.errors).length) {
+    console.warn(`${endpoint} errors:`, JSON.stringify(data.errors));
+  }
+  return data;
 }
 
-function extractRows(raw) {
-  if (Array.isArray(raw)) return raw;
-  if (Array.isArray(raw.cards)) return raw.cards;
-  if (Array.isArray(raw.data)) return raw.data;
-  if (Array.isArray(raw.teams)) return raw.teams;
-  if (Array.isArray(raw.disciplinary)) return raw.disciplinary;
-  if (Array.isArray(raw.results)) return raw.results;
-  if (raw.cards && typeof raw.cards === "object") {
-    return Object.entries(raw.cards).map(([team, value]) => ({ team, ...(value || {}) }));
-  }
-  if (raw.data && typeof raw.data === "object") {
-    return Object.entries(raw.data).map(([team, value]) => ({ team, ...(value || {}) }));
-  }
-  return [];
+async function fetchAll(endpoint) {
+  const all = [];
+  let page = 1;
+  let totalPages = 1;
+
+  do {
+    const data = await api(endpoint, page);
+    all.push(...(data.response || []));
+    totalPages = Number(data?.paging?.total || 1);
+    page += 1;
+  } while (page <= totalPages);
+
+  return all;
 }
 
 if (!API_KEY) {
-  throw new Error("Missing WORLDCUPAPI_KEY GitHub secret");
+  throw new Error("Missing API_FOOTBALL_KEY GitHub secret");
 }
 
-const url = `${BASE.replace(/\/$/, "")}/cards?key=${encodeURIComponent(API_KEY)}`;
-console.log(`Fetching cards from ${BASE}/cards`);
-const res = await fetch(url, { headers: { "Accept": "application/json" } });
-const text = await res.text();
-
-let raw;
-try {
-  raw = JSON.parse(text);
-} catch {
-  throw new Error(`WorldCupAPI did not return JSON. HTTP ${res.status}. First 300 chars: ${text.slice(0, 300)}`);
-}
-
-if (!res.ok) {
-  throw new Error(`WorldCupAPI /cards failed HTTP ${res.status}: ${JSON.stringify(raw).slice(0, 500)}`);
-}
-
-const rows = extractRows(raw);
 const cards = Object.fromEntries(TEAMS.map(t => [t, { yellow: 0, secondYellow: 0, straightRed: 0 }]));
 const diagnostics = {
   updatedAt: new Date().toISOString(),
-  endpoint: `${BASE}/cards`,
-  rowCount: rows.length,
-  mappedRows: 0,
-  unmatchedRows: [],
-  sampleKeys: rows[0] ? Object.keys(rows[0]) : [],
-  rawTopLevelKeys: raw && typeof raw === "object" ? Object.keys(raw) : []
+  leagueId: LEAGUE_ID,
+  season: SEASON,
+  yellowRows: 0,
+  redRows: 0,
+  mappedYellowRows: 0,
+  mappedRedRows: 0,
+  unmatchedYellowRows: [],
+  unmatchedRedRows: [],
+  caveat: "API-Football top-card endpoints are player ranking endpoints. Red cards are treated as straightRed unless API-Football exposes a separate second-yellow field."
 };
 
-for (const row of rows) {
-  const rawTeam = findTeamName(row);
-  const team = canonicalTeam(rawTeam);
+console.log(`Fetching players/topyellowcards league=${LEAGUE_ID} season=${SEASON}`);
+const yellowRows = await fetchAll("players/topyellowcards");
+diagnostics.yellowRows = yellowRows.length;
+
+for (const row of yellowRows) {
+  const { teamName, yellow } = getCardsFromRow(row);
+  const team = canonicalTeam(teamName);
   if (!team) {
-    diagnostics.unmatchedRows.push({ rawTeam, row });
+    diagnostics.unmatchedYellowRows.push({ teamName, player: row?.player?.name || null });
     continue;
   }
+  cards[team].yellow += yellow;
+  diagnostics.mappedYellowRows++;
+}
 
-  const yellow = num(pick(row, ["yellow", "yellows", "yellowCards", "yellow_cards", "yellow_cards_total", "yc"]));
-  const secondYellow = num(pick(row, ["secondYellow", "second_yellow", "yellowRed", "yellow_red", "secondYellowRed", "yellow_red_cards", "second_yellow_cards"]));
-  const straightRed = num(pick(row, ["straightRed", "straight_red", "red", "reds", "redCards", "red_cards", "red_cards_total", "rc"]));
+console.log(`Fetching players/topredcards league=${LEAGUE_ID} season=${SEASON}`);
+const redRows = await fetchAll("players/topredcards");
+diagnostics.redRows = redRows.length;
 
-  const totalRed = num(pick(row, ["totalRedCards", "total_red_cards", "red_card_total"]));
-  cards[team] = {
-    yellow: yellow ?? 0,
-    secondYellow: secondYellow ?? 0,
-    straightRed: straightRed ?? totalRed ?? 0
-  };
-  diagnostics.mappedRows++;
+for (const row of redRows) {
+  const { teamName, red } = getCardsFromRow(row);
+  const team = canonicalTeam(teamName);
+  if (!team) {
+    diagnostics.unmatchedRedRows.push({ teamName, player: row?.player?.name || null });
+    continue;
+  }
+  cards[team].straightRed += red;
+  diagnostics.mappedRedRows++;
 }
 
 const output = {
-  source: "WorldCupAPI /cards",
+  source: "API-Football players/topyellowcards + players/topredcards",
   updatedAt: new Date().toISOString(),
+  leagueId: LEAGUE_ID,
+  season: SEASON,
   scoring: { yellow: 1, secondYellow: 2, straightRed: 3 },
+  caveat: "Red cards from API-Football topredcards are treated as straight reds because this endpoint does not reliably distinguish second-yellow dismissals.",
   diagnostics,
   cards
 };
 
 await fs.writeFile("cards.json", JSON.stringify(output, null, 2) + "\n", "utf8");
-console.log(`Wrote cards.json: ${diagnostics.mappedRows}/${diagnostics.rowCount} rows mapped`);
-if (diagnostics.unmatchedRows.length) {
-  console.log(`Unmatched rows: ${diagnostics.unmatchedRows.length}`);
-}
+console.log(`Wrote cards.json. Yellow rows ${diagnostics.mappedYellowRows}/${diagnostics.yellowRows}; red rows ${diagnostics.mappedRedRows}/${diagnostics.redRows}.`);
