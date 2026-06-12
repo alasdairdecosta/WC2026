@@ -1,25 +1,35 @@
 {
-  "source": "ESPN FIFA World Cup discipline stats starter file",
-  "updatedAt": "",
+  "source": "ESPN FIFA World Cup discipline stats",
+  "updatedAt": "2026-06-12T13:32:47.291Z",
   "scoring": {
     "yellow": 1,
     "secondYellow": 2,
     "straightRed": 3
   },
-  "diagnostics": {},
+  "caveat": "ESPN exposes YC and RC totals. RC is treated as straightRed because ESPN does not distinguish second-yellow dismissals in this table.",
+  "diagnostics": {
+    "updatedAt": "2026-06-12T13:32:47.286Z",
+    "sourceUrl": "https://www.espn.com/soccer/stats/_/league/FIFA.WORLD/view/discipline/season/2026/copa-mundial",
+    "htmlLength": 339891,
+    "textLength": 845,
+    "parseZoneFound": true,
+    "rowsMapped": 48,
+    "unmatchedTeams": [],
+    "sampleText": "Discipline RK Team P yc rc PTS 1 South Africa 1 2 2 8 2 Mexico 1 1 1 4 3 South Korea 1 1 0 1 4 Czechia 1 0 0 0 5 Curaçao - - - - Ivory Coast - - - - Ghana - - - - Qatar - - - - Iraq - - - - Jordan - - - - Morocco - - - - Congo DR - - - - New Zealand - - - - Panama - - - - Haiti - - - - Egypt - - - - Cape Verde - - - - Uzbekistan - - - - United States - - - - Tunisia - - - - Saudi Arabia - - - - Senegal - - - - Australia - - - - Japan - - - - Algeria - - - - Scotland - - - - Portugal - - - - Germany - - - - France - - - - Croatia - - - - Switzerland - - - - Austria - - - - Iran - - - - Sweden -"
+  },
   "cards": {
     "Mexico": {
-      "yellow": 0,
+      "yellow": 1,
       "secondYellow": 0,
-      "straightRed": 0
+      "straightRed": 1
     },
     "South Africa": {
-      "yellow": 0,
+      "yellow": 2,
       "secondYellow": 0,
-      "straightRed": 0
+      "straightRed": 2
     },
     "Korea Republic": {
-      "yellow": 0,
+      "yellow": 1,
       "secondYellow": 0,
       "straightRed": 0
     },
