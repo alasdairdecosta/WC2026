@@ -41,54 +41,40 @@ function canonicalTeam(name) {
 
 function numberOrZero(v) {
   if (v === undefined || v === null || v === "") return 0;
-  const n = Number(v);
+  const n = Number(String(v).replace("%", ""));
   return Number.isFinite(n) ? n : 0;
 }
 
-function getCardsFromRow(row) {
-  const stats = Array.isArray(row.statistics) ? row.statistics : [];
-  let yellow = 0;
-  let red = 0;
-  let teamName = null;
-
-  for (const stat of stats) {
-    const t = stat?.team?.name || stat?.team?.team || stat?.teamName || null;
-    if (t && !teamName) teamName = t;
-    yellow = Math.max(yellow, numberOrZero(stat?.cards?.yellow ?? stat?.cards?.yellow_cards ?? stat?.yellow ?? stat?.yellowCards));
-    red = Math.max(red, numberOrZero(stat?.cards?.red ?? stat?.cards?.red_cards ?? stat?.red ?? stat?.redCards));
-  }
-
-  teamName = teamName || row?.team?.name || row?.team?.team || row?.teamName || row?.statistics?.team?.name;
-  return { teamName, yellow, red };
-}
-
-async function api(endpoint, page = 1) {
-  const url = `${BASE}/${endpoint}?league=${encodeURIComponent(LEAGUE_ID)}&season=${encodeURIComponent(SEASON)}&page=${page}`;
-  const res = await fetch(url, {
+async function api(path) {
+  const res = await fetch(BASE + path, {
     headers: { "x-apisports-key": API_KEY }
   });
-
-  const data = await res.json();
-  if (!res.ok) throw new Error(`${endpoint} HTTP ${res.status}: ${JSON.stringify(data).slice(0, 500)}`);
-  if (data.errors && Object.keys(data.errors).length) {
-    console.warn(`${endpoint} errors:`, JSON.stringify(data.errors));
+  const text = await res.text();
+  let data;
+  try {
+    data = JSON.parse(text);
+  } catch {
+    throw new Error(`${path} did not return JSON. HTTP ${res.status}. First 300 chars: ${text.slice(0, 300)}`);
   }
-  return data;
+  if (!res.ok) {
+    throw new Error(`${path} failed HTTP ${res.status}: ${JSON.stringify(data).slice(0, 500)}`);
+  }
+  if (data.errors && Object.keys(data.errors).length) {
+    console.warn(`${path} errors:`, JSON.stringify(data.errors));
+  }
+  return data.response || [];
 }
 
-async function fetchAll(endpoint) {
-  const all = [];
-  let page = 1;
-  let totalPages = 1;
+function fixtureIsWorthChecking(fixture) {
+  const short = String(fixture?.fixture?.status?.short || "").toUpperCase();
+  const elapsed = fixture?.fixture?.status?.elapsed;
+  // Only query stats for fixtures that are live/finished/played, not not-started future games.
+  return !["NS", "TBD", "PST", "CANC"].includes(short) || elapsed !== null;
+}
 
-  do {
-    const data = await api(endpoint, page);
-    all.push(...(data.response || []));
-    totalPages = Number(data?.paging?.total || 1);
-    page += 1;
-  } while (page <= totalPages);
-
-  return all;
+function statValue(stats, wantedType) {
+  const found = stats.find(s => norm(s.type) === norm(wantedType));
+  return numberOrZero(found?.value);
 }
 
 if (!API_KEY) {
@@ -100,55 +86,68 @@ const diagnostics = {
   updatedAt: new Date().toISOString(),
   leagueId: LEAGUE_ID,
   season: SEASON,
-  yellowRows: 0,
-  redRows: 0,
-  mappedYellowRows: 0,
-  mappedRedRows: 0,
-  unmatchedYellowRows: [],
-  unmatchedRedRows: [],
-  caveat: "API-Football top-card endpoints are player ranking endpoints. Red cards are treated as straightRed unless API-Football exposes a separate second-yellow field."
+  fixtureCount: 0,
+  checkedFixtureCount: 0,
+  statsFixtureCalls: 0,
+  statsRows: 0,
+  mappedTeamRows: 0,
+  unmatchedTeams: [],
+  notes: [],
+  caveat: "API-Football fixture statistics expose Yellow Cards and Red Cards by team, but do not reliably split straight reds from second-yellow dismissals. Red Cards are treated as straightRed."
 };
 
-console.log(`Fetching players/topyellowcards league=${LEAGUE_ID} season=${SEASON}`);
-const yellowRows = await fetchAll("players/topyellowcards");
-diagnostics.yellowRows = yellowRows.length;
+console.log(`Fetching fixtures league=${LEAGUE_ID} season=${SEASON}`);
+const fixtures = await api(`/fixtures?league=${encodeURIComponent(LEAGUE_ID)}&season=${encodeURIComponent(SEASON)}`);
+diagnostics.fixtureCount = fixtures.length;
 
-for (const row of yellowRows) {
-  const { teamName, yellow } = getCardsFromRow(row);
-  const team = canonicalTeam(teamName);
-  if (!team) {
-    diagnostics.unmatchedYellowRows.push({ teamName, player: row?.player?.name || null });
-    continue;
-  }
-  cards[team].yellow += yellow;
-  diagnostics.mappedYellowRows++;
+const checkFixtures = fixtures.filter(fixtureIsWorthChecking);
+diagnostics.checkedFixtureCount = checkFixtures.length;
+
+console.log(`Found ${fixtures.length} fixtures; checking statistics for ${checkFixtures.length}`);
+
+if (!checkFixtures.length) {
+  diagnostics.notes.push("No live or played fixtures found; card totals will remain zero until fixtures are live or finished.");
 }
 
-console.log(`Fetching players/topredcards league=${LEAGUE_ID} season=${SEASON}`);
-const redRows = await fetchAll("players/topredcards");
-diagnostics.redRows = redRows.length;
+for (const fixture of checkFixtures) {
+  const fixtureId = fixture?.fixture?.id;
+  if (!fixtureId) continue;
+  diagnostics.statsFixtureCalls++;
+  const rows = await api(`/fixtures/statistics?fixture=${encodeURIComponent(fixtureId)}`);
+  diagnostics.statsRows += rows.length;
 
-for (const row of redRows) {
-  const { teamName, red } = getCardsFromRow(row);
-  const team = canonicalTeam(teamName);
-  if (!team) {
-    diagnostics.unmatchedRedRows.push({ teamName, player: row?.player?.name || null });
-    continue;
+  for (const row of rows) {
+    const rawTeam = row?.team?.name;
+    const team = canonicalTeam(rawTeam);
+    if (!team) {
+      diagnostics.unmatchedTeams.push({ rawTeam, fixtureId });
+      continue;
+    }
+
+    const stats = Array.isArray(row.statistics) ? row.statistics : [];
+    const yellow = statValue(stats, "Yellow Cards");
+    const red = statValue(stats, "Red Cards");
+
+    cards[team].yellow += yellow;
+    cards[team].straightRed += red;
+    diagnostics.mappedTeamRows++;
   }
-  cards[team].straightRed += red;
-  diagnostics.mappedRedRows++;
+}
+
+if (diagnostics.statsRows === 0 && checkFixtures.length) {
+  diagnostics.notes.push("API-Football returned no fixture statistics rows for live/played fixtures. Check plan coverage and whether statistics are available for this competition.");
 }
 
 const output = {
-  source: "API-Football players/topyellowcards + players/topredcards",
+  source: "API-Football fixtures/statistics",
   updatedAt: new Date().toISOString(),
   leagueId: LEAGUE_ID,
   season: SEASON,
   scoring: { yellow: 1, secondYellow: 2, straightRed: 3 },
-  caveat: "Red cards from API-Football topredcards are treated as straight reds because this endpoint does not reliably distinguish second-yellow dismissals.",
+  caveat: "Red Cards from fixture statistics are treated as straight reds because fixture statistics do not distinguish second-yellow dismissals.",
   diagnostics,
   cards
 };
 
 await fs.writeFile("cards.json", JSON.stringify(output, null, 2) + "\n", "utf8");
-console.log(`Wrote cards.json. Yellow rows ${diagnostics.mappedYellowRows}/${diagnostics.yellowRows}; red rows ${diagnostics.mappedRedRows}/${diagnostics.redRows}.`);
+console.log(`Wrote cards.json. Stats rows ${diagnostics.statsRows}; mapped rows ${diagnostics.mappedTeamRows}.`);

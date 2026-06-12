@@ -1,11 +1,13 @@
 # OIT World Cup 2026 sweepstake
 
-This version uses API-Football top-card endpoints for the card leaderboard:
+This version uses API-Football fixture statistics for the card leaderboard.
 
-- `/players/topyellowcards?league=1&season=2026`
-- `/players/topredcards?league=1&season=2026`
+It calls:
 
-The GitHub Action aggregates player card totals by team and writes `cards.json`.
+- `/fixtures?league=1&season=2026`
+- `/fixtures/statistics?fixture=FIXTURE_ID`
+
+The statistics endpoint can include team-level `Yellow Cards` and `Red Cards`.
 
 ## Setup
 
@@ -15,7 +17,7 @@ Add a GitHub Actions repository secret:
 
 `API_FOOTBALL_KEY`
 
-Optionally add repository variables:
+Add or keep these repository variables:
 
 `API_FOOTBALL_LEAGUE_ID = 1`
 `API_FOOTBALL_SEASON = 2026`
@@ -26,4 +28,4 @@ The workflow runs every 5 minutes and updates `cards.json`.
 
 ## Caveat
 
-API-Football's top-card endpoints are player ranking endpoints. Red cards from `/players/topredcards` are treated as straight reds unless the response exposes a separate second-yellow field. Yellow card totals should be more reliable.
+Fixture statistics expose total team red cards but do not reliably split straight-red cards from second-yellow dismissals. This package treats `Red Cards` as `straightRed`.
