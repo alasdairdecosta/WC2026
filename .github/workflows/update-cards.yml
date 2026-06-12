@@ -18,11 +18,7 @@ jobs:
         with:
           node-version: "24"
 
-      - name: Update cards.json from API-Football fixture statistics
-        env:
-          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
-          API_FOOTBALL_LEAGUE_ID: ${{ vars.API_FOOTBALL_LEAGUE_ID || '1' }}
-          API_FOOTBALL_SEASON: ${{ vars.API_FOOTBALL_SEASON || '2026' }}
+      - name: Update cards.json from ESPN discipline table
         run: node scripts/update-cards.mjs
 
       - name: Commit updated card data
