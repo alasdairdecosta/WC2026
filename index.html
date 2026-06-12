@@ -2422,7 +2422,7 @@ function renderDashboard() {
     <div class="prizeGrid">
       <div><b>World Cup winning team</b><span>£20 prize</span></div>
       <div><b>Worst performing team</b><span>£10 prize · lowest group points, then GD, goals scored, conduct, coin toss</span></div>
-      <div><b>Worst conduct</b><span>£6 prize · straight red 3, second-yellow red 2, yellow 1</span></div>
+      <div><b>Worst conduct</b><span>£6 prize · yellow card 1, red card 3</span></div>
     </div>
   </div>`;
 
@@ -2449,7 +2449,7 @@ function renderDashboard() {
   html += `<div class="card"><h2>How the model works</h2>
     <p class="small"><b>World Cup winning team:</b> each team starts with a historic-strength score based on past World Cup pedigree and broad footballing history. Current tournament performance then moves that score up or down using points, goal difference and goals scored.</p>
     <p class="small"><b>Worst performing team:</b> estimates each team's likely final group record from current points, remaining matches and historic-strength score. The prize rule is reflected as: lowest points, then goal difference, goals scored, team conduct score and a deterministic coin-toss fallback.</p>
-    <p class="small"><b>Worst conduct:</b> combines current card points with a small pre-tournament conduct baseline. Card scoring is straight red = 3, second-yellow red = 2, single yellow = 1.</p>
+    <p class="small"><b>Worst conduct:</b> combines current card points with a small pre-tournament conduct baseline. Card scoring is yellow card = 1, red card = 3.</p>
   </div>`;
 
   document.getElementById("dashboardView").innerHTML = html;
@@ -2519,7 +2519,7 @@ function normaliseCardsForTeam(team) {
   const yellow = Number(c.yellow || c.yellows || c.yellowCards || 0);
   const secondYellow = Number(c.secondYellow || c.second_yellow || c.secondYellowRed || c.redAfterSecondYellow || 0);
   const straightRed = Number(c.straightRed || c.straight_red || c.red || c.redCards || 0);
-  return {yellow, secondYellow, straightRed, points: yellow + (2 * secondYellow) + (3 * straightRed)};
+  return {yellow, secondYellow, straightRed, points: yellow + (3 * straightRed)};
 }
 
 function cardLeaderboard() {
@@ -2533,12 +2533,12 @@ function renderCards() {
   let rows = cardLeaderboard().filter(r => matchesFilterText(r.team, r.owner, r.yellow, r.secondYellow, r.straightRed, r.points));
   let html = `<div class="card">
       <h2>Team card leaderboard</h2>
-      <p class="small">Discipline score: yellow card = 1, second-yellow sending off = 2, straight red = 3. Highest score is the most-carded team.</p><p class="small"><b>Card feed status:</b> ${cardFeedStatus}</p>`;
+      <p class="small">Discipline score: yellow cards and red cards only. Yellow cards are worth 1 point and red cards are worth 3 points. Highest score is the most-carded team.</p><p class="small"><b>Card feed status:</b> ${cardFeedStatus}</p>`;
   rows.forEach((r, idx) => {
     html += `<div class="rankRow">
       <div class="rankNum">#${idx + 1}</div>
       <div><b>${teamLabel(r.team)}</b><div class="ownerSmall">${r.owner}</div></div>
-      <div class="cardCounts">Yellow ${r.yellow} · 2nd yellow reds ${r.secondYellow} · Straight reds ${r.straightRed}</div>
+      <div class="cardCounts">Yellow ${r.yellow} · Red ${r.straightRed}</div>
       <div class="disciplineScore">${r.points}</div>
     </div>`;
   });

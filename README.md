@@ -21,6 +21,9 @@ The updater parses team rows with:
 - RC = red cards
 - PTS = ESPN disciplinary points
 
-## Caveat
+## Card scoring
 
-ESPN shows YC and RC totals. It does not distinguish straight reds from second-yellow dismissals in this table, so this package treats RC as straightRed.
+- Yellow card = 1 point
+- Red card = 3 points
+
+ESPN shows YC and RC totals. The leaderboard uses those two columns only.

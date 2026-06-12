@@ -166,8 +166,8 @@ if (diagnostics.rowsMapped === 0) {
 const output = {
   source: "ESPN FIFA World Cup discipline stats",
   updatedAt: new Date().toISOString(),
-  scoring: { yellow: 1, secondYellow: 2, straightRed: 3 },
-  caveat: "ESPN exposes YC and RC totals. RC is treated as straightRed because ESPN does not distinguish second-yellow dismissals in this table.",
+  scoring: { yellow: 1, red: 3 },
+  caveat: "ESPN exposes YC and RC totals. Yellow cards are worth 1 point and red cards are worth 3 points.",
   diagnostics,
   cards
 };
