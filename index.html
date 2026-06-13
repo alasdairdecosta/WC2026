@@ -876,7 +876,7 @@ code {
 </main>
 
 <footer>
-  Fixture and tournament structure based on FIFA's published 2026 match schedule. Live scores are fetched from the WorldCup26 open-source API. Card totals are read from cards.json, which can be updated automatically by the included GitHub Action using API-Football.
+  Fixture and tournament structure based on FIFA's published 2026 match schedule. Live scores are fetched from the WorldCup26 open-source API and matched by team names rather than API IDs. Card totals are read from cards.json, which can be updated automatically by the included GitHub Action using API-Football.
 </footer>
 
   </div>
@@ -2157,6 +2157,12 @@ function endpointUrlWithCacheBust(url) {
 }
 
 let scores = JSON.parse(localStorage.getItem("wc2026_sweepstake_scores") || "{}");
+const SCORE_MATCHING_VERSION = "team-name-first-v2";
+if (localStorage.getItem("wc2026_sweepstake_score_matching_version") !== SCORE_MATCHING_VERSION) {
+  scores = {};
+  localStorage.removeItem("wc2026_sweepstake_scores");
+  localStorage.setItem("wc2026_sweepstake_score_matching_version", SCORE_MATCHING_VERSION);
+}
 let cards = JSON.parse(localStorage.getItem("wc2026_sweepstake_cards") || "{}");
 let cardFeedStatus = localStorage.getItem("wc2026_sweepstake_card_status") || "No card data read from live feed yet.";
 let autoTimer = null;
@@ -2726,9 +2732,46 @@ function numericScoreValue(v) {
   return Number.isFinite(n) ? n : undefined;
 }
 
+
+function apiStatusIsScheduled(status) {
+  const s = String(status || "").toLowerCase().trim();
+  return !s || ["scheduled", "notstarted", "not started", "upcoming", "tbd", "ns", "false"].includes(s);
+}
+
+function apiStatusIsPlayable(status) {
+  const s = String(status || "").toLowerCase().trim();
+  if (!s) return false;
+  return !apiStatusIsScheduled(s);
+}
+
+function fixtureAlreadyHasTeams(fixture) {
+  return fixture && fixture.team1 && fixture.team2 && !String(fixture.team1).includes("Winner") && !String(fixture.team2).includes("Winner") && !String(fixture.team1).includes("Runner-up") && !String(fixture.team2).includes("Runner-up");
+}
+
+function findFixtureForApiMatch(m) {
+  // Important: the API match ID is not our wall-chart fixture number.
+  // Always prefer exact team-name matching to prevent scores being written onto the wrong fixture.
+  if (m && m.t1 && m.t2) {
+    const byTeams = DATA.fixtures.find(x =>
+      fixtureAlreadyHasTeams(x) && (
+        (norm(x.team1) === norm(m.t1) && norm(x.team2) === norm(m.t2)) ||
+        (norm(x.team1) === norm(m.t2) && norm(x.team2) === norm(m.t1))
+      )
+    );
+    if (byTeams) return byTeams;
+  }
+
+  // Only use ID matching as a last resort when the API has no team names.
+  if (m && (m.t1 || m.t2)) return null;
+  if (m && m.id !== undefined && m.id !== null && String(m.id).match(/^\d+$/)) {
+    return DATA.fixtures.find(x => String(x.id) === String(m.id)) || null;
+  }
+  return null;
+}
+
 function statusLabelForDisplay(status) {
   const s = String(status || "scheduled").toLowerCase();
-  if (s === "notstarted" || s === "not started" || s === "upcoming") return "scheduled";
+  if (s === "notstarted" || s === "not started" || s === "upcoming" || s === "false" || s === "ns" || s === "tbd") return "scheduled";
   return s;
 }
 
@@ -2812,17 +2855,7 @@ async function refreshLive() {
         const m = mapApiGame(g);
         if (!m) continue;
 
-        let f = null;
-        if (m.id !== undefined && m.id !== null && String(m.id).match(/^\d+$/)) {
-          f = DATA.fixtures.find(x => String(x.id) === String(m.id));
-        }
-
-        if (!f && m.t1 && m.t2) {
-          f = DATA.fixtures.find(x =>
-            (norm(x.team1) === norm(m.t1) && norm(x.team2) === norm(m.t2)) ||
-            (norm(x.team1) === norm(m.t2) && norm(x.team2) === norm(m.t1))
-          );
-        }
+        const f = findFixtureForApiMatch(m);
 
         if (!f) {
           if (unmatchedSamples.length < 3 && (m.t1 || m.t2 || m.id)) unmatchedSamples.push(`${m.id || "?"}: ${m.t1 || "?"} v ${m.t2 || "?"}`);
@@ -2838,13 +2871,16 @@ async function refreshLive() {
           score2 = temp;
         }
 
-        const next = { ...(scores[f.id] || {}), status: statusLabelForDisplay(m.status) };
+        const displayStatus = statusLabelForDisplay(m.status);
+        const next = { ...(scores[f.id] || {}), status: displayStatus };
 
-        if (score1 !== undefined && score2 !== undefined) {
+        if (apiStatusIsPlayable(displayStatus) && score1 !== undefined && score2 !== undefined) {
           next.score1 = score1;
           next.score2 = score2;
           updated++;
         } else {
+          delete next.score1;
+          delete next.score2;
           statusesRead++;
         }
 

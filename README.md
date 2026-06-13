@@ -32,3 +32,10 @@ The leaderboard uses yellow cards and red cards only.
 ## Fallback
 
 If ESPN blocks or changes the page in GitHub Actions, the updater preserves the previous values. If the previous values are all zero, it uses a small initial ESPN snapshot seed so the leaderboard is not blank.
+
+
+## Score-matching fix
+
+The live-score updater matches API records to fixtures by team names first. It does not trust numeric API IDs, because they are not the same as this wall chart's fixture numbers. It also ignores placeholder scores for scheduled/not-started fixtures.
+
+This version clears old locally stored scores once using the `wc2026_sweepstake_score_matching_version` browser key, so previously mis-mapped results are removed when the updated page loads.
