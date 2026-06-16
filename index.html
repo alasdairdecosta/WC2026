@@ -2026,6 +2026,183 @@ body {
   }
 }
 
+
+/* Mobile no-resize fixed compact bar */
+.mobileCompactBar,
+.mobileNavPanel {
+  display:none;
+}
+
+@media (max-width:760px) {
+  /* Stop the original green header from resizing or sticking; it scrolls away normally. */
+  header,
+  header.headerCompact,
+  header.mobileNavClosed,
+  header.mobileNavOpen {
+    position:relative !important;
+    top:auto !important;
+    z-index:auto !important;
+    display:block !important;
+    min-height:0 !important;
+    padding:14px 14px 12px !important;
+    box-shadow:none !important;
+    transition:none !important;
+  }
+
+  header h1,
+  header.headerCompact h1,
+  header.mobileNavOpen h1 {
+    display:block !important;
+    font-size:34px !important;
+    line-height:.98 !important;
+    margin:0 0 8px !important;
+    white-space:normal !important;
+    overflow:visible !important;
+    text-overflow:clip !important;
+    transition:none !important;
+  }
+
+  header p,
+  header.headerCompact p {
+    display:block !important;
+    max-height:none !important;
+    opacity:1 !important;
+    overflow:visible !important;
+    margin:0 0 9px !important;
+    font-size:13px !important;
+    line-height:1.25 !important;
+    transition:none !important;
+  }
+
+  header .controls,
+  header.headerCompact .controls,
+  header.mobileNavOpen .controls {
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    overflow-x:auto !important;
+    max-height:none !important;
+    margin-top:8px !important;
+    padding-bottom:3px !important;
+    gap:7px !important;
+  }
+
+  header .mobileMenuButton {
+    display:none !important;
+  }
+
+  header .controls button[data-nav],
+  header.headerCompact .controls button[data-nav],
+  header.mobileNavClosed .controls button[data-nav],
+  header.mobileNavOpen .controls button[data-nav],
+  header .controls input,
+  header.headerCompact .controls input,
+  header.mobileNavClosed .controls input,
+  header.mobileNavOpen .controls input {
+    display:inline-flex !important;
+    flex:0 0 auto !important;
+  }
+
+  header .nextFixturesStrip,
+  header.headerCompact .nextFixturesStrip {
+    display:flex !important;
+    max-height:42px !important;
+    opacity:1 !important;
+    margin-top:7px !important;
+    padding-top:6px !important;
+    border-top:1px solid rgba(255,255,255,.22) !important;
+  }
+
+  .mobileCompactBar {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:44px;
+    z-index:3000;
+    display:grid;
+    grid-template-columns:auto minmax(0,1fr);
+    align-items:center;
+    gap:9px;
+    padding:7px 10px;
+    background:var(--oit-dark-teal);
+    color:#fff;
+    border-bottom:4px solid var(--oit-yellow);
+    box-shadow:0 8px 22px rgba(0,0,0,.18);
+    transform:translateY(-110%);
+    transition:transform .16s ease-out;
+    box-sizing:border-box;
+    pointer-events:none;
+  }
+
+  body.mobileCompact .mobileCompactBar {
+    transform:translateY(0);
+    pointer-events:auto;
+  }
+
+  .mobileTopbarMenu {
+    appearance:none;
+    border:1px solid rgba(255,255,255,.4);
+    background:rgba(255,255,255,.08);
+    color:#fff;
+    border-radius:6px;
+    padding:7px 10px;
+    font-size:12px;
+    font-weight:800;
+    line-height:1;
+    cursor:pointer;
+  }
+
+  .mobileTopbarTitle {
+    font-family:var(--title-font);
+    font-size:18px;
+    line-height:1;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .mobileNavPanel {
+    position:fixed;
+    top:44px;
+    left:0;
+    right:0;
+    z-index:2999;
+    display:none;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    padding:10px;
+    background:var(--oit-dark-teal);
+    border-bottom:4px solid var(--oit-yellow);
+    box-shadow:0 14px 30px rgba(0,0,0,.20);
+    box-sizing:border-box;
+  }
+
+  body.mobileCompact.mobileNavOpen .mobileNavPanel {
+    display:grid;
+  }
+
+  .mobileNavPanel button {
+    appearance:none;
+    border:1px solid rgba(255,255,255,.18);
+    background:#fff;
+    color:var(--oit-dark-teal);
+    border-radius:5px;
+    padding:9px 8px;
+    font-size:13px;
+    font-weight:800;
+    text-align:left;
+    cursor:pointer;
+  }
+
+  main {
+    padding-top:12px !important;
+  }
+
+  body.mobileCompact.mobileNavOpen main {
+    padding-top:12px !important;
+  }
+}
+
 @media print {
   header {
     position:static;
@@ -2089,6 +2266,21 @@ body {
   </div>
   <div id="nextFixturesStrip" class="nextFixturesStrip"></div>
 </header>
+
+<div id="mobileCompactBar" class="mobileCompactBar" aria-hidden="true">
+  <button type="button" class="mobileTopbarMenu" onclick="toggleMobileNav()" aria-label="Show navigation">Menu</button>
+  <div class="mobileTopbarTitle">OIT World Cup 2026 sweepstake</div>
+</div>
+<div id="mobileNavPanel" class="mobileNavPanel" aria-hidden="true">
+  <button type="button" onclick="showView('home')">Home</button>
+  <button type="button" onclick="showView('dashboard')">Prize probabilities</button>
+  <button type="button" onclick="showView('groups')">Groups</button>
+  <button type="button" onclick="showView('fixtures')">Fixtures</button>
+  <button type="button" onclick="showView('owners')">Participants</button>
+  <button type="button" onclick="showView('cards')">Disciplinary leaderboard</button>
+  <button type="button" onclick="showView('knockout')">Knockout</button>
+</div>
+
 
 <main>
   <section class="notice refreshNotice">
@@ -3447,6 +3639,7 @@ function safeRenderInto(id, fn, label) {
 
 
 function showView(v) {
+  document.body.classList.remove("mobileNavOpen");
   const header = document.querySelector("header");
   if (header && window.innerWidth <= 760) {
     header.classList.remove("mobileNavOpen");
@@ -5262,28 +5455,18 @@ if (document.readyState === "loading") {
 
 
 function setMobileHeaderState() {
-  const header = document.querySelector("header");
-  if (!header) return;
   const isMobile = window.innerWidth <= 760;
-  const compact = isMobile && window.scrollY > 8;
-  header.classList.toggle("headerCompact", compact);
-  if (isMobile && compact && !header.classList.contains("mobileNavOpen")) {
-    header.classList.add("mobileNavClosed");
-  } else if (isMobile && !compact) {
-    header.classList.remove("mobileNavClosed", "mobileNavOpen");
-  } else if (!isMobile) {
-    header.classList.remove("mobileNavClosed", "mobileNavOpen", "headerCompact");
+  const compact = isMobile && window.scrollY > 120;
+  document.body.classList.toggle("mobileCompact", compact);
+  if (!compact || !isMobile) {
+    document.body.classList.remove("mobileNavOpen");
   }
 }
 
-function toggleMobileNav() {
-  const header = document.querySelector("header");
-  if (!header) return;
-  const opening = !header.classList.contains("mobileNavOpen");
-  header.classList.toggle("mobileNavOpen", opening);
-  header.classList.toggle("mobileNavClosed", !opening);
-  const btn = document.querySelector(".mobileMenuButton");
-  if (btn) btn.setAttribute("aria-label", opening ? "Hide navigation" : "Show navigation");
+function toggleMobileNav(){
+  document.body.classList.toggle("mobileNavOpen");
+  const btn = document.querySelector(".mobileTopbarMenu");
+  if (btn) btn.setAttribute("aria-label", document.body.classList.contains("mobileNavOpen") ? "Hide navigation" : "Show navigation");
 }
 
 window.addEventListener("scroll", setMobileHeaderState, { passive:true });
