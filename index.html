@@ -1202,6 +1202,21 @@ code {
   }
 }
 
+
+.renderError {
+  border-top-color:#E97132;
+  background:#fff7f2;
+}
+.renderError code {
+  display:block;
+  white-space:pre-wrap;
+  background:#fff;
+  border:1px solid var(--line);
+  padding:10px;
+  margin-top:10px;
+  font-size:12px;
+}
+
 @media print {
   header {
     position:static;
@@ -3790,15 +3805,44 @@ function renderKnockout() {
   document.getElementById("knockoutView").innerHTML = html;
 }
 
-function render() {
-  renderHome();
-  renderDashboard();
-  renderGroups();
-  renderFixtures();
-  renderOwners();
-  renderCards();
-  renderKnockout();
+
+function safeRenderSection(id, fn, label) {
+  try {
+    fn();
+  } catch (e) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.innerHTML = `<div class="card renderError"><h2>${label} could not render</h2>
+        <p class="small">This section hit a JavaScript error, but the rest of the page should keep working. Try the refresh button; if it persists, replace index.html with the latest fixed version.</p>
+        <code>${String(e && e.stack ? e.stack : e)}</code></div>`;
+    }
+    console.error(`${label} render failed`, e);
+  }
 }
+
+
+function render() {
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  const current = document.getElementById(`${currentView}View`) ? currentView : "home";
+  const active = document.getElementById(`${current}View`);
+  if (active) active.classList.add("active");
+
+  document.querySelectorAll(".tab").forEach(t => {
+    t.classList.toggle("active", t.dataset.view === current);
+  });
+
+  safeRenderSection("homeView", renderHome, "Home");
+  safeRenderSection("dashboardView", renderDashboard, "Prize probabilities");
+  safeRenderSection("groupsView", renderGroups, "Groups");
+  safeRenderSection("fixturesView", renderFixtures, "Fixtures");
+  safeRenderSection("participantsView", renderParticipants, "Participants");
+  safeRenderSection("cardsView", renderCards, "Cards leaderboard");
+  safeRenderSection("knockoutView", renderKnockout, "Knockout");
+
+  const lu = document.getElementById("lastUpdate");
+  if (lu) lu.textContent = lastRefresh;
+}
+
 
 function storeScores() {
   localStorage.setItem("wc2026_sweepstake_scores", JSON.stringify(scores));
