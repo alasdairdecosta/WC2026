@@ -21,8 +21,9 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Update cards.json from ESPN discipline table
-        run: node scripts/update-cards.mjs
+      - name: Update cards.json from ESPN explicit team statistics
+        shell: bash
+        run: node ./scripts/update-cards.mjs
 
       - name: Commit updated card data
         shell: bash
