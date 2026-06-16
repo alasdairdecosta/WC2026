@@ -803,6 +803,250 @@ code {
   margin-top:6px;
 }
 
+
+/* Final landing page enhancements */
+.refreshNotice {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:14px;
+}
+
+.refreshText {
+  min-width:0;
+}
+
+.iconRefresh {
+  appearance:none;
+  border:1px solid var(--line);
+  background:var(--panel-soft);
+  color:var(--oit-dark-teal);
+  width:32px;
+  height:32px;
+  min-width:32px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:17px;
+  line-height:1;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:none;
+}
+
+.iconRefresh:hover {
+  background:var(--oit-yellow);
+  color:var(--black);
+  border-color:var(--oit-yellow);
+}
+
+.match {
+  grid-template-columns:82px minmax(0,1fr) 110px minmax(0,1fr);
+  grid-template-areas:
+    "meta home score away"
+    ". . venue .";
+}
+
+.matchMeta {
+  grid-area:meta;
+}
+
+.fixtureVenue {
+  grid-area:venue;
+  justify-self:center;
+  text-align:center;
+  width:max-content;
+  max-width:220px;
+}
+
+.landingGrid {
+  display:grid;
+  grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr);
+  gap:18px;
+  margin-bottom:18px;
+}
+
+.headlineCard {
+  border-top-color:var(--oit-yellow);
+  background:linear-gradient(180deg,#fff 0%,#fbf8f6 100%);
+}
+
+.headlineIntro {
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  align-items:flex-start;
+  margin-bottom:12px;
+}
+
+.headlineIntro h2 {
+  font-size:36px;
+  margin-bottom:4px;
+}
+
+.leaderTiles {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin-top:12px;
+}
+
+.leaderTile {
+  border:1px solid var(--line);
+  border-left:6px solid var(--oit-teal);
+  padding:13px;
+  background:var(--white);
+  min-height:128px;
+}
+
+.leaderTile:nth-child(2) { border-left-color:var(--oit-orange); }
+.leaderTile:nth-child(3) { border-left-color:var(--oit-purple); }
+
+.leaderTile .prizeName {
+  color:var(--muted);
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.045em;
+  font-weight:800;
+}
+
+.leaderTile .leaderName {
+  display:block;
+  font-family:var(--title-font);
+  font-size:25px;
+  color:var(--black);
+  line-height:1.06;
+  margin:7px 0 5px;
+}
+
+.leaderTile .leaderPct {
+  color:var(--oit-purple);
+  font-size:28px;
+  font-family:var(--title-font);
+}
+
+.leaderTile .leaderTeams {
+  margin-top:7px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.nextFixtureList {
+  display:grid;
+  gap:9px;
+}
+
+.nextFixture {
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:8px;
+  align-items:center;
+  border-bottom:1px solid #e8dfda;
+  padding:8px 0;
+}
+
+.nextFixture:last-child {
+  border-bottom:0;
+}
+
+.nextFixture .nfTeam {
+  font-weight:800;
+}
+
+.nextFixture .nfAway {
+  text-align:right;
+}
+
+.nextFixture .nfMid {
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  min-width:86px;
+}
+
+.chartGrid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(310px,1fr));
+  gap:18px;
+  margin-bottom:18px;
+}
+
+.probChartCard {
+  border-top-color:var(--oit-dark-teal);
+}
+
+.probChart {
+  width:100%;
+  height:auto;
+  display:block;
+  background:var(--white);
+}
+
+.chartNote {
+  color:var(--muted);
+  font-size:12px;
+  margin-top:6px;
+}
+
+.chartLegend {
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px 10px;
+  margin-top:8px;
+  font-size:11px;
+  color:var(--muted);
+}
+
+.legendSwatch {
+  width:18px;
+  height:3px;
+  display:inline-block;
+  vertical-align:middle;
+  margin-right:4px;
+}
+
+.leaderBadge,
+.resolvedBadge {
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  font-size:11px;
+  padding:2px 6px;
+  border:1px solid var(--line);
+  margin-left:6px;
+  vertical-align:middle;
+  background:var(--panel-soft);
+  color:var(--muted);
+  font-family:var(--body-font);
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.resolvedBadge {
+  background:var(--oit-yellow);
+  border-color:var(--oit-yellow);
+  color:var(--black);
+}
+
+.resolvedRow {
+  background:linear-gradient(90deg,rgba(255,207,0,.18),rgba(255,255,255,0));
+}
+
+.probTable tr.resolvedRow td {
+  border-bottom-color:rgba(255,207,0,.65);
+}
+
+.chartResolvedBand {
+  fill:rgba(255,207,0,.18);
+}
+
+@media (max-width:960px) {
+  .landingGrid,
+  .leaderTiles {
+    grid-template-columns:1fr;
+  }
+}
+
 @media print {
   header {
     position:static;
@@ -865,7 +1109,10 @@ code {
 </header>
 
 <main>
-  <section class="notice refreshNotice"><b>Last live refresh:</b> <span id="lastUpdate" class="small">Waiting for automatic update...</span></section>
+  <section class="notice refreshNotice">
+    <div class="refreshText"><b>Last live refresh:</b> <span id="lastUpdate" class="small">Waiting for automatic update...</span></div>
+    <button class="iconRefresh noPrint" onclick="refreshLive()" title="Refresh now" aria-label="Refresh live scores and cards">↻</button>
+  </section>
 
   <section id="dashboardView"></section>
   <section id="groupsView" class="hidden"></section>
@@ -876,7 +1123,7 @@ code {
 </main>
 
 <footer>
-  Fixture and tournament structure based on FIFA's published 2026 match schedule. Live scores are fetched from the WorldCup26 open-source API and matched by team names rather than API IDs. Card totals are read from cards.json, which can be updated automatically by the included GitHub Action using API-Football.
+  Fixture and tournament structure based on FIFA's published 2026 match schedule. Live scores are read from local live.json, updated by GitHub Actions from WorldCup26. Card totals are read from cards.json.
 </footer>
 
   </div>
@@ -2578,11 +2825,413 @@ function percent(x) {
   return (x * 100).toFixed(x >= 0.1 ? 1 : 2) + "%";
 }
 
+
+const PROB_HISTORY_KEY = "wc2026_sweepstake_probability_history_v2";
+const OIT_CHART_COLOURS = ["#0EA88C","#501649","#E97132","#00B0F0","#075446","#FFCF00","#8B5E83","#387567","#C95026","#116A99","#7A6A00","#111111"];
+
+function prizeMeta(key) {
+  return {
+    worldCup: { title:"World Cup winning team", prize:"£20", short:"Winner" },
+    worst: { title:"Worst performing team", prize:"£10", short:"Worst team" },
+    conduct: { title:"Worst conduct", prize:"£6", short:"Cards" }
+  }[key];
+}
+
+function topForPrize(rows, key) {
+  return [...rows].sort((a,b) => b[key] - a[key])[0];
+}
+
+function contestResolved(rows, key) {
+  const top = topForPrize(rows, key);
+  if (!top) return false;
+  if (top[key] >= 0.995) return true;
+
+  // More explicit resolution tests where possible.
+  if (key === "worldCup") {
+    const final = DATA.fixtures.find(f => /final/i.test(String(f.stage || f.group || "")) || Number(f.id) === 104);
+    const s = final ? scoreFor(final.id) : null;
+    return Boolean(s && s.score1 !== undefined && s.score2 !== undefined && String(s.status || "").toLowerCase().includes("finished"));
+  }
+
+  if (key === "worst") {
+    const groupFixtures = DATA.fixtures.filter(f => DATA.groups[f.group]);
+    return groupFixtures.length > 0 && groupFixtures.every(f => {
+      const s = scoreFor(f.id);
+      return s && s.score1 !== undefined && s.score2 !== undefined && String(s.status || "").toLowerCase().includes("finished");
+    }) && top[key] >= 0.80;
+  }
+
+  return false;
+}
+
+function resolvedOrLeaderBadge(rows, key, person) {
+  const top = topForPrize(rows, key);
+  if (!top || top.person !== person) return "";
+  return contestResolved(rows, key)
+    ? `<span class="resolvedBadge">🏆 resolved</span>`
+    : `<span class="leaderBadge">leading</span>`;
+}
+
+function medalIfResolved(rows, key, person) {
+  const top = topForPrize(rows, key);
+  return top && top.person === person && contestResolved(rows, key) ? " 🏆" : "";
+}
+
+function probabilityHistory() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(PROB_HISTORY_KEY) || "[]");
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+
+function cloneScoresObject(source) {
+  return JSON.parse(JSON.stringify(source || {}));
+}
+
+function cloneCardsObject(source) {
+  return JSON.parse(JSON.stringify(source || {}));
+}
+
+function completedFixtureTimeline() {
+  return DATA.fixtures
+    .filter(f => {
+      const s = scores[f.id];
+      return s && s.score1 !== undefined && s.score2 !== undefined && apiStatusIsPlayable(s.status);
+    })
+    .map(f => ({ ...f, dt: fixtureDateTime(f), score: cloneScoresObject(scores[f.id]) }))
+    .sort((a,b) => a.dt - b.dt || Number(a.id) - Number(b.id));
+}
+
+function scaleCardsForScores(snapshotScores, originalCards) {
+  // cards.json is aggregate-only, not per-match. To make retrospective conduct lines usable,
+  // estimate each team's card accumulation by the proportion of its completed group games
+  // visible at this point in the replay.
+  const scaled = {};
+  const teams = Object.values(DATA.groups).flat();
+
+  for (const team of teams) {
+    const totalPlayed = DATA.fixtures.filter(f => {
+      if (f.team1 !== team && f.team2 !== team) return false;
+      const s = scores[f.id];
+      return s && s.score1 !== undefined && s.score2 !== undefined && apiStatusIsPlayable(s.status);
+    }).length;
+
+    const snapshotPlayed = DATA.fixtures.filter(f => {
+      if (f.team1 !== team && f.team2 !== team) return false;
+      const s = snapshotScores[f.id];
+      return s && s.score1 !== undefined && s.score2 !== undefined && apiStatusIsPlayable(s.status);
+    }).length;
+
+    const factor = totalPlayed ? snapshotPlayed / totalPlayed : 0;
+    const c = originalCards[team] || {};
+    scaled[team] = {
+      yellow: Number(c.yellow || 0) * factor,
+      secondYellow: Number(c.secondYellow || 0) * factor,
+      straightRed: Number(c.straightRed || c.red || 0) * factor
+    };
+  }
+
+  return scaled;
+}
+
+function snapshotProbabilitiesAt(snapshotScores, snapshotCards) {
+  const originalScores = scores;
+  const originalCards = cards;
+
+  scores = snapshotScores;
+  cards = snapshotCards;
+
+  const rows = participantPrizeProbabilities();
+  const values = {};
+  for (const r of rows) {
+    values[r.person] = {
+      worldCup: Number(r.worldCup || 0),
+      worst: Number(r.worst || 0),
+      conduct: Number(r.conduct || 0)
+    };
+  }
+
+  scores = originalScores;
+  cards = originalCards;
+
+  return values;
+}
+
+function buildRetrospectiveProbabilityHistory(currentRows) {
+  const timeline = completedFixtureTimeline();
+  const originalScores = cloneScoresObject(scores);
+  const originalCards = cloneCardsObject(cards);
+  const history = [];
+
+  // Baseline: before the first completed fixture. This uses the same assignment model
+  // but with no completed scores and no accumulated cards.
+  const emptyScores = {};
+  const emptyCards = scaleCardsForScores(emptyScores, originalCards);
+  const baseTime = timeline[0] ? timeline[0].dt.getTime() - 6 * 3600 * 1000 : Date.now() - 24 * 3600 * 1000;
+  history.push({
+    t: baseTime,
+    iso: new Date(baseTime).toISOString(),
+    source: "retrospective-baseline",
+    values: snapshotProbabilitiesAt(emptyScores, emptyCards)
+  });
+
+  let snapshotScores = {};
+  for (const f of timeline) {
+    snapshotScores[f.id] = cloneScoresObject(f.score);
+    const snapshotCards = scaleCardsForScores(snapshotScores, originalCards);
+    history.push({
+      t: f.dt.getTime(),
+      iso: f.dt.toISOString(),
+      source: `after fixture ${f.id}`,
+      fixtureId: f.id,
+      values: snapshotProbabilitiesAt(snapshotScores, snapshotCards)
+    });
+  }
+
+  // Current live state.
+  const now = Date.now();
+  const currentValues = {};
+  for (const r of currentRows) {
+    currentValues[r.person] = {
+      worldCup: Number(r.worldCup || 0),
+      worst: Number(r.worst || 0),
+      conduct: Number(r.conduct || 0)
+    };
+  }
+  history.push({ t: now, iso: new Date(now).toISOString(), source: "current", values: currentValues });
+
+  // Merge any locally recorded points as extra granularity, then deduplicate by timestamp/source.
+  const local = probabilityHistory();
+  const merged = [...history, ...local]
+    .filter(h => h && h.values && Number.isFinite(Number(h.t)))
+    .sort((a,b) => a.t - b.t);
+
+  const deduped = [];
+  for (const h of merged) {
+    const prev = deduped[deduped.length - 1];
+    if (prev && Math.abs(prev.t - h.t) < 60 * 1000) {
+      deduped[deduped.length - 1] = h.source === "current" ? h : prev;
+    } else {
+      deduped.push(h);
+    }
+  }
+
+  return deduped.slice(-220);
+}
+
+
+function recordProbabilityHistory(rows) {
+  const now = Date.now();
+  const latestValues = {};
+  for (const r of rows) {
+    latestValues[r.person] = {
+      worldCup: Number(r.worldCup || 0),
+      worst: Number(r.worst || 0),
+      conduct: Number(r.conduct || 0)
+    };
+  }
+
+  let history = probabilityHistory();
+  const last = history[history.length - 1];
+  let shouldAdd = !last || (now - last.t) > 30 * 60 * 1000;
+
+  if (last && !shouldAdd) {
+    let maxDelta = 0;
+    for (const person of DATA.participants) {
+      for (const key of ["worldCup","worst","conduct"]) {
+        const a = latestValues[person]?.[key] || 0;
+        const b = last.values?.[person]?.[key] || 0;
+        maxDelta = Math.max(maxDelta, Math.abs(a - b));
+      }
+    }
+    shouldAdd = maxDelta >= 0.003;
+  }
+
+  if (shouldAdd) {
+    history.push({ t: now, iso: new Date(now).toISOString(), values: latestValues });
+    history = history.slice(-180);
+    localStorage.setItem(PROB_HISTORY_KEY, JSON.stringify(history));
+  }
+  return history;
+}
+
+function fixtureDateTime(f) {
+  const months = {Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
+  const parts = String(f.date || "").trim().split(/\s+/);
+  const day = Number(parts[0]);
+  const month = months[parts[1]] ?? 5;
+  const timeParts = String(f.time || "00:00").split(":").map(Number);
+  return new Date(2026, month, day, timeParts[0] || 0, timeParts[1] || 0);
+}
+
+function nextFixtureSet() {
+  const now = new Date();
+  const scheduled = DATA.fixtures
+    .filter(f => {
+      const s = scoreFor(f.id);
+      return !(s && s.score1 !== undefined && s.score2 !== undefined && String(s.status || "").toLowerCase().includes("finished"));
+    })
+    .map(f => ({...f, dt: fixtureDateTime(f)}))
+    .sort((a,b) => a.dt - b.dt);
+
+  if (!scheduled.length) return { label:"No remaining fixtures", fixtures:[] };
+
+  const future = scheduled.filter(f => f.dt >= new Date(now.getFullYear(), now.getMonth(), now.getDate()));
+  const first = (future[0] || scheduled[0]);
+  const dateKey = first.date;
+  return {
+    label: dateKey,
+    fixtures: scheduled.filter(f => f.date === dateKey).slice(0, 8)
+  };
+}
+
+function renderHeadlineLeaders(rows) {
+  let html = `<div class="card headlineCard">
+    <div class="headlineIntro">
+      <div>
+        <h2>Current sweepstake leaders</h2>
+        <p class="small">A quick view of who is currently best placed for each prize.</p>
+      </div>
+    </div>
+    <div class="leaderTiles">`;
+
+  for (const key of ["worldCup","worst","conduct"]) {
+    const meta = prizeMeta(key);
+    const top = topForPrize(rows, key);
+    const resolved = contestResolved(rows, key);
+    html += `<div class="leaderTile">
+      <div class="prizeName">${meta.title} · ${meta.prize}</div>
+      <span class="leaderName">${top ? top.person : "—"}${top && resolved ? " 🏆" : ""}</span>
+      <div class="leaderPct">${top ? percent(top[key]) : "—"}</div>
+      <div>${top ? resolvedOrLeaderBadge(rows, key, top.person) : ""}</div>
+      <div class="leaderTeams">${top ? top.teams.map(t => teamLabel(t)).join(" · ") : ""}</div>
+    </div>`;
+  }
+
+  html += `</div></div>`;
+  return html;
+}
+
+function renderNextFixturesCard() {
+  const next = nextFixtureSet();
+  let html = `<div class="card">
+    <h2>Next fixtures</h2>
+    <p class="small">${next.fixtures.length ? `Next set: ${next.label}` : next.label}</p>
+    <div class="nextFixtureList">`;
+
+  for (const f of next.fixtures) {
+    html += `<div class="nextFixture">
+      <div class="nfTeam">${teamLabel(f.team1)}<div class="ownerSmall">${owner(f.team1)}</div></div>
+      <div class="nfMid">#${f.id}<br>${f.time}<br>Group ${f.group}</div>
+      <div class="nfTeam nfAway">${teamLabel(f.team2)}<div class="ownerSmall">${owner(f.team2)}</div></div>
+    </div>`;
+  }
+
+  html += `</div></div>`;
+  return html;
+}
+
+function chartLabelForTime(t) {
+  const d = new Date(t);
+  return d.toLocaleDateString(undefined, { day:"numeric", month:"short" });
+}
+
+function renderProbabilityChart(rows, key, history) {
+  const meta = prizeMeta(key);
+  const currentTop = [...rows].sort((a,b) => b[key] - a[key]).slice(0, 6).map(r => r.person);
+  const participants = currentTop.length ? currentTop : DATA.participants.slice(0, 6);
+  const resolved = contestResolved(rows, key);
+  const latest = history[history.length - 1];
+
+  const width = 760, height = 260;
+  const m = { left:42, right:112, top:22, bottom:38 };
+  const innerW = width - m.left - m.right;
+  const innerH = height - m.top - m.bottom;
+  const times = history.map(h => h.t);
+  const minT = Math.min(...times, Date.now() - 24 * 3600 * 1000);
+  const maxT = Math.max(...times, Date.now());
+  const x = t => m.left + ((t - minT) / Math.max(1, maxT - minT)) * innerW;
+  const y = v => m.top + (1 - clamp(v, 0, 1)) * innerH;
+
+  let svg = `<svg class="probChart" viewBox="0 0 ${width} ${height}" role="img" aria-label="${meta.title} probability history">`;
+  svg += `<rect x="0" y="0" width="${width}" height="${height}" fill="#fff"/>`;
+
+  if (resolved) {
+    svg += `<rect class="chartResolvedBand" x="${m.left}" y="${m.top}" width="${innerW}" height="${innerH}"/>`;
+    svg += `<text x="${m.left + 8}" y="${m.top + 18}" font-size="12" font-weight="700" fill="#501649">🏆 resolved</text>`;
+  }
+
+  for (const tick of [0, .25, .5, .75, 1]) {
+    const yy = y(tick);
+    svg += `<line x1="${m.left}" y1="${yy}" x2="${m.left + innerW}" y2="${yy}" stroke="#d9d1cd" stroke-width="1"/>`;
+    svg += `<text x="${m.left - 8}" y="${yy + 4}" text-anchor="end" font-size="11" fill="#5f5f5f">${Math.round(tick * 100)}%</text>`;
+  }
+
+  svg += `<line x1="${m.left}" y1="${m.top + innerH}" x2="${m.left + innerW}" y2="${m.top + innerH}" stroke="#111" stroke-width="1"/>`;
+
+  if (history.length <= 1) {
+    svg += `<text x="${m.left + 12}" y="${m.top + 42}" font-size="13" fill="#5f5f5f">Retrospective history is estimated by replaying completed fixtures in date order.</text>`;
+  }
+
+  participants.forEach((person, i) => {
+    const colour = OIT_CHART_COLOURS[i % OIT_CHART_COLOURS.length];
+    const points = history
+      .map(h => {
+        const value = h.values?.[person]?.[key];
+        return value === undefined ? null : `${x(h.t).toFixed(1)},${y(value).toFixed(1)}`;
+      })
+      .filter(Boolean)
+      .join(" ");
+
+    if (points) {
+      svg += `<polyline points="${points}" fill="none" stroke="${colour}" stroke-width="${i === 0 ? 3 : 2}" stroke-linejoin="round" stroke-linecap="round" opacity="${i === 0 ? 1 : .82}"/>`;
+      const lastVal = latest?.values?.[person]?.[key] || 0;
+      svg += `<circle cx="${x(latest.t).toFixed(1)}" cy="${y(lastVal).toFixed(1)}" r="${i === 0 ? 4 : 3}" fill="${colour}"/>`;
+      svg += `<text x="${m.left + innerW + 8}" y="${y(lastVal).toFixed(1)}" font-size="11" fill="${colour}" font-weight="${i === 0 ? 800 : 600}">${person.split(" ")[0]} ${Math.round(lastVal * 100)}%</text>`;
+    }
+  });
+
+  svg += `<text x="${m.left}" y="${height - 12}" font-size="11" fill="#5f5f5f">${chartLabelForTime(minT)}</text>`;
+  svg += `<text x="${m.left + innerW}" y="${height - 12}" text-anchor="end" font-size="11" fill="#5f5f5f">${chartLabelForTime(maxT)}</text>`;
+  svg += `</svg>`;
+
+  let legend = `<div class="chartLegend">`;
+  participants.forEach((person, i) => {
+    const colour = OIT_CHART_COLOURS[i % OIT_CHART_COLOURS.length];
+    legend += `<span><i class="legendSwatch" style="background:${colour}"></i>${person}</span>`;
+  });
+  legend += `</div>`;
+
+  return `<div class="card probChartCard"><h2>${meta.title}</h2>${svg}${legend}<p class="chartNote">Top six current contenders shown. History is reconstructed from completed results; conduct history is estimated from aggregate card totals.</p></div>`;
+}
+
+function renderProbabilityCharts(rows, history) {
+  return `<div class="chartGrid">
+    ${renderProbabilityChart(rows, "worldCup", history)}
+    ${renderProbabilityChart(rows, "worst", history)}
+    ${renderProbabilityChart(rows, "conduct", history)}
+  </div>`;
+}
+
+
 function renderDashboard() {
   const rows = participantPrizeProbabilities();
+  recordProbabilityHistory(rows);
+  const history = buildRetrospectiveProbabilityHistory(rows);
   const q = getFilter();
   const filtered = rows.filter(r => !q || matchesFilterText(r.person, ...r.teams));
-  let html = `<div class="card dashboardHero">
+
+  let html = `<div class="landingGrid">
+    ${renderHeadlineLeaders(rows)}
+    ${renderNextFixturesCard()}
+  </div>`;
+
+  html += renderProbabilityCharts(rows, history);
+
+  html += `<div class="card dashboardHero">
     <h2>Prize probabilities</h2>
     <p class="small">A live estimate for each sweepstake entry, combining historic team strength with current group results and card data already loaded into the page. These are modelled estimates, not betting odds.</p>
     <div class="prizeGrid">
@@ -2594,16 +3243,23 @@ function renderDashboard() {
 
   html += `<div class="card"><h2>Participant probability table</h2><div class="probTableWrap"><table class="probTable">
     <thead><tr><th>Participant</th><th>Teams</th><th>World Cup winner</th><th>Worst team</th><th>Worst conduct</th><th>Expected prize value</th></tr></thead><tbody>`;
+
   for (const r of filtered) {
-    html += `<tr>
+    const isAnyResolvedWinner =
+      (contestResolved(rows, "worldCup") && topForPrize(rows, "worldCup").person === r.person) ||
+      (contestResolved(rows, "worst") && topForPrize(rows, "worst").person === r.person) ||
+      (contestResolved(rows, "conduct") && topForPrize(rows, "conduct").person === r.person);
+
+    html += `<tr class="${isAnyResolvedWinner ? "resolvedRow" : ""}">
       <td><b>${r.person}</b></td>
       <td>${r.teams.map(t => `<span class="miniTeam">${teamLabel(t)}</span>`).join("")}</td>
-      <td>${percent(r.worldCup)}</td>
-      <td>${percent(r.worst)}</td>
-      <td>${percent(r.conduct)}</td>
+      <td>${percent(r.worldCup)}${resolvedOrLeaderBadge(rows, "worldCup", r.person)}</td>
+      <td>${percent(r.worst)}${resolvedOrLeaderBadge(rows, "worst", r.person)}</td>
+      <td>${percent(r.conduct)}${resolvedOrLeaderBadge(rows, "conduct", r.person)}</td>
       <td><b>£${r.expectedPrize.toFixed(2)}</b></td>
     </tr>`;
   }
+
   html += `</tbody></table></div></div>`;
 
   html += `<div class="grid dashboardLists">
@@ -2614,8 +3270,8 @@ function renderDashboard() {
 
   html += `<div class="card"><h2>How the model works</h2>
     <p class="small"><b>World Cup winning team:</b> each team starts with a historic-strength score based on past World Cup pedigree and broad footballing history. Current tournament performance then moves that score up or down using points, goal difference and goals scored.</p>
-    <p class="small"><b>Worst performing team:</b> estimates each team's likely final group record from current points, remaining matches and historic-strength score. The prize rule is reflected as: lowest points, then goal difference, goals scored, team conduct score and a deterministic coin-toss fallback.</p>
-    <p class="small"><b>Worst conduct:</b> combines current card points with a small pre-tournament conduct baseline. Card scoring is yellow card = 1, red card = 3.</p>
+    <p class="small"><b>Worst performing team:</b> estimates likely final group points first, then likely goal difference among the lowest-points teams. Goals scored and team strength are secondary uncertainty factors, and the model is capped before the group stage is complete to avoid false certainty.</p>
+    <p class="small"><b>Worst conduct:</b> combines current card points with a small pre-tournament conduct baseline. Card scoring is yellow card = 1, red card = 3. The conduct chart is retrospective-estimated because the source card file has aggregate team totals rather than per-match card timings.</p>
   </div>`;
 
   document.getElementById("dashboardView").innerHTML = html;
@@ -2623,11 +3279,12 @@ function renderDashboard() {
 
 function renderPrizeList(title, rows, key, prize) {
   const sorted = [...rows].sort((a,b) => b[key] - a[key]);
-  let html = `<div class="card prizeList"><h2>${title}</h2><p class="small">${prize} prize</p>`;
+  const resolved = contestResolved(rows, key);
+  let html = `<div class="card prizeList"><h2>${title}</h2><p class="small">${prize} prize ${resolved ? '<span class="resolvedBadge">🏆 resolved</span>' : ''}</p>`;
   sorted.forEach((r, i) => {
-    html += `<div class="probRow">
+    html += `<div class="probRow ${resolved && i === 0 ? "resolvedRow" : ""}">
       <div class="rankNum">#${i + 1}</div>
-      <div><b>${r.person}</b><div class="small">${r.teams.map(t => teamLabel(t)).join(" · ")}</div></div>
+      <div><b>${r.person}${resolved && i === 0 ? " 🏆" : ""}</b>${i === 0 && !resolved ? '<span class="leaderBadge">leading</span>' : ''}<div class="small">${r.teams.map(t => teamLabel(t)).join(" · ")}</div></div>
       <div class="probPct">${percent(r[key])}</div>
     </div>`;
   });
