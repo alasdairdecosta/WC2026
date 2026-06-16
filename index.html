@@ -2681,7 +2681,21 @@ if (localStorage.getItem("wc2026_sweepstake_score_matching_version") !== SCORE_M
 let cards = JSON.parse(localStorage.getItem("wc2026_sweepstake_cards") || "{}");
 let cardFeedStatus = localStorage.getItem("wc2026_sweepstake_card_status") || "No card data read from live feed yet.";
 let autoTimer = null;
+let lastRefresh = "Waiting for automatic update...";
 let currentView = "home";
+
+
+window.addEventListener("error", function(event) {
+  try {
+    const activeId = (typeof currentView !== "undefined" ? currentView : "home") + "View";
+    const el = document.getElementById(activeId) || document.getElementById("homeView");
+    if (el && !el.innerHTML.trim()) {
+      el.innerHTML = `<div class="card renderError"><h2>Page script error</h2>
+        <p class="small">The page hit a JavaScript error before rendering this section.</p>
+        <code>${String(event.error && event.error.stack ? event.error.stack : event.message)}</code></div>`;
+    }
+  } catch (e) {}
+});
 
 function norm(s) {
   return String(s || "").toLowerCase()
@@ -4043,7 +4057,7 @@ function safeRenderSection(id, fn, label) {
 
 function renderActiveView() {
   const lu = document.getElementById("lastUpdate");
-  if (lu) lu.textContent = lastRefresh;
+  if (lu) lu.textContent = (typeof lastRefresh !== "undefined" && lastRefresh) ? lastRefresh : "Waiting for automatic update...";
 
   if (currentView === "home") {
     safeRenderInto("homeView", renderHome, "Home");
