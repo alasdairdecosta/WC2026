@@ -1382,6 +1382,72 @@ code {
   }
 }
 
+
+/* Header next-fixtures strip */
+.nextFixturesStrip {
+  margin-top:16px;
+  border-top:1px solid rgba(255,255,255,.22);
+  padding-top:9px;
+  color:rgba(255,255,255,.92);
+  font-size:13px;
+  line-height:1.35;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  max-width:1180px;
+}
+
+.nextFixturesStripLabel {
+  color:var(--oit-yellow);
+  font-weight:900;
+  letter-spacing:.02em;
+  text-transform:uppercase;
+  font-size:11px;
+  white-space:nowrap;
+}
+
+.nextFixturePill {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  min-width:0;
+  color:rgba(255,255,255,.95);
+  border-left:1px solid rgba(255,255,255,.26);
+  padding-left:10px;
+}
+
+.nextFixturePill:first-of-type {
+  border-left:0;
+  padding-left:0;
+}
+
+.nextFixturePill .nfTime {
+  color:rgba(255,255,255,.66);
+  font-size:12px;
+}
+
+.homeIntro {
+  display:block;
+  margin-bottom:18px;
+}
+
+.homeIntro .headlineCard {
+  width:100%;
+}
+
+@media (max-width:760px) {
+  .nextFixturesStrip {
+    font-size:12px;
+    gap:7px;
+  }
+  .nextFixturePill {
+    width:100%;
+    border-left:0;
+    padding-left:0;
+  }
+}
+
 @media print {
   header {
     position:static;
@@ -1442,6 +1508,7 @@ code {
     <button class="secondary" onclick="showView('knockout')" data-nav="knockout">Knockout</button>
     <input id="search" oninput="renderActiveView()" placeholder="Filter by team, participant, group or venue">
   </div>
+  <div id="nextFixturesStrip" class="nextFixturesStrip"></div>
 </header>
 
 <main>
@@ -3784,6 +3851,35 @@ function renderRaceCharts(rows, history) {
 }
 
 
+
+function renderNextFixturesStrip() {
+  const el = document.getElementById("nextFixturesStrip");
+  if (!el) return;
+
+  let next;
+  try {
+    next = nextFixtureSet();
+  } catch (e) {
+    el.innerHTML = "";
+    return;
+  }
+
+  if (!next || !next.fixtures || !next.fixtures.length) {
+    el.innerHTML = `<span class="nextFixturesStripLabel">Next</span><span>No remaining fixtures</span>`;
+    return;
+  }
+
+  const items = next.fixtures.slice(0, 4).map(f => {
+    const home = teamFlag(f.team1) + " " + f.team1;
+    const away = teamFlag(f.team2) + " " + f.team2;
+    return `<span class="nextFixturePill"><span>${home} v ${away}</span><span class="nfTime">${f.time}</span></span>`;
+  }).join("");
+
+  const extra = next.fixtures.length > 4 ? `<span class="nfTime">+${next.fixtures.length - 4} more</span>` : "";
+  el.innerHTML = `<span class="nextFixturesStripLabel">Next · ${next.label}</span>${items}${extra}`;
+}
+
+
 function renderHome() {
   const el = document.getElementById("homeView");
   if (!el) return;
@@ -3812,20 +3908,17 @@ function renderHome() {
 
   let html = "";
   try {
-    html += `<div class="homeIntro">
-      ${renderHeadlineLeaders(rows)}
-      ${renderNextFixturesCard()}
-    </div>`;
+    html += `<div class="homeIntro">${renderHeadlineLeaders(rows)}</div>`;
   } catch (e) {
     console.error("Home header failed", e);
-    html += `<div class="card homeFallback"><h2>Home</h2><p class="small">Current leaders or next fixtures could not render yet.</p><code>${String(e && e.stack ? e.stack : e)}</code></div>`;
+    html += `<div class="card homeFallback"><h2>Home</h2><p class="small">Current leaders could not render yet.</p><code>${String(e && e.stack ? e.stack : e)}</code></div>`;
   }
 
   try {
     html += renderRaceCharts(rows, history);
   } catch (e) {
     console.error("Race charts failed", e);
-    html += `<div class="card renderError"><h2>Bar chart races could not render</h2><p class="small">The headline cards and next fixtures are still available.</p><code>${String(e && e.stack ? e.stack : e)}</code></div>`;
+    html += `<div class="card renderError"><h2>Bar chart races could not render</h2><p class="small">The headline cards are still available.</p><code>${String(e && e.stack ? e.stack : e)}</code></div>`;
   }
 
   el.innerHTML = html;
@@ -4144,6 +4237,7 @@ function safeRenderSection(id, fn, label) {
 function renderActiveView() {
   const lu = document.getElementById("lastUpdate");
   if (lu) lu.textContent = (typeof lastRefresh !== "undefined" && lastRefresh) ? lastRefresh : "Waiting for automatic update...";
+  renderNextFixturesStrip();
 
   if (currentView === "home") {
     safeRenderInto("homeView", renderHome, "Home");
