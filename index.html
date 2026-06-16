@@ -1218,6 +1218,63 @@ code {
 }
 
 .controls button.activeNav{background:var(--oit-yellow);border-color:var(--oit-yellow);color:var(--black);}
+
+/* Final race and card fixes */
+.refreshNotice {
+  display:block;
+}
+
+.iconRefresh {
+  display:none !important;
+}
+
+.raceStage {
+  position:relative;
+  display:block;
+  min-height:372px;
+  padding:0;
+}
+
+.raceBarRow {
+  position:absolute;
+  left:0;
+  right:0;
+  height:28px;
+  display:grid;
+  grid-template-columns:128px minmax(0,1fr);
+  align-items:center;
+  gap:10px;
+  transition:transform .55s cubic-bezier(.2,.8,.2,1);
+}
+
+.raceTrack {
+  height:24px;
+  position:relative;
+  overflow:visible;
+}
+
+.raceBar {
+  height:24px;
+  position:absolute;
+  left:0;
+  top:0;
+  border-radius:0 3px 3px 0;
+  transition:width .55s cubic-bezier(.2,.8,.2,1), background-color .25s ease;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  padding-right:7px;
+  font-size:12px;
+  font-weight:900;
+  color:#fff;
+  box-sizing:border-box;
+  min-width:34px;
+}
+
+.raceBar.lightText {
+  color:#111;
+}
+
 @media print {
   header {
     position:static;
@@ -1282,8 +1339,7 @@ code {
 
 <main>
   <section class="notice refreshNotice">
-    <div class="refreshText"><b>Last live refresh:</b> <span id="lastUpdate" class="small">Waiting for automatic update...</span></div>
-    <button class="iconRefresh noPrint" onclick="refreshLive()" title="Refresh now" aria-label="Refresh live scores and cards">↻</button>
+    <b>Last live refresh:</b> <span id="lastUpdate" class="small">Waiting for automatic update...</span>
   </section>
 
     <section id="homeView"></section>
@@ -1304,6 +1360,8 @@ code {
 </div>
 
 <script>
+let cardsMeta = {};
+
 const DATA = {
   "participants": [
     "Ella Barclay",
@@ -3034,7 +3092,7 @@ function prizeMeta(key) {
   return {
     worldCup: { title:"World Cup winning team", prize:"£20", short:"Winner" },
     worst: { title:"Worst performing team", prize:"£10", short:"Worst team" },
-    conduct: { title:"Worst conduct", prize:"£6", short:"Cards" }
+    conduct: { title:"Worst conduct", prize:"£6", short:"Worst conduct" }
   }[key];
 }
 
@@ -3482,9 +3540,8 @@ function raceSetFrame(key, frameIndex) {
       value: clamp(Number(value), 0, 1),
       colour: OIT_CHART_COLOURS[i % OIT_CHART_COLOURS.length]
     };
-  }).sort((a,b) => b.value - a.value);
+  }).sort((a,b) => b.value - a.value || a.person.localeCompare(b.person));
 
-  const maxVal = Math.max(.01, ...values.map(v => v.value));
   const stage = document.getElementById(`${id}_stage`);
   const label = document.getElementById(`${id}_label`);
   const slider = document.getElementById(`${id}_slider`);
@@ -3494,17 +3551,40 @@ function raceSetFrame(key, frameIndex) {
   slider.max = String(Math.max(0, history.length - 1));
   slider.value = String(frame);
 
-  stage.innerHTML = values.map(v => {
-    const width = Math.max(3, (v.value / maxVal) * 100);
+  const rowHeight = 31;
+  stage.style.minHeight = `${values.length * rowHeight}px`;
+
+  // Create rows once, then move them with transforms so the chart actually races.
+  for (const person of DATA.participants) {
+    const rowId = `${id}_row_${person.replace(/[^a-z0-9]/gi, "_")}`;
+    if (!document.getElementById(rowId)) {
+      const participantIndex = DATA.participants.indexOf(person);
+      const colour = OIT_CHART_COLOURS[participantIndex % OIT_CHART_COLOURS.length];
+      const row = document.createElement("div");
+      row.className = "raceBarRow";
+      row.id = rowId;
+      row.innerHTML = `<div class="raceName"></div><div class="raceTrack"><div class="raceBar"></div></div>`;
+      stage.appendChild(row);
+      row.querySelector(".raceName").textContent = person;
+      row.querySelector(".raceBar").style.background = colour;
+      if (colour === "#FFCF00" || colour === "#F7F3F1") row.querySelector(".raceBar").classList.add("lightText");
+    }
+  }
+
+  values.forEach((v, rank) => {
+    const rowId = `${id}_row_${v.person.replace(/[^a-z0-9]/gi, "_")}`;
+    const row = document.getElementById(rowId);
+    if (!row) return;
+    const bar = row.querySelector(".raceBar");
     const pct = Math.round(v.value * 100);
-    const light = v.colour === "#FFCF00" || v.colour === "#F7F3F1";
-    return `<div class="raceBarRow">
-      <div class="raceName">${v.person}</div>
-      <div class="raceTrack">
-        <div class="raceBar ${light ? 'lightText' : ''}" style="width:${width.toFixed(2)}%; background:${v.colour};">${pct}%</div>
-      </div>
-    </div>`;
-  }).join("");
+    // Use absolute 0-100 scale rather than scaling to the leader, so the bars race meaningfully.
+    const width = Math.max(3, v.value * 100);
+    row.style.transform = `translateY(${rank * rowHeight}px)`;
+    row.style.zIndex = String(100 - rank);
+    bar.style.width = `${width.toFixed(2)}%`;
+    bar.textContent = `${pct}%`;
+    bar.title = `${v.person}: ${pct}%`;
+  });
 }
 
 function raceRenderAll() {
@@ -3553,7 +3633,7 @@ function racePlayPause(key) {
       return;
     }
     raceSetFrame(key, next);
-  }, 850);
+  }, 650);
 }
 
 function renderRaceCharts(rows, history) {
@@ -3737,9 +3817,13 @@ function renderCards() {
   }).filter(r => !q || matchesFilterText(r.team, r.person))
     .sort((a,b) => b.score - a.score || b.red - a.red || b.yellow - a.yellow || a.team.localeCompare(b.team));
 
+  const source = cardsMeta?.source || "cards.json";
+  const updated = cardsMeta?.updatedAt ? ` Updated: ${cardsMeta.updatedAt}.` : "";
+  const caveat = cardsMeta?.caveat ? ` ${cardsMeta.caveat}` : "";
+
   let html = `<div class="card"><h2>Team card leaderboard</h2>
     <p class="small">Discipline score: yellow cards are worth 1 point and red cards are worth 3 points. Highest score is the most-carded team.</p>
-    <p class="small"><b>Card feed status:</b> ${cardStatus || "Read card totals from cards.json."}</p>`;
+    <p class="small"><b>Card feed status:</b> Read card totals for ${rows.length} team(s) from ${source}.${updated}${caveat}</p>`;
 
   rows.forEach((r, i) => {
     html += `<div class="cardRow">
