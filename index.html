@@ -1461,6 +1461,311 @@ code {
   text-decoration-color:#fff;
 }
 
+
+/* Final consistency pass */
+:root {
+  --prize-winner-colour: var(--oit-teal);
+  --prize-worst-colour: var(--oit-orange);
+  --prize-conduct-colour: var(--oit-purple);
+  --person-font-size:14px;
+  --meta-font-size:13px;
+  --table-font-size:14px;
+  --label-font-size:12px;
+}
+
+body {
+  font-size:16px;
+}
+
+.card h2,
+.dashboardHero h2,
+.prizeList h2,
+.raceTitle {
+  font-size:28px;
+  line-height:1.12;
+  font-weight:400;
+}
+
+.small,
+.homeSmall,
+.ownerSmall,
+.chartNote,
+.raceFrameLabel,
+.cardBreakdown,
+.nextFixturesStrip,
+.probTable,
+.probRow {
+  font-size:var(--meta-font-size);
+}
+
+.controls button,
+.controls input {
+  font-size:14px;
+}
+
+.leaderTiles {
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+
+.leaderTile {
+  border-left-color:var(--prize-winner-colour);
+}
+
+.leaderTile[data-prize="worldCup"] {
+  border-left-color:var(--prize-winner-colour);
+}
+
+.leaderTile[data-prize="worst"] {
+  border-left-color:var(--prize-worst-colour);
+}
+
+.leaderTile[data-prize="conduct"] {
+  border-left-color:var(--prize-conduct-colour);
+}
+
+.leaderTile .prizeName {
+  font-size:var(--label-font-size);
+  font-weight:700;
+}
+
+.leaderTile .leaderName {
+  font-size:24px;
+  font-weight:400;
+}
+
+.leaderTile .leaderPct {
+  font-size:28px;
+  font-weight:400;
+}
+
+.leaderTile[data-prize="worldCup"] .leaderPct {
+  color:var(--prize-winner-colour);
+}
+
+.leaderTile[data-prize="worst"] .leaderPct {
+  color:var(--prize-worst-colour);
+}
+
+.leaderTile[data-prize="conduct"] .leaderPct {
+  color:var(--prize-conduct-colour);
+}
+
+.prizeGrid > div:nth-child(1),
+.probTable th:nth-child(3),
+.probTable td:nth-child(3),
+.prizeList[data-prize="worldCup"] {
+  border-color:var(--prize-winner-colour);
+}
+
+.prizeGrid > div:nth-child(2),
+.probTable th:nth-child(4),
+.probTable td:nth-child(4),
+.prizeList[data-prize="worst"] {
+  border-color:var(--prize-worst-colour);
+}
+
+.prizeGrid > div:nth-child(3),
+.probTable th:nth-child(5),
+.probTable td:nth-child(5),
+.prizeList[data-prize="conduct"] {
+  border-color:var(--prize-conduct-colour);
+}
+
+.prizeGrid > div:nth-child(1) {
+  border-left-color:var(--prize-winner-colour);
+}
+
+.prizeGrid > div:nth-child(2) {
+  border-left-color:var(--prize-worst-colour);
+}
+
+.prizeGrid > div:nth-child(3) {
+  border-left-color:var(--prize-conduct-colour);
+}
+
+.raceCard[data-prize="worldCup"] {
+  border-top-color:var(--prize-winner-colour);
+}
+
+.raceCard[data-prize="worst"] {
+  border-top-color:var(--prize-worst-colour);
+}
+
+.raceCard[data-prize="conduct"] {
+  border-top-color:var(--prize-conduct-colour);
+}
+
+.raceName {
+  font-size:13px;
+  font-weight:800;
+}
+
+.raceBar {
+  font-size:12px;
+  font-weight:800;
+}
+
+.raceResolved,
+.resolvedBadge,
+.leaderBadge {
+  font-size:11px;
+  font-weight:700;
+}
+
+.probTable {
+  font-size:var(--table-font-size);
+}
+
+.probTable th {
+  font-size:13px;
+  font-weight:800;
+}
+
+.probTable td {
+  font-weight:400;
+}
+
+.probTable td:first-child b,
+.probRow b,
+.cardTeam b {
+  font-weight:800;
+}
+
+.miniTeam {
+  font-size:13px;
+  font-weight:400;
+}
+
+.cardRow {
+  font-size:14px;
+}
+
+.cardRank {
+  font-size:20px;
+  font-weight:800;
+}
+
+.cardTeam b {
+  font-size:20px;
+}
+
+.cardScore {
+  font-size:34px;
+  font-weight:400;
+}
+
+.nextFixturesStripLabel,
+.nextFixturePill .nfTime {
+  font-size:12px;
+  font-weight:700;
+}
+
+.headerLink {
+  font-weight:400 !important;
+}
+
+@media (max-width:960px) {
+  .leaderTiles {
+    grid-template-columns:1fr;
+  }
+  .card h2,
+  .dashboardHero h2,
+  .prizeList h2,
+  .raceTitle {
+    font-size:24px;
+  }
+}
+
+
+
+/* Participants tab clean card styling */
+.participantGrid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(220px,1fr));
+  gap:18px;
+}
+
+.participantCard {
+  position:relative;
+  overflow:hidden;
+  border-top:0;
+  border-left:1px solid var(--line);
+  min-height:138px;
+  padding:22px 22px 20px;
+}
+
+.participantCard::before {
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:6px;
+  background:var(--participant-colour, var(--oit-teal));
+}
+
+.participantCard::after {
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:2px;
+  background:var(--participant-colour, var(--oit-teal));
+  opacity:.35;
+}
+
+.participantCard h2 {
+  margin:8px 0 14px;
+  font-size:30px;
+  line-height:1.05;
+  font-weight:400;
+}
+
+.participantTeams {
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px 10px;
+  font-size:15px;
+  line-height:1.35;
+}
+
+.participantTeams .teamChip {
+  display:inline-flex;
+  align-items:center;
+  white-space:nowrap;
+}
+
+@media (max-width:1180px) {
+  .participantGrid {
+    grid-template-columns:repeat(3,minmax(220px,1fr));
+  }
+}
+
+@media (max-width:860px) {
+  .participantGrid {
+    grid-template-columns:repeat(2,minmax(220px,1fr));
+  }
+}
+
+@media (max-width:560px) {
+  .participantGrid {
+    grid-template-columns:1fr;
+  }
+}
+
+
+/* Prize probability top fields use the leading participant colour */
+.leaderTile[data-prize] {
+  border-left-color:var(--leader-participant-colour, var(--participant-colour, var(--oit-teal))) !important;
+}
+
+.leaderTile[data-prize="worldCup"] .leaderPct,
+.leaderTile[data-prize="worst"] .leaderPct,
+.leaderTile[data-prize="conduct"] .leaderPct {
+  color:var(--leader-participant-colour, currentColor);
+}
+
 @media print {
   header {
     position:static;
@@ -2968,11 +3273,19 @@ function renderFixtures() {
 }
 
 function renderOwners() {
-  let html = `<div class="grid">`;
-  for (const [p, ts] of Object.entries(DATA.assignments)) {
-    if (!matchesFilterText(p, ...ts)) continue;
-    html += `<div class="ownerBlock"><b>${p}</b><div class="ownerTeams">${ts.map(t => `<span class="pill">${teamLabel(t)}</span>`).join("")}</div></div>`;
+  const q = getFilter();
+  const people = DATA.participants.filter(p => !q || matchesFilterText(p, ...DATA.assignments[p]));
+  let html = `<div class="participantGrid">`;
+
+  for (const p of people) {
+    html += `<div class="card participantCard" style="${participantStyle(p)}">
+      <h2>${p}</h2>
+      <div class="participantTeams">
+        ${DATA.assignments[p].map(t => `<span class="teamChip">${teamLabel(t)}</span>`).join("")}
+      </div>
+    </div>`;
   }
+
   html += `</div>`;
   document.getElementById("ownersView").innerHTML = html;
 }
@@ -3289,6 +3602,45 @@ function percent(x) {
 const PROB_HISTORY_KEY = "wc2026_sweepstake_probability_history_v2";
 const OIT_CHART_COLOURS = ["#0EA88C","#501649","#E97132","#00B0F0","#075446","#FFCF00","#8B5E83","#387567","#C95026","#116A99","#7A6A00","#111111"];
 
+
+function prizeColour(key) {
+  return {
+    worldCup: "#0EA88C",
+    worst: "#E97132",
+    conduct: "#501649"
+  }[key] || "#075446";
+}
+
+
+
+
+
+
+
+
+const PARTICIPANT_COLOURS = {
+  "Ella Barclay": "#0EA88C",
+  "Tessa / Meera": "#501649",
+  "Alasdair de Costa": "#00A6D6",
+  "Abby Emery": "#E97132",
+  "Finlay Green": "#0B6B57",
+  "Megan Lynch": "#8A1C7C",
+  "Vincy Osabutey-Anikon": "#2F80ED",
+  "Vasia Passaris": "#B85C00",
+  "Sam Sherwood": "#7A9A01",
+  "James Waddell": "#5A6E8C",
+  "Ruben Walsh": "#B8860B",
+  "Sophie Whitehead": "#111111"
+};
+
+function participantColour(person) {
+  return PARTICIPANT_COLOURS[person] || "#075446";
+}
+
+function participantStyle(person) {
+  return `--participant-colour:${participantColour(person)}`;
+}
+
 function prizeMeta(key) {
   return {
     worldCup: { title:"World Cup winning team", prize:"£20", short:"Winner" },
@@ -3562,11 +3914,11 @@ function renderHeadlineLeaders(rows) {
     const meta = prizeMeta(key);
     const top = topForPrize(rows, key);
     const resolved = contestResolved(rows, key);
-    html += `<div class="leaderTile">
+    const colour = top ? participantColour(top.person) : "";
+    html += `<div class="leaderTile" data-prize="${key}" style="${colour ? `--leader-participant-colour:${colour}` : ""}">
       <div class="prizeName">${meta.title} · ${meta.prize}</div>
       <span class="leaderName">${top ? top.person : "—"}${top && resolved ? " 🏆" : ""}</span>
       <div class="leaderPct">${top ? percent(top[key]) : "—"}</div>
-      <div>${top ? resolvedOrLeaderBadge(rows, key, top.person) : ""}</div>
       <div class="leaderTeams">${top ? top.teams.map(t => teamLabel(t)).join(" · ") : ""}</div>
     </div>`;
   }
@@ -3704,7 +4056,7 @@ function renderBarRace(rows, key, history) {
   const resolved = contestResolved(rows, key);
   const title = `${meta.short} probability`;
 
-  return `<div class="card raceCard" data-race-key="${key}" data-race-id="${id}">
+  return `<div class="card raceCard" data-prize="${key}" data-race-key="${key}" data-race-id="${id}">
     <div class="raceHead">
       <div>
         <h2 class="raceTitle">${title}${resolved ? '<span class="raceResolved">🏆 resolved</span>' : ''}</h2>
@@ -3743,7 +4095,7 @@ function raceSetFrame(key, frameIndex) {
     return {
       person,
       value: clamp(Number(value), 0, 1),
-      colour: OIT_CHART_COLOURS[i % OIT_CHART_COLOURS.length]
+      colour: participantColour(person)
     };
   }).sort((a,b) => b.value - a.value || a.person.localeCompare(b.person));
 
@@ -3763,7 +4115,7 @@ function raceSetFrame(key, frameIndex) {
     const rowId = `${id}_row_${person.replace(/[^a-z0-9]/gi, "_")}`;
     if (!document.getElementById(rowId)) {
       const participantIndex = DATA.participants.indexOf(person);
-      const colour = OIT_CHART_COLOURS[participantIndex % OIT_CHART_COLOURS.length];
+      const colour = participantColour(person);
       const row = document.createElement("div");
       row.className = "raceBarRow";
       row.id = rowId;
@@ -4046,7 +4398,7 @@ function renderDashboard() {
 function renderPrizeList(title, rows, key, prize) {
   const sorted = [...rows].sort((a,b) => b[key] - a[key]);
   const resolved = contestResolved(rows, key);
-  let html = `<div class="card prizeList"><h2>${title}</h2><p class="small">${prize} prize ${resolved ? '<span class="resolvedBadge">🏆 resolved</span>' : ''}</p>`;
+  let html = `<div class="card prizeList" data-prize="${key}"><h2>${title}</h2><p class="small">${prize} prize ${resolved ? '<span class="resolvedBadge">🏆 resolved</span>' : ''}</p>`;
   sorted.forEach((r, i) => {
     html += `<div class="probRow ${resolved && i === 0 ? "resolvedRow" : ""}">
       <div class="rankNum">#${i + 1}</div>
