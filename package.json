@@ -1,0 +1,7 @@
+{
+  "type": "module",
+  "scripts": {
+    "update-live": "node ./scripts/update-live.mjs",
+    "update-cards": "node ./scripts/update-cards.mjs"
+  }
+}

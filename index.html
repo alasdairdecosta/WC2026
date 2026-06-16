@@ -2157,7 +2157,7 @@ function endpointUrlWithCacheBust(url) {
 }
 
 let scores = JSON.parse(localStorage.getItem("wc2026_sweepstake_scores") || "{}");
-const SCORE_MATCHING_VERSION = "team-name-first-v2";
+const SCORE_MATCHING_VERSION = "local-live-json-v4";
 if (localStorage.getItem("wc2026_sweepstake_score_matching_version") !== SCORE_MATCHING_VERSION) {
   scores = {};
   localStorage.removeItem("wc2026_sweepstake_scores");
@@ -2346,44 +2346,67 @@ function conductScore(team) {
   return c.points;
 }
 
-function expectedGroupFinish(team) {
-  const rows = standings();
-  let record = null;
-  for (const groupRows of Object.values(rows)) {
-    const r = groupRows.find(x => x.team === team);
-    if (r) record = r;
+function actualTeamRecord(team) {
+  const record = {played:0, points:0, gf:0, ga:0, gd:0, heavyDefeatPenalty:0, worstSingleDefeatMargin:0};
+  for (const f of DATA.fixtures) {
+    if (f.team1 !== team && f.team2 !== team) continue;
+    const s = scores[f.id];
+    if (!s || s.score1 === undefined || s.score2 === undefined) continue;
+
+    const forGoals = f.team1 === team ? Number(s.score1) : Number(s.score2);
+    const againstGoals = f.team1 === team ? Number(s.score2) : Number(s.score1);
+    if (!Number.isFinite(forGoals) || !Number.isFinite(againstGoals)) continue;
+
+    record.played++;
+    record.gf += forGoals;
+    record.ga += againstGoals;
+    record.gd += forGoals - againstGoals;
+    if (forGoals > againstGoals) record.points += 3;
+    else if (forGoals === againstGoals) record.points += 1;
+
+    const margin = againstGoals - forGoals;
+    if (margin > 0) {
+      record.worstSingleDefeatMargin = Math.max(record.worstSingleDefeatMargin, margin);
+      record.heavyDefeatPenalty += Math.pow(margin, 2.35) + Math.max(0, againstGoals - 3) * 2.75;
+    }
   }
-  if (!record) return {pts:0, gd:0, gf:0};
-  const remaining = DATA.fixtures.filter(f => (f.team1 === team || f.team2 === team) && !(scoreFor(f.id).score1 !== undefined && scoreFor(f.id).score2 !== undefined && String(scoreFor(f.id).status || "").toLowerCase() === "finished")).length;
+  return record;
+}
+
+function worstTeamRawRisk(team) {
+  const r = actualTeamRecord(team);
   const strength = teamStrength(team);
-  const expectedPointsPerRemaining = Math.max(0.25, Math.min(2.2, 0.25 + ((strength - 35) / 75) * 1.95));
-  const expectedGoalsPerRemaining = Math.max(0.35, Math.min(2.4, 0.35 + ((strength - 35) / 75) * 2.05));
-  const expectedGdPerRemaining = Math.max(-1.3, Math.min(1.3, ((strength - 58) / 28)));
-  return {
-    team,
-    pts: record.pts + remaining * expectedPointsPerRemaining,
-    gd: record.gd + remaining * expectedGdPerRemaining,
-    gf: record.gf + remaining * expectedGoalsPerRemaining,
-    currentPts: record.pts,
-    currentGd: record.gd,
-    currentGf: record.gf
-  };
+  const expectedRemainingGames = Math.max(0, 3 - r.played);
+  const expectedRemainingPoints = expectedRemainingGames * (0.50 + 1.35 * strength / 100);
+  const expectedRemainingGd = expectedRemainingGames * ((strength - 55) / 45);
+
+  const projectedPoints = r.points + expectedRemainingPoints;
+  const projectedGd = r.gd + expectedRemainingGd;
+
+  let risk =
+    42
+    - projectedPoints * 8.5
+    - projectedGd * 5.8
+    - strength * 0.10
+    + r.ga * 2.2
+    - r.gf * 1.1
+    + r.heavyDefeatPenalty * 3.8;
+
+  if (r.worstSingleDefeatMargin >= 4) risk += Math.pow(r.worstSingleDefeatMargin - 3, 2) * 18;
+  if (r.worstSingleDefeatMargin >= 6) risk += 55;
+  if (r.played === 0) risk *= 0.65;
+
+  return Math.max(-40, risk);
 }
 
 function worstTeamProbabilities() {
   const allTeams = Object.values(DATA.groups).flat();
-  const expected = allTeams.map(expectedGroupFinish);
-  const worstiness = {};
-  let total = 0;
-  for (const r of expected) {
-    const strengthPenalty = (100 - teamStrength(r.team)) * 0.7;
-    const groupPenalty = (9 - r.pts) * 12 + (-r.gd * 3) + (-r.gf * 1.2);
-    const conductTiePenalty = conductScore(r.team) * 0.15;
-    const weight = Math.max(0.1, strengthPenalty + groupPenalty + conductTiePenalty);
-    worstiness[r.team] = Math.pow(weight, 1.6);
-    total += worstiness[r.team];
-  }
-  return Object.fromEntries(allTeams.map(t => [t, worstiness[t] / total]));
+  const risks = allTeams.map(team => ({team, risk: worstTeamRawRisk(team)}));
+  const maxRisk = Math.max(...risks.map(x => x.risk));
+  const temp = 5.8;
+  const weights = risks.map(x => ({team: x.team, w: Math.exp((x.risk - maxRisk) / temp)}));
+  const total = weights.reduce((sum, x) => sum + x.w, 0) || 1;
+  return Object.fromEntries(weights.map(x => [x.team, x.w / total]));
 }
 
 function conductProbabilities() {
@@ -2815,48 +2838,79 @@ async function refreshCardsJsonFeed() {
   }
 }
 
+
+async function refreshLocalLiveJsonFeed() {
+  try {
+    const res = await fetch("live.json?_=" + Date.now(), { cache: "no-store" });
+    if (!res.ok) return { ok: false, message: "local live.json not found" };
+    const data = await res.json();
+    const incoming = Array.isArray(data.matches) ? data.matches : [];
+    let updated = 0;
+    let statusesRead = 0;
+    let unmatched = [];
+
+    for (const m of incoming) {
+      const f = findFixtureForApiMatch(m);
+      if (!f) {
+        if (m.t1 && m.t2 && unmatched.length < 5) unmatched.push(`${m.t1} v ${m.t2}`);
+        continue;
+      }
+
+      const displayStatus = statusLabelForDisplay(m.status);
+      const score1 = numericScoreValue(m.score1);
+      const score2 = numericScoreValue(m.score2);
+      const next = { ...(scores[f.id] || {}), status: displayStatus };
+
+      if (apiStatusIsPlayable(displayStatus) && score1 !== undefined && score2 !== undefined) {
+        next.score1 = score1;
+        next.score2 = score2;
+        updated++;
+      } else {
+        delete next.score1;
+        delete next.score2;
+        statusesRead++;
+      }
+      scores[f.id] = next;
+    }
+
+    storeScores();
+    const updatedAt = data.updatedAt ? ` Updated ${new Date(data.updatedAt).toLocaleString()}.` : "";
+    return { ok: true, message: `Updated from local live.json. ${updated} score(s), ${statusesRead} status-only record(s).${updatedAt}${unmatched.length ? " Unmatched: " + unmatched.join("; ") + "." : ""}` };
+  } catch (e) {
+    return { ok: false, message: `local live.json failed: ${e.message}` };
+  }
+}
+
 async function refreshLive() {
-  document.getElementById("lastUpdate").textContent = "Fetching live scores...";
-  const errors = [];
-  let lastGamesCount = 0;
+  const stamp = new Date().toLocaleString();
+
+  const cardChanges = await refreshCardsJsonFeed();
+
+  const local = await refreshLocalLiveJsonFeed();
+  if (local.ok) {
+    lastRefresh = `${stamp}. ${local.message} Card feed refreshed${cardChanges ? `, ${cardChanges} update(s)` : ""}.`;
+    if (document.getElementById("lastUpdate")) document.getElementById("lastUpdate").textContent = lastRefresh;
+    render();
+    return;
+  }
+
+  let errors = [local.message];
 
   for (const endpoint of LIVE_SCORE_ENDPOINTS) {
     try {
-      const res = await fetch(endpointUrlWithCacheBust(endpoint.url), {
-        cache: "no-store",
-        headers: { "Accept": "application/json,text/plain,*/*" }
-      });
+      const res = await fetch(endpointUrlWithCacheBust(endpoint.url), { cache: "no-store", headers: { "Accept": "application/json,text/plain,*/*" } });
       if (!res.ok) throw new Error("HTTP " + res.status);
-
-      const text = await res.text();
-      let raw;
-      try {
-        raw = JSON.parse(text);
-      } catch (jsonError) {
-        const trimmed = text.trim();
-        const firstJson = trimmed.indexOf("{");
-        const firstArray = trimmed.indexOf("[");
-        const start = firstArray >= 0 && (firstArray < firstJson || firstJson < 0) ? firstArray : firstJson;
-        if (start < 0) throw new Error("Response was not JSON");
-        raw = JSON.parse(trimmed.slice(start));
-      }
-
+      const raw = await res.json();
       const games = getGamesArray(raw);
-      lastGamesCount = games.length;
-      if (!games.length) throw new Error("No games found in API response");
 
       let updated = 0;
       let statusesRead = 0;
-      let cardsUpdated = 0;
       const unmatchedSamples = [];
 
       for (const g of games) {
-        cardsUpdated += extractCardsFromApiGame(g);
         const m = mapApiGame(g);
         if (!m) continue;
-
         const f = findFixtureForApiMatch(m);
-
         if (!f) {
           if (unmatchedSamples.length < 3 && (m.t1 || m.t2 || m.id)) unmatchedSamples.push(`${m.id || "?"}: ${m.t1 || "?"} v ${m.t2 || "?"}`);
           continue;
@@ -2864,11 +2918,8 @@ async function refreshLive() {
 
         let score1 = numericScoreValue(m.score1);
         let score2 = numericScoreValue(m.score2);
-
         if (m.t1 && m.t2 && norm(f.team1) === norm(m.t2) && norm(f.team2) === norm(m.t1)) {
-          const temp = score1;
-          score1 = score2;
-          score2 = temp;
+          const temp = score1; score1 = score2; score2 = temp;
         }
 
         const displayStatus = statusLabelForDisplay(m.status);
@@ -2883,33 +2934,23 @@ async function refreshLive() {
           delete next.score2;
           statusesRead++;
         }
-
         scores[f.id] = next;
       }
 
-      cardFeedStatus = cardsUpdated
-        ? `Read ${cardsUpdated} card update(s) from the live feed at ${new Date().toLocaleTimeString()}.`
-        : `Live score feed connected, but no card fields/incidents were found in ${games.length} match record(s). The free WorldCup26 API may not currently provide card data.`;
-      localStorage.setItem("wc2026_sweepstake_card_status", cardFeedStatus);
-
-      await refreshCardsJsonFeed();
       storeScores();
-      storeCards();
+      lastRefresh = `${stamp} via ${endpoint.name}. ${updated} score(s), ${statusesRead} status-only record(s). Card feed refreshed${cardChanges ? `, ${cardChanges} update(s)` : ""}.${unmatchedSamples.length ? " Unmatched: " + unmatchedSamples.join("; ") : ""}`;
+      if (document.getElementById("lastUpdate")) document.getElementById("lastUpdate").textContent = lastRefresh;
       render();
-
-      let msg = `${new Date().toLocaleString()} via ${endpoint.name}. ${updated} scores updated, ${statusesRead} statuses read, ${cardsUpdated} card update(s) found from ${games.length} API matches.`;
-      if (updated === 0) msg += " No score changes were found in the API response yet.";
-      if (unmatchedSamples.length) msg += " Unmatched examples: " + unmatchedSamples.join("; ");
-      document.getElementById("lastUpdate").textContent = msg;
       return;
     } catch (e) {
       errors.push(`${endpoint.name}: ${e.message}`);
     }
   }
 
-  document.getElementById("lastUpdate").textContent = `Refresh failed. Tried ${LIVE_SCORE_ENDPOINTS.length} route(s). ${errors.join(" | ")}.`;
+  lastRefresh = `${stamp}. Refresh failed for live scores. ${errors.join(" | ")}. Card feed still refreshed${cardChanges ? `, ${cardChanges} update(s)` : ""}.`;
+  if (document.getElementById("lastUpdate")) document.getElementById("lastUpdate").textContent = lastRefresh;
+  render();
 }
-
 
 
 function toggleAuto() {

@@ -39,3 +39,9 @@ If ESPN blocks or changes the page in GitHub Actions, the updater preserves the 
 The live-score updater matches API records to fixtures by team names first. It does not trust numeric API IDs, because they are not the same as this wall chart's fixture numbers. It also ignores placeholder scores for scheduled/not-started fixtures.
 
 This version clears old locally stored scores once using the `wc2026_sweepstake_score_matching_version` browser key, so previously mis-mapped results are removed when the updated page loads.
+
+## Live refresh and prediction update
+
+Live scores are now fetched by GitHub Actions into `live.json`; the page reads that local file first. This avoids browser CORS failures from the WorldCup26 API and means cards still refresh even when live scores fail.
+
+The worst-performing-team probability model has been reweighted so actual results dominate. Heavy defeats now carry a strong non-linear penalty, so a team losing 7-1 becomes very likely to win the worst-performing-team prize unless later results dramatically change the picture.
