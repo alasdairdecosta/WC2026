@@ -1047,6 +1047,161 @@ code {
   }
 }
 
+
+/* Home and bar-chart-race update */
+.homeIntro {
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);
+  gap:18px;
+  margin-bottom:18px;
+}
+
+.raceGrid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(360px,1fr));
+  gap:18px;
+  margin-bottom:18px;
+}
+
+.raceCard {
+  border-top-color:var(--oit-dark-teal);
+  overflow:hidden;
+}
+
+.raceHead {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  margin-bottom:12px;
+}
+
+.raceTitle {
+  margin:0;
+  font-size:26px;
+}
+
+.raceControls {
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+
+.raceButton {
+  appearance:none;
+  border:1px solid var(--line);
+  background:var(--white);
+  color:var(--oit-dark-teal);
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  cursor:pointer;
+  font-weight:900;
+  line-height:1;
+}
+
+.raceButton:hover {
+  background:var(--oit-yellow);
+  border-color:var(--oit-yellow);
+  color:var(--black);
+}
+
+.raceFrameLabel {
+  color:var(--muted);
+  font-size:12px;
+  margin:2px 0 10px;
+  min-height:18px;
+}
+
+.raceStage {
+  position:relative;
+  display:grid;
+  gap:6px;
+  min-height:380px;
+  padding:2px 0;
+}
+
+.raceBarRow {
+  display:grid;
+  grid-template-columns:120px minmax(0,1fr);
+  align-items:center;
+  gap:10px;
+  min-height:25px;
+}
+
+.raceName {
+  font-weight:900;
+  font-size:13px;
+  color:var(--black);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  text-align:right;
+}
+
+.raceTrack {
+  position:relative;
+  height:24px;
+  background:transparent;
+  overflow:visible;
+}
+
+.raceBar {
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  min-width:31px;
+  border-radius:0 3px 3px 0;
+  transition:width .34s ease;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  padding-right:7px;
+  font-size:12px;
+  font-weight:900;
+  color:#fff;
+  box-sizing:border-box;
+}
+
+.raceBar.lightText {
+  color:#111;
+}
+
+.raceResolved {
+  display:inline-block;
+  margin-left:6px;
+  font-size:12px;
+  background:var(--oit-yellow);
+  color:var(--black);
+  padding:1px 5px;
+  border-radius:10px;
+  font-weight:900;
+}
+
+.raceSlider {
+  width:100%;
+  margin-top:12px;
+  accent-color:var(--oit-teal);
+}
+
+.homeSmall {
+  font-size:12px;
+  color:var(--muted);
+}
+
+@media (max-width:960px) {
+  .homeIntro {
+    grid-template-columns:1fr;
+  }
+  .raceBarRow {
+    grid-template-columns:98px minmax(0,1fr);
+  }
+  .raceName {
+    font-size:12px;
+  }
+}
+
 @media print {
   header {
     position:static;
@@ -2413,7 +2568,7 @@ if (localStorage.getItem("wc2026_sweepstake_score_matching_version") !== SCORE_M
 let cards = JSON.parse(localStorage.getItem("wc2026_sweepstake_cards") || "{}");
 let cardFeedStatus = localStorage.getItem("wc2026_sweepstake_card_status") || "No card data read from live feed yet.";
 let autoTimer = null;
-let currentView = "dashboard";
+let currentView = "home";
 
 function norm(s) {
   return String(s || "").toLowerCase()
@@ -3217,21 +3372,176 @@ function renderProbabilityCharts(rows, history) {
 }
 
 
-function renderDashboard() {
+
+const RACE_STATE = window.RACE_STATE || (window.RACE_STATE = {});
+
+function raceIdFor(key) {
+  return `race_${key}`;
+}
+
+function frameLabel(frame) {
+  if (!frame) return "Current";
+  if (frame.source === "current") return "Current";
+  if (frame.fixtureId) return `After fixture #${frame.fixtureId}`;
+  const d = new Date(frame.t);
+  return d.toLocaleString(undefined, { day:"numeric", month:"short", hour:"2-digit", minute:"2-digit" });
+}
+
+function renderBarRace(rows, key, history) {
+  const meta = prizeMeta(key);
+  const id = raceIdFor(key);
+  const frames = history && history.length ? history : [{ t: Date.now(), source:"current", values:Object.fromEntries(rows.map(r => [r.person, { [key]: r[key] }])) }];
+  const initialIndex = frames.length - 1;
+  RACE_STATE[id] = RACE_STATE[id] || { frame: initialIndex, playing:false, timer:null };
+  RACE_STATE[id].frame = Math.min(RACE_STATE[id].frame ?? initialIndex, frames.length - 1);
+
+  const resolved = contestResolved(rows, key);
+  const title = `${meta.short} probability`;
+
+  return `<div class="card raceCard" data-race-key="${key}" data-race-id="${id}">
+    <div class="raceHead">
+      <div>
+        <h2 class="raceTitle">${title}${resolved ? '<span class="raceResolved">🏆 resolved</span>' : ''}</h2>
+        <p class="homeSmall">${meta.title} · all participants</p>
+      </div>
+      <div class="raceControls">
+        <button class="raceButton" onclick="raceReset('${key}')" title="Reset race" aria-label="Reset race">↺</button>
+        <button class="raceButton" onclick="racePlayPause('${key}')" title="Play or pause race" aria-label="Play or pause race" id="${id}_play">▶</button>
+      </div>
+    </div>
+    <div class="raceFrameLabel" id="${id}_label"></div>
+    <div class="raceStage" id="${id}_stage"></div>
+    <input class="raceSlider" id="${id}_slider" type="range" min="0" max="${frames.length - 1}" value="${RACE_STATE[id].frame}" step="1" oninput="raceSetFrame('${key}', Number(this.value))" aria-label="${title} timeline">
+  </div>`;
+}
+
+function raceFrameData(key) {
+  const rows = participantPrizeProbabilities();
+  const history = buildRetrospectiveProbabilityHistory(rows);
+  return { rows, history };
+}
+
+function raceSetFrame(key, frameIndex) {
+  const id = raceIdFor(key);
+  const { rows, history } = raceFrameData(key);
+  const state = RACE_STATE[id] || (RACE_STATE[id] = {});
+  const frame = Math.max(0, Math.min(frameIndex, history.length - 1));
+  state.frame = frame;
+
+  const dataFrame = history[frame];
+  const values = DATA.participants.map((person, i) => {
+    const value = dataFrame?.values?.[person]?.[key] ?? rows.find(r => r.person === person)?.[key] ?? 0;
+    return {
+      person,
+      value: clamp(Number(value), 0, 1),
+      colour: OIT_CHART_COLOURS[i % OIT_CHART_COLOURS.length]
+    };
+  }).sort((a,b) => b.value - a.value);
+
+  const maxVal = Math.max(.01, ...values.map(v => v.value));
+  const stage = document.getElementById(`${id}_stage`);
+  const label = document.getElementById(`${id}_label`);
+  const slider = document.getElementById(`${id}_slider`);
+  if (!stage || !label || !slider) return;
+
+  label.textContent = frameLabel(dataFrame);
+  slider.max = String(Math.max(0, history.length - 1));
+  slider.value = String(frame);
+
+  stage.innerHTML = values.map(v => {
+    const width = Math.max(3, (v.value / maxVal) * 100);
+    const pct = Math.round(v.value * 100);
+    const light = v.colour === "#FFCF00" || v.colour === "#F7F3F1";
+    return `<div class="raceBarRow">
+      <div class="raceName">${v.person}</div>
+      <div class="raceTrack">
+        <div class="raceBar ${light ? 'lightText' : ''}" style="width:${width.toFixed(2)}%; background:${v.colour};">${pct}%</div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function raceRenderAll() {
+  ["worldCup","worst","conduct"].forEach(key => {
+    const id = raceIdFor(key);
+    const { history } = raceFrameData(key);
+    const frame = RACE_STATE[id]?.frame;
+    raceSetFrame(key, Number.isFinite(frame) ? frame : history.length - 1);
+  });
+}
+
+function raceReset(key) {
+  const id = raceIdFor(key);
+  if (RACE_STATE[id]?.timer) clearInterval(RACE_STATE[id].timer);
+  RACE_STATE[id] = { frame:0, playing:false, timer:null };
+  const play = document.getElementById(`${id}_play`);
+  if (play) play.textContent = "▶";
+  raceSetFrame(key, 0);
+}
+
+function racePlayPause(key) {
+  const id = raceIdFor(key);
+  const state = RACE_STATE[id] || (RACE_STATE[id] = { frame:0, playing:false, timer:null });
+  const play = document.getElementById(`${id}_play`);
+
+  if (state.playing) {
+    clearInterval(state.timer);
+    state.playing = false;
+    state.timer = null;
+    if (play) play.textContent = "▶";
+    return;
+  }
+
+  state.playing = true;
+  if (play) play.textContent = "Ⅱ";
+
+  state.timer = setInterval(() => {
+    const { history } = raceFrameData(key);
+    const next = (state.frame ?? 0) + 1;
+    if (next >= history.length) {
+      clearInterval(state.timer);
+      state.playing = false;
+      state.timer = null;
+      if (play) play.textContent = "▶";
+      raceSetFrame(key, history.length - 1);
+      return;
+    }
+    raceSetFrame(key, next);
+  }, 850);
+}
+
+function renderRaceCharts(rows, history) {
+  return `<div class="raceGrid">
+    ${renderBarRace(rows, "worldCup", history)}
+    ${renderBarRace(rows, "worst", history)}
+    ${renderBarRace(rows, "conduct", history)}
+  </div>`;
+}
+
+
+function renderHome() {
   const rows = participantPrizeProbabilities();
   recordProbabilityHistory(rows);
   const history = buildRetrospectiveProbabilityHistory(rows);
-  const q = getFilter();
-  const filtered = rows.filter(r => !q || matchesFilterText(r.person, ...r.teams));
 
-  let html = `<div class="landingGrid">
+  let html = `<div class="homeIntro">
     ${renderHeadlineLeaders(rows)}
     ${renderNextFixturesCard()}
   </div>`;
 
-  html += renderProbabilityCharts(rows, history);
+  html += renderRaceCharts(rows, history);
 
-  html += `<div class="card dashboardHero">
+  document.getElementById("homeView").innerHTML = html;
+  setTimeout(raceRenderAll, 0);
+}
+
+function renderDashboard() {
+  const rows = participantPrizeProbabilities();
+  recordProbabilityHistory(rows);
+  const q = getFilter();
+  const filtered = rows.filter(r => !q || matchesFilterText(r.person, ...r.teams));
+
+  let html = `<div class="card dashboardHero">
     <h2>Prize probabilities</h2>
     <p class="small">A live estimate for each sweepstake entry, combining historic team strength with current group results and card data already loaded into the page. These are modelled estimates, not betting odds.</p>
     <div class="prizeGrid">
@@ -3271,11 +3581,13 @@ function renderDashboard() {
   html += `<div class="card"><h2>How the model works</h2>
     <p class="small"><b>World Cup winning team:</b> each team starts with a historic-strength score based on past World Cup pedigree and broad footballing history. Current tournament performance then moves that score up or down using points, goal difference and goals scored.</p>
     <p class="small"><b>Worst performing team:</b> estimates likely final group points first, then likely goal difference among the lowest-points teams. Goals scored and team strength are secondary uncertainty factors, and the model is capped before the group stage is complete to avoid false certainty.</p>
-    <p class="small"><b>Worst conduct:</b> combines current card points with a small pre-tournament conduct baseline. Card scoring is yellow card = 1, red card = 3. The conduct chart is retrospective-estimated because the source card file has aggregate team totals rather than per-match card timings.</p>
+    <p class="small"><b>Worst conduct:</b> combines current card points with a small pre-tournament conduct baseline. Card scoring is yellow card = 1, red card = 3. The conduct history is retrospective-estimated because the source card file has aggregate team totals rather than per-match card timings.</p>
   </div>`;
 
   document.getElementById("dashboardView").innerHTML = html;
 }
+
+
 
 function renderPrizeList(title, rows, key, prize) {
   const sorted = [...rows].sort((a,b) => b[key] - a[key]);
@@ -3479,6 +3791,7 @@ function renderKnockout() {
 }
 
 function render() {
+  renderHome();
   renderDashboard();
   renderGroups();
   renderFixtures();
