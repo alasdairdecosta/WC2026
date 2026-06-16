@@ -2346,6 +2346,11 @@ function conductScore(team) {
   return c.points;
 }
 
+
+function clamp(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
+
 function actualTeamRecord(team) {
   const record = {
     played: 0,
