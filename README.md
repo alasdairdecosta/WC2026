@@ -45,3 +45,10 @@ This version clears old locally stored scores once using the `wc2026_sweepstake_
 Live scores are now fetched by GitHub Actions into `live.json`; the page reads that local file first. This avoids browser CORS failures from the WorldCup26 API and means cards still refresh even when live scores fail.
 
 The worst-performing-team probability model has been reweighted so actual results dominate. Heavy defeats now carry a strong non-linear penalty, so a team losing 7-1 becomes very likely to win the worst-performing-team prize unless later results dramatically change the picture.
+
+## Feed-through fix
+
+This version fixes two feed-through issues:
+
+- Live scores now map `Democratic Republic of the Congo` to `Congo DR`, so Congo DR fixtures no longer appear as unmatched.
+- Cards now use `scripts/update-cards.mjs` based on ESPN match-summary JSON endpoints, not the old ESPN discipline-table scraper. If ESPN exposes card events, this writes new totals to `cards.json`; otherwise it preserves the previous card totals and writes diagnostics.

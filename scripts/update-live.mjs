@@ -11,7 +11,7 @@ const TEAM_ALIASES = new Map([
   ["iran", "IR Iran"], ["ir iran", "IR Iran"],
   ["turkey", "Türkiye"], ["turkiye", "Türkiye"],
   ["ivory coast", "Côte d'Ivoire"], ["cote d ivoire", "Côte d'Ivoire"],
-  ["cape verde", "Cabo Verde"], ["dr congo", "Congo DR"], ["congo dr", "Congo DR"],
+  ["cape verde", "Cabo Verde"], ["dr congo", "Congo DR"], ["congo dr", "Congo DR"], ["democratic republic of the congo", "Congo DR"], ["d r congo", "Congo DR"], ["congo democratic republic", "Congo DR"],
   ["czech republic", "Czechia"], ["usa", "USA"], ["united states", "USA"],
   ["bosnia herzegovina", "Bosnia and Herzegovina"], ["bosnia and herzegovina", "Bosnia and Herzegovina"],
   ["curacao", "Curaçao"], ["curaçao", "Curaçao"]

@@ -2771,14 +2771,39 @@ function fixtureAlreadyHasTeams(fixture) {
   return fixture && fixture.team1 && fixture.team2 && !String(fixture.team1).includes("Winner") && !String(fixture.team2).includes("Winner") && !String(fixture.team1).includes("Runner-up") && !String(fixture.team2).includes("Runner-up");
 }
 
+
+function canonicalApiTeamName(name) {
+  const n = norm(name);
+  const aliases = {
+    "democratic republic of the congo": "Congo DR",
+    "d r congo": "Congo DR",
+    "dr congo": "Congo DR",
+    "congo democratic republic": "Congo DR",
+    "congo dr": "Congo DR",
+    "south korea": "Korea Republic",
+    "republic of korea": "Korea Republic",
+    "iran": "IR Iran",
+    "united states": "USA",
+    "turkey": "Türkiye",
+    "turkiye": "Türkiye",
+    "curacao": "Curaçao",
+    "czech republic": "Czechia",
+    "cape verde": "Cabo Verde",
+    "ivory coast": "Côte d'Ivoire",
+    "cote d ivoire": "Côte d'Ivoire",
+    "bosnia herzegovina": "Bosnia and Herzegovina"
+  };
+  return aliases[n] || name;
+}
+
 function findFixtureForApiMatch(m) {
   // Important: the API match ID is not our wall-chart fixture number.
   // Always prefer exact team-name matching to prevent scores being written onto the wrong fixture.
   if (m && m.t1 && m.t2) {
     const byTeams = DATA.fixtures.find(x =>
       fixtureAlreadyHasTeams(x) && (
-        (norm(x.team1) === norm(m.t1) && norm(x.team2) === norm(m.t2)) ||
-        (norm(x.team1) === norm(m.t2) && norm(x.team2) === norm(m.t1))
+        (norm(x.team1) === norm(canonicalApiTeamName(m.t1)) && norm(x.team2) === norm(canonicalApiTeamName(m.t2))) ||
+        (norm(x.team1) === norm(canonicalApiTeamName(m.t2)) && norm(x.team2) === norm(canonicalApiTeamName(m.t1)))
       )
     );
     if (byTeams) return byTeams;
@@ -2852,7 +2877,7 @@ async function refreshLocalLiveJsonFeed() {
     for (const m of incoming) {
       const f = findFixtureForApiMatch(m);
       if (!f) {
-        if (m.t1 && m.t2 && unmatched.length < 5) unmatched.push(`${m.t1} v ${m.t2}`);
+        if (m.t1 && m.t2 && unmatched.length < 5) unmatched.push(`${canonicalApiTeamName(m.t1)} v ${canonicalApiTeamName(m.t2)}`);
         continue;
       }
 
