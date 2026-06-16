@@ -1311,6 +1311,77 @@ code {
   border-top-color:var(--oit-yellow);
 }
 
+
+/* Final race and disciplinary leaderboard polish */
+.raceBar.goldWinner {
+  background:var(--oit-yellow) !important;
+  color:#111 !important;
+  box-shadow:0 0 0 1px rgba(0,0,0,.15) inset;
+}
+
+.raceWinnerMark {
+  font-size:12px;
+  margin-left:4px;
+}
+
+.cardRow {
+  display:grid;
+  grid-template-columns:54px minmax(240px,1fr) 220px 74px;
+  align-items:center;
+  gap:14px;
+  border-bottom:1px solid var(--line);
+  padding:13px 0;
+}
+
+.cardRow:last-child {
+  border-bottom:0;
+}
+
+.cardRank {
+  color:var(--oit-teal);
+  font-weight:900;
+  font-size:20px;
+}
+
+.cardTeam b {
+  font-size:20px;
+  color:var(--black);
+}
+
+.cardTeam .ownerSmall {
+  color:var(--oit-dark-teal);
+  font-weight:800;
+  margin-top:2px;
+}
+
+.cardBreakdown {
+  color:var(--muted);
+  font-size:14px;
+  text-align:right;
+}
+
+.cardScore {
+  text-align:right;
+  font-family:var(--title-font);
+  font-size:34px;
+  color:var(--oit-purple);
+  line-height:1;
+}
+
+@media (max-width:760px) {
+  .cardRow {
+    grid-template-columns:44px minmax(0,1fr) 72px;
+    gap:8px;
+  }
+  .cardBreakdown {
+    grid-column:2 / 4;
+    text-align:left;
+  }
+  .cardScore {
+    font-size:26px;
+  }
+}
+
 @media print {
   header {
     position:static;
@@ -1367,7 +1438,7 @@ code {
     <button class="secondary" onclick="showView('groups')" data-nav="groups">Groups</button>
     <button class="secondary" onclick="showView('fixtures')" data-nav="fixtures">Fixtures</button>
     <button class="secondary" onclick="showView('owners')" data-nav="owners">Participants</button>
-    <button class="secondary" onclick="showView('cards')" data-nav="cards">Cards leaderboard</button>
+    <button class="secondary" onclick="showView('cards')" data-nav="cards">Disciplinary leaderboard</button>
     <button class="secondary" onclick="showView('knockout')" data-nav="knockout">Knockout</button>
     <input id="search" oninput="renderActiveView()" placeholder="Filter by team, participant, group or venue">
   </div>
@@ -3546,9 +3617,9 @@ function renderBarRace(rows, key, history) {
   const id = raceIdFor(key);
   const frames = history && history.length ? history : [{ t: Date.now(), source:"current", values:Object.fromEntries(rows.map(r => [r.person, { [key]: r[key] }])) }];
 
-  // Start at the beginning of the story. Users can press Play immediately.
-  if (!RACE_STATE[id]) RACE_STATE[id] = { frame:0, playing:false, timer:null };
-  RACE_STATE[id].frame = Math.max(0, Math.min(RACE_STATE[id].frame || 0, frames.length - 1));
+  // Default display is the latest snapshot as a static chart.
+  if (!RACE_STATE[id]) RACE_STATE[id] = { frame:frames.length - 1, playing:false, timer:null };
+  RACE_STATE[id].frame = Math.max(0, Math.min(RACE_STATE[id].frame ?? frames.length - 1, frames.length - 1));
 
   const resolved = contestResolved(rows, key);
   const title = `${meta.short} probability`;
@@ -3560,8 +3631,8 @@ function renderBarRace(rows, key, history) {
         <p class="homeSmall">${meta.title} · all participants</p>
       </div>
       <div class="raceControls">
-        <button class="raceButton" onclick="raceReset('${key}')" title="Reset race" aria-label="Reset race">↺</button>
-        <button class="raceButton" onclick="racePlayPause('${key}')" title="Play or pause race" aria-label="Play or pause race" id="${id}_play">▶</button>
+        <button class="raceButton" onclick="raceReset('${key}')" title="Show latest" aria-label="Show latest">↺</button>
+        <button class="raceButton" onclick="racePlayPause('${key}')" title="Play race from the start" aria-label="Play race from the start" id="${id}_play">▶</button>
       </div>
     </div>
     <div class="raceFrameLabel" id="${id}_label"></div>
@@ -3584,6 +3655,9 @@ function raceSetFrame(key, frameIndex) {
   state.frame = frame;
 
   const dataFrame = history[frame];
+  const resolved = contestResolved(rows, key);
+  const winningPerson = resolved ? topForPrize(rows, key)?.person : null;
+
   const values = DATA.participants.map((person, i) => {
     const value = dataFrame?.values?.[person]?.[key] ?? rows.find(r => r.person === person)?.[key] ?? 0;
     return {
@@ -3619,11 +3693,12 @@ function raceSetFrame(key, frameIndex) {
       const bar = row.querySelector(".raceBar");
       bar.style.background = colour;
       if (colour === "#FFCF00" || colour === "#F7F3F1") bar.classList.add("lightText");
-      // Make first paint start small, then animate to value.
       bar.style.width = "3%";
-      row.style.transform = `translateY(${DATA.participants.indexOf(person) * rowHeight}px)`;
+      row.style.transform = `translateY(${participantIndex * rowHeight}px)`;
     }
   }
+
+  const frameMax = Math.max(0.01, ...values.map(v => v.value));
 
   requestAnimationFrame(() => {
     values.forEach((v, rank) => {
@@ -3632,12 +3707,15 @@ function raceSetFrame(key, frameIndex) {
       if (!row) return;
       const bar = row.querySelector(".raceBar");
       const pct = Math.round(v.value * 100);
-      // Absolute 0-100 scale, so bars grow/reduce smoothly rather than jumping relative to the leader.
-      const width = Math.max(3, v.value * 100);
+
+      // Dynamic frame scale: leader is near full width, others scale against that frame's leader.
+      const width = Math.max(3, (v.value / frameMax) * 100);
+
       row.style.transform = `translateY(${rank * rowHeight}px)`;
       row.style.zIndex = String(100 - rank);
       bar.style.width = `${width.toFixed(2)}%`;
-      bar.textContent = `${pct}%`;
+      bar.classList.toggle("goldWinner", Boolean(resolved && v.person === winningPerson));
+      bar.innerHTML = `${pct}%${resolved && v.person === winningPerson ? '<span class="raceWinnerMark">🏆</span>' : ''}`;
       bar.title = `${v.person}: ${pct}%`;
     });
   });
@@ -3655,10 +3733,12 @@ function raceRenderAll() {
 function raceReset(key) {
   const id = raceIdFor(key);
   if (RACE_STATE[id]?.timer) clearInterval(RACE_STATE[id].timer);
-  RACE_STATE[id] = { frame:0, playing:false, timer:null };
+  const { history } = raceFrameData(key);
+  const latest = Math.max(0, history.length - 1);
+  RACE_STATE[id] = { frame:latest, playing:false, timer:null };
   const play = document.getElementById(`${id}_play`);
   if (play) play.textContent = "▶";
-  raceSetFrame(key, 0);
+  raceSetFrame(key, latest);
 }
 
 function racePlayPause(key) {
@@ -3674,6 +3754,9 @@ function racePlayPause(key) {
     return;
   }
 
+  // Play always starts from the beginning and races to the latest frame.
+  state.frame = 0;
+  raceSetFrame(key, 0);
   state.playing = true;
   if (play) play.textContent = "Ⅱ";
 
@@ -3747,15 +3830,19 @@ function renderHome() {
 
   el.innerHTML = html;
 
-  // The races should start at the beginning, not at the final frame. This makes Play work immediately.
+  // Static starting state should be latest/current. Play then restarts from the beginning.
   setTimeout(() => {
     try {
       ["worldCup","worst","conduct"].forEach(key => {
         const id = raceIdFor(key);
-        if (!RACE_STATE[id] || RACE_STATE[id].frame === undefined || RACE_STATE[id].frame >= 9998) {
-          RACE_STATE[id] = { frame:0, playing:false, timer:null };
+        const { history } = raceFrameData(key);
+        const latest = Math.max(0, history.length - 1);
+        if (!RACE_STATE[id]) RACE_STATE[id] = { frame:latest, playing:false, timer:null };
+        if (!RACE_STATE[id].playing) {
+          RACE_STATE[id].frame = Math.min(RACE_STATE[id].frame ?? latest, latest);
+          if (RACE_STATE[id].frame === 0 && latest > 0) RACE_STATE[id].frame = latest;
         }
-        raceSetFrame(key, RACE_STATE[id].frame || 0);
+        raceSetFrame(key, RACE_STATE[id].frame);
       });
     } catch (e) {
       console.error("Race initialisation failed", e);
@@ -3911,11 +3998,10 @@ function renderCards() {
 
   const source = cardsMeta?.source || "cards.json";
   const updated = cardsMeta?.updatedAt ? ` Updated: ${cardsMeta.updatedAt}.` : "";
-  const caveat = cardsMeta?.caveat ? ` ${cardsMeta.caveat}` : "";
 
-  let html = `<div class="card"><h2>Team card leaderboard</h2>
+  let html = `<div class="card"><h2>Disciplinary leaderboard</h2>
     <p class="small">Discipline score: yellow cards are worth 1 point and red cards are worth 3 points. Highest score is the most-carded team.</p>
-    <p class="small"><b>Card feed status:</b> Read card totals for ${rows.length} team(s) from ${source}.${updated}${caveat}</p>`;
+    <p class="small"><b>Card feed status:</b> Read card totals for ${rows.length} team(s) from ${source}.${updated}</p>`;
 
   rows.forEach((r, i) => {
     html += `<div class="cardRow">
