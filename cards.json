@@ -1,15 +1,306 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-06-12T00:00:00.000Z",
+  "updatedAt": "2026-06-16T20:20:32.437Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
-  "caveat": "Cards are parsed only from explicit ESPN team statistics. Commentary/key-event text is ignored to avoid double-counting.",
+  "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "rowsMapped": 4,
-    "nonZeroRows": 3,
-    "note": "Initial seed: South Africa 2 YC 2 RC, Mexico 1 YC 1 RC, Korea Republic 1 YC 0 RC, Czechia 0 YC 0 RC."
+    "updatedAt": "2026-06-16T20:20:25.224Z",
+    "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
+    "scoreboardUrlsTried": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260611&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260612&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260613&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260614&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260615&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260616&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260617&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260618&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260619&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260620&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260621&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260622&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260623&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260624&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260625&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260626&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260627&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260628&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260629&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260630&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260701&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260702&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260703&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260704&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260705&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260706&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260707&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260708&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260709&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260710&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260711&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260712&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260713&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260714&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260715&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260716&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260717&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260718&limit=300",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260719&limit=300"
+    ],
+    "scoreboardCallsSucceeded": 40,
+    "scoreboardCallsFailed": 0,
+    "eventsFound": 104,
+    "eventsChecked": 17,
+    "summaryCallsSucceeded": 17,
+    "summaryCallsFailed": 0,
+    "teamCardStats": [
+      {
+        "eventId": "760432",
+        "team": "France",
+        "rawTeam": "France",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760432",
+        "team": "Senegal",
+        "rawTeam": "Senegal",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760415",
+        "team": "Mexico",
+        "rawTeam": "Mexico",
+        "yellow": 1,
+        "red": 1
+      },
+      {
+        "eventId": "760415",
+        "team": "South Africa",
+        "rawTeam": "South Africa",
+        "yellow": 2,
+        "red": 2
+      },
+      {
+        "eventId": "760414",
+        "team": "Korea Republic",
+        "rawTeam": "South Korea",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760414",
+        "team": "Czechia",
+        "rawTeam": "Czechia",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760416",
+        "team": "Canada",
+        "rawTeam": "Canada",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760416",
+        "team": "Bosnia and Herzegovina",
+        "rawTeam": "Bosnia-Herzegovina",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760417",
+        "team": "USA",
+        "rawTeam": "United States",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760417",
+        "team": "Paraguay",
+        "rawTeam": "Paraguay",
+        "yellow": 5,
+        "red": 0
+      },
+      {
+        "eventId": "760420",
+        "team": "Qatar",
+        "rawTeam": "Qatar",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760420",
+        "team": "Switzerland",
+        "rawTeam": "Switzerland",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760419",
+        "team": "Brazil",
+        "rawTeam": "Brazil",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760419",
+        "team": "Morocco",
+        "rawTeam": "Morocco",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760418",
+        "team": "Haiti",
+        "rawTeam": "Haiti",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760418",
+        "team": "Scotland",
+        "rawTeam": "Scotland",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760421",
+        "team": "Australia",
+        "rawTeam": "Australia",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760421",
+        "team": "Türkiye",
+        "rawTeam": "Türkiye",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760422",
+        "team": "Germany",
+        "rawTeam": "Germany",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760422",
+        "team": "Curaçao",
+        "rawTeam": "Curaçao",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760425",
+        "team": "Netherlands",
+        "rawTeam": "Netherlands",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760425",
+        "team": "Japan",
+        "rawTeam": "Japan",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760423",
+        "team": "Côte d'Ivoire",
+        "rawTeam": "Ivory Coast",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760423",
+        "team": "Ecuador",
+        "rawTeam": "Ecuador",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760424",
+        "team": "Sweden",
+        "rawTeam": "Sweden",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760424",
+        "team": "Tunisia",
+        "rawTeam": "Tunisia",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760428",
+        "team": "Spain",
+        "rawTeam": "Spain",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760428",
+        "team": "Cabo Verde",
+        "rawTeam": "Cape Verde",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760426",
+        "team": "Belgium",
+        "rawTeam": "Belgium",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760426",
+        "team": "Egypt",
+        "rawTeam": "Egypt",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760429",
+        "team": "Saudi Arabia",
+        "rawTeam": "Saudi Arabia",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760429",
+        "team": "Uruguay",
+        "rawTeam": "Uruguay",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760427",
+        "team": "IR Iran",
+        "rawTeam": "Iran",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760427",
+        "team": "New Zealand",
+        "rawTeam": "New Zealand",
+        "yellow": 0,
+        "red": 0
+      }
+    ],
+    "teamStatBlocksWithoutCardStats": [],
+    "warnings": [],
+    "rowsMapped": 23,
+    "nonZeroRows": 23
   },
   "cards": {
     "Mexico": {
@@ -33,27 +324,27 @@
       "straightRed": 0
     },
     "Canada": {
-      "yellow": 0,
+      "yellow": 2,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Bosnia and Herzegovina": {
-      "yellow": 0,
+      "yellow": 3,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Qatar": {
-      "yellow": 0,
+      "yellow": 2,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Switzerland": {
-      "yellow": 0,
+      "yellow": 1,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Brazil": {
-      "yellow": 0,
+      "yellow": 2,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -63,22 +354,22 @@
       "straightRed": 0
     },
     "Haiti": {
-      "yellow": 0,
+      "yellow": 1,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Scotland": {
-      "yellow": 0,
+      "yellow": 3,
       "secondYellow": 0,
       "straightRed": 0
     },
     "USA": {
-      "yellow": 0,
+      "yellow": 1,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Paraguay": {
-      "yellow": 0,
+      "yellow": 5,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -88,7 +379,7 @@
       "straightRed": 0
     },
     "Türkiye": {
-      "yellow": 0,
+      "yellow": 1,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -103,17 +394,17 @@
       "straightRed": 0
     },
     "Côte d'Ivoire": {
-      "yellow": 0,
+      "yellow": 3,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Ecuador": {
-      "yellow": 0,
+      "yellow": 1,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Netherlands": {
-      "yellow": 0,
+      "yellow": 3,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -128,22 +419,22 @@
       "straightRed": 0
     },
     "Tunisia": {
-      "yellow": 0,
+      "yellow": 1,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Belgium": {
-      "yellow": 0,
+      "yellow": 2,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Egypt": {
-      "yellow": 0,
+      "yellow": 2,
       "secondYellow": 0,
       "straightRed": 0
     },
     "IR Iran": {
-      "yellow": 0,
+      "yellow": 1,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -153,17 +444,17 @@
       "straightRed": 0
     },
     "Spain": {
-      "yellow": 0,
+      "yellow": 1,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Cabo Verde": {
-      "yellow": 0,
+      "yellow": 1,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Saudi Arabia": {
-      "yellow": 0,
+      "yellow": 1,
       "secondYellow": 0,
       "straightRed": 0
     },
