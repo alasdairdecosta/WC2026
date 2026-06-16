@@ -1275,6 +1275,42 @@ code {
   color:#111;
 }
 
+
+/* Robust Home startup and smoother race animation */
+.raceStage {
+  position:relative;
+  display:block;
+  min-height:372px;
+  padding:0;
+}
+
+.raceBarRow {
+  position:absolute;
+  left:0;
+  right:0;
+  height:28px;
+  display:grid;
+  grid-template-columns:128px minmax(0,1fr);
+  align-items:center;
+  gap:10px;
+  transition:transform .82s cubic-bezier(.22,.61,.36,1), opacity .35s ease;
+  will-change:transform;
+}
+
+.raceBar {
+  height:24px;
+  position:absolute;
+  left:0;
+  top:0;
+  border-radius:0 3px 3px 0;
+  transition:width .82s cubic-bezier(.22,.61,.36,1);
+  will-change:width;
+}
+
+.homeFallback {
+  border-top-color:var(--oit-yellow);
+}
+
 @media print {
   header {
     position:static;
@@ -3495,9 +3531,10 @@ function renderBarRace(rows, key, history) {
   const meta = prizeMeta(key);
   const id = raceIdFor(key);
   const frames = history && history.length ? history : [{ t: Date.now(), source:"current", values:Object.fromEntries(rows.map(r => [r.person, { [key]: r[key] }])) }];
-  const initialIndex = frames.length - 1;
-  RACE_STATE[id] = RACE_STATE[id] || { frame: initialIndex, playing:false, timer:null };
-  RACE_STATE[id].frame = Math.min(RACE_STATE[id].frame ?? initialIndex, frames.length - 1);
+
+  // Start at the beginning of the story. Users can press Play immediately.
+  if (!RACE_STATE[id]) RACE_STATE[id] = { frame:0, playing:false, timer:null };
+  RACE_STATE[id].frame = Math.max(0, Math.min(RACE_STATE[id].frame || 0, frames.length - 1));
 
   const resolved = contestResolved(rows, key);
   const title = `${meta.short} probability`;
@@ -3554,7 +3591,6 @@ function raceSetFrame(key, frameIndex) {
   const rowHeight = 31;
   stage.style.minHeight = `${values.length * rowHeight}px`;
 
-  // Create rows once, then move them with transforms so the chart actually races.
   for (const person of DATA.participants) {
     const rowId = `${id}_row_${person.replace(/[^a-z0-9]/gi, "_")}`;
     if (!document.getElementById(rowId)) {
@@ -3566,24 +3602,30 @@ function raceSetFrame(key, frameIndex) {
       row.innerHTML = `<div class="raceName"></div><div class="raceTrack"><div class="raceBar"></div></div>`;
       stage.appendChild(row);
       row.querySelector(".raceName").textContent = person;
-      row.querySelector(".raceBar").style.background = colour;
-      if (colour === "#FFCF00" || colour === "#F7F3F1") row.querySelector(".raceBar").classList.add("lightText");
+      const bar = row.querySelector(".raceBar");
+      bar.style.background = colour;
+      if (colour === "#FFCF00" || colour === "#F7F3F1") bar.classList.add("lightText");
+      // Make first paint start small, then animate to value.
+      bar.style.width = "3%";
+      row.style.transform = `translateY(${DATA.participants.indexOf(person) * rowHeight}px)`;
     }
   }
 
-  values.forEach((v, rank) => {
-    const rowId = `${id}_row_${v.person.replace(/[^a-z0-9]/gi, "_")}`;
-    const row = document.getElementById(rowId);
-    if (!row) return;
-    const bar = row.querySelector(".raceBar");
-    const pct = Math.round(v.value * 100);
-    // Use absolute 0-100 scale rather than scaling to the leader, so the bars race meaningfully.
-    const width = Math.max(3, v.value * 100);
-    row.style.transform = `translateY(${rank * rowHeight}px)`;
-    row.style.zIndex = String(100 - rank);
-    bar.style.width = `${width.toFixed(2)}%`;
-    bar.textContent = `${pct}%`;
-    bar.title = `${v.person}: ${pct}%`;
+  requestAnimationFrame(() => {
+    values.forEach((v, rank) => {
+      const rowId = `${id}_row_${v.person.replace(/[^a-z0-9]/gi, "_")}`;
+      const row = document.getElementById(rowId);
+      if (!row) return;
+      const bar = row.querySelector(".raceBar");
+      const pct = Math.round(v.value * 100);
+      // Absolute 0-100 scale, so bars grow/reduce smoothly rather than jumping relative to the leader.
+      const width = Math.max(3, v.value * 100);
+      row.style.transform = `translateY(${rank * rowHeight}px)`;
+      row.style.zIndex = String(100 - rank);
+      bar.style.width = `${width.toFixed(2)}%`;
+      bar.textContent = `${pct}%`;
+      bar.title = `${v.person}: ${pct}%`;
+    });
   });
 }
 
@@ -3633,7 +3675,7 @@ function racePlayPause(key) {
       return;
     }
     raceSetFrame(key, next);
-  }, 650);
+  }, 900);
 }
 
 function renderRaceCharts(rows, history) {
@@ -3646,29 +3688,65 @@ function renderRaceCharts(rows, history) {
 
 
 function renderHome() {
-  const rows = participantPrizeProbabilities();
-  recordProbabilityHistory(rows);
+  const el = document.getElementById("homeView");
+  if (!el) return;
+
+  let rows = [];
+  try {
+    rows = participantPrizeProbabilities();
+    recordProbabilityHistory(rows);
+  } catch (e) {
+    console.error("Home probabilities failed", e);
+    el.innerHTML = `<div class="card homeFallback"><h2>Home</h2><p class="small">The home dashboard could not calculate probabilities yet, but the rest of the site should still work.</p><code>${String(e && e.stack ? e.stack : e)}</code></div>`;
+    return;
+  }
+
   let history = [];
   try {
     history = buildRetrospectiveProbabilityHistory(rows);
   } catch (e) {
     console.error("Retrospective probability history failed", e);
-    history = [{ t: Date.now(), source:"current", values:Object.fromEntries(rows.map(r => [r.person, { worldCup:r.worldCup, worst:r.worst, conduct:r.conduct }])) }];
+    history = [{
+      t: Date.now(),
+      source: "current",
+      values: Object.fromEntries(rows.map(r => [r.person, { worldCup:r.worldCup, worst:r.worst, conduct:r.conduct }]))
+    }];
   }
 
-  let html = `<div class="homeIntro">
-    ${renderHeadlineLeaders(rows)}
-    ${renderNextFixturesCard()}
-  </div>`;
+  let html = "";
+  try {
+    html += `<div class="homeIntro">
+      ${renderHeadlineLeaders(rows)}
+      ${renderNextFixturesCard()}
+    </div>`;
+  } catch (e) {
+    console.error("Home header failed", e);
+    html += `<div class="card homeFallback"><h2>Home</h2><p class="small">Current leaders or next fixtures could not render yet.</p><code>${String(e && e.stack ? e.stack : e)}</code></div>`;
+  }
 
   try {
     html += renderRaceCharts(rows, history);
   } catch (e) {
+    console.error("Race charts failed", e);
     html += `<div class="card renderError"><h2>Bar chart races could not render</h2><p class="small">The headline cards and next fixtures are still available.</p><code>${String(e && e.stack ? e.stack : e)}</code></div>`;
   }
 
-  document.getElementById("homeView").innerHTML = html;
-  try { setTimeout(raceRenderAll, 0); } catch (e) { console.error(e); }
+  el.innerHTML = html;
+
+  // The races should start at the beginning, not at the final frame. This makes Play work immediately.
+  setTimeout(() => {
+    try {
+      ["worldCup","worst","conduct"].forEach(key => {
+        const id = raceIdFor(key);
+        if (!RACE_STATE[id] || RACE_STATE[id].frame === undefined || RACE_STATE[id].frame >= 9998) {
+          RACE_STATE[id] = { frame:0, playing:false, timer:null };
+        }
+        raceSetFrame(key, RACE_STATE[id].frame || 0);
+      });
+    } catch (e) {
+      console.error("Race initialisation failed", e);
+    }
+  }, 0);
 }
 
 function renderDashboard() {
@@ -4320,6 +4398,25 @@ if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", startAutoRefreshOnLoad);
 } else {
   startAutoRefreshOnLoad();
+}
+
+
+function bootHomeView() {
+  try {
+    showView("home");
+    setTimeout(() => {
+      const home = document.getElementById("homeView");
+      if (home && !home.innerHTML.trim()) showView("home");
+    }, 100);
+  } catch (e) {
+    console.error("Home boot failed", e);
+  }
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", bootHomeView);
+} else {
+  bootHomeView();
 }
 
 </script>
