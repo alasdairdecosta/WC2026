@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-06-16T21:36:59.078Z",
+  "updatedAt": "2026-06-16T22:05:04.935Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-06-16T21:36:54.795Z",
+    "updatedAt": "2026-06-16T22:04:54.502Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,8 +54,8 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 17,
-    "summaryCallsSucceeded": 17,
+    "eventsChecked": 18,
+    "summaryCallsSucceeded": 18,
     "summaryCallsFailed": 0,
     "teamCardStats": [
       {
@@ -69,6 +69,20 @@
         "eventId": "760432",
         "team": "Senegal",
         "rawTeam": "Senegal",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760430",
+        "team": "Iraq",
+        "rawTeam": "Iraq",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760430",
+        "team": "Norway",
+        "rawTeam": "Norway",
         "yellow": 0,
         "red": 0
       },
