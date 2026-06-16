@@ -2347,7 +2347,19 @@ function conductScore(team) {
 }
 
 function actualTeamRecord(team) {
-  const record = {played:0, points:0, gf:0, ga:0, gd:0, heavyDefeatPenalty:0, worstSingleDefeatMargin:0};
+  const record = {
+    played: 0,
+    wins: 0,
+    draws: 0,
+    losses: 0,
+    points: 0,
+    gf: 0,
+    ga: 0,
+    gd: 0,
+    worstSingleDefeatMargin: 0,
+    worstSingleDefeatGoalsAgainst: 0
+  };
+
   for (const f of DATA.fixtures) {
     if (f.team1 !== team && f.team2 !== team) continue;
     const s = scores[f.id];
@@ -2361,52 +2373,172 @@ function actualTeamRecord(team) {
     record.gf += forGoals;
     record.ga += againstGoals;
     record.gd += forGoals - againstGoals;
-    if (forGoals > againstGoals) record.points += 3;
-    else if (forGoals === againstGoals) record.points += 1;
 
-    const margin = againstGoals - forGoals;
-    if (margin > 0) {
+    if (forGoals > againstGoals) {
+      record.wins++;
+      record.points += 3;
+    } else if (forGoals === againstGoals) {
+      record.draws++;
+      record.points += 1;
+    } else {
+      record.losses++;
+      const margin = againstGoals - forGoals;
       record.worstSingleDefeatMargin = Math.max(record.worstSingleDefeatMargin, margin);
-      record.heavyDefeatPenalty += Math.pow(margin, 2.35) + Math.max(0, againstGoals - 3) * 2.75;
+      record.worstSingleDefeatGoalsAgainst = Math.max(record.worstSingleDefeatGoalsAgainst, againstGoals);
     }
   }
+
   return record;
 }
 
-function worstTeamRawRisk(team) {
-  const r = actualTeamRecord(team);
-  const strength = teamStrength(team);
-  const expectedRemainingGames = Math.max(0, 3 - r.played);
-  const expectedRemainingPoints = expectedRemainingGames * (0.50 + 1.35 * strength / 100);
-  const expectedRemainingGd = expectedRemainingGames * ((strength - 55) / 45);
+function remainingGroupGames(team) {
+  return DATA.fixtures.filter(f => {
+    if (f.team1 !== team && f.team2 !== team) return false;
+    const s = scores[f.id];
+    return !(s && s.score1 !== undefined && s.score2 !== undefined);
+  }).slice(0, Math.max(0, 3 - actualTeamRecord(team).played));
+}
 
-  const projectedPoints = r.points + expectedRemainingPoints;
-  const projectedGd = r.gd + expectedRemainingGd;
+function opponentForFixture(team, fixture) {
+  if (fixture.team1 === team) return fixture.team2;
+  if (fixture.team2 === team) return fixture.team1;
+  return null;
+}
+
+function matchLossProbability(team, opponent) {
+  const teamStrength = teamStrengthForWorstModel(team);
+  const oppStrength = teamStrengthForWorstModel(opponent);
+
+  // Positive means the opponent is stronger.
+  const gap = (oppStrength - teamStrength) / 18;
+  const base = 1 / (1 + Math.exp(-gap));
+
+  // Calibrate so even weak teams retain some chance of a draw/upset, and very strong teams can still lose.
+  return clamp(0.18 + base * 0.64, 0.12, 0.88);
+}
+
+function expectedGoalDifferenceForRemainingGame(team, opponent) {
+  const teamStrength = teamStrengthForWorstModel(team);
+  const oppStrength = teamStrengthForWorstModel(opponent);
+  return clamp((teamStrength - oppStrength) / 28, -1.8, 1.8);
+}
+
+function expectedGoalsForRemainingGame(team, opponent) {
+  const teamStrength = teamStrengthForWorstModel(team);
+  const oppStrength = teamStrengthForWorstModel(opponent);
+  return clamp(1.05 + (teamStrength - oppStrength) / 70, 0.35, 2.4);
+}
+
+function teamStrengthForWorstModel(team) {
+  // teamStrength() in this page is on a broad 0-100-ish scale. Keep it, but
+  // compress the effect: actual played results should dominate this model.
+  const s = Number(teamStrength(team));
+  return Number.isFinite(s) ? s : 50;
+}
+
+function projectedWorstProfile(team) {
+  const r = actualTeamRecord(team);
+  const remaining = remainingGroupGames(team);
+
+  let expectedAdditionalPoints = 0;
+  let expectedAdditionalGd = 0;
+  let expectedAdditionalGoals = 0;
+  let probabilityLoseAllRemaining = 1;
+
+  for (const f of remaining) {
+    const opponent = opponentForFixture(team, f);
+    if (!opponent || opponent.includes("Winner") || opponent.includes("Runner-up")) continue;
+
+    const pLose = matchLossProbability(team, opponent);
+    const pDraw = clamp(0.25 - Math.abs(0.5 - pLose) * 0.18, 0.11, 0.28);
+    const pWin = clamp(1 - pLose - pDraw, 0.03, 0.70);
+
+    expectedAdditionalPoints += pWin * 3 + pDraw;
+    expectedAdditionalGd += expectedGoalDifferenceForRemainingGame(team, opponent);
+    expectedAdditionalGoals += expectedGoalsForRemainingGame(team, opponent);
+    probabilityLoseAllRemaining *= pLose;
+  }
+
+  const projectedPoints = r.points + expectedAdditionalPoints;
+  const projectedGd = r.gd + expectedAdditionalGd;
+  const projectedGoalsFor = r.gf + expectedAdditionalGoals;
+  const probabilityLoseAllGames = r.losses === r.played ? probabilityLoseAllRemaining : 0;
+
+  return {
+    ...r,
+    remaining: remaining.length,
+    projectedPoints,
+    projectedGd,
+    projectedGoalsFor,
+    probabilityLoseAllRemaining,
+    probabilityLoseAllGames
+  };
+}
+
+function worstTeamRawRisk(team) {
+  const p = projectedWorstProfile(team);
+
+  // This deliberately follows the prize logic:
+  // 1. very low/zero final points
+  // 2. then worst goal difference
+  // 3. then low goals scored
+  // A big defeat affects the model mainly through GD, plus a small additional shock factor.
+  const zeroPointsFactor = p.probabilityLoseAllGames;
+  const likelyLowPoints = Math.exp(-0.85 * p.projectedPoints);
+  const gdFactor = Math.exp(clamp(-p.projectedGd / 3.2, -3.5, 5.5));
+  const lowScoringFactor = Math.exp(clamp((1.8 - p.projectedGoalsFor) / 2.8, -1.2, 1.4));
 
   let risk =
-    42
-    - projectedPoints * 8.5
-    - projectedGd * 5.8
-    - strength * 0.10
-    + r.ga * 2.2
-    - r.gf * 1.1
-    + r.heavyDefeatPenalty * 3.8;
+    1.0
+    + likelyLowPoints * 8.0
+    + zeroPointsFactor * 14.0
+    + gdFactor * 6.0
+    + lowScoringFactor * 1.8;
 
-  if (r.worstSingleDefeatMargin >= 4) risk += Math.pow(r.worstSingleDefeatMargin - 3, 2) * 18;
-  if (r.worstSingleDefeatMargin >= 6) risk += 55;
-  if (r.played === 0) risk *= 0.65;
+  // Heavy defeats are informative, but they should not single-handedly create 100%.
+  if (p.worstSingleDefeatMargin >= 4) {
+    risk += Math.pow(p.worstSingleDefeatMargin - 3, 1.55) * 3.5;
+  }
+  if (p.worstSingleDefeatMargin >= 6) {
+    risk += 8.0;
+  }
 
-  return Math.max(-40, risk);
+  // If a team already has points, sharply reduce its worst-team risk.
+  if (p.points >= 1) risk *= 0.42;
+  if (p.points >= 3) risk *= 0.20;
+
+  // If nothing has been played, keep it uncertain.
+  if (p.played === 0) risk *= 0.55;
+
+  return Math.max(0.05, risk);
 }
 
 function worstTeamProbabilities() {
-  const allTeams = Object.values(DATA.groups).flat();
-  const risks = allTeams.map(team => ({team, risk: worstTeamRawRisk(team)}));
-  const maxRisk = Math.max(...risks.map(x => x.risk));
-  const temp = 5.8;
-  const weights = risks.map(x => ({team: x.team, w: Math.exp((x.risk - maxRisk) / temp)}));
-  const total = weights.reduce((sum, x) => sum + x.w, 0) || 1;
-  return Object.fromEntries(weights.map(x => [x.team, x.w / total]));
+  const teams = Object.values(DATA.groups).flat();
+  const risks = teams.map(team => ({ team, risk: worstTeamRawRisk(team), profile: projectedWorstProfile(team) }));
+
+  // Convert risk to probabilities with smoothing so the model can have a clear favourite
+  // without producing silly 100% outputs after one result.
+  const power = 1.18;
+  const floor = 0.018;
+  let weights = risks.map(x => ({
+    team: x.team,
+    w: Math.pow(x.risk, power) + floor
+  }));
+
+  let total = weights.reduce((sum, x) => sum + x.w, 0) || 1;
+  let probs = weights.map(x => ({ team: x.team, p: x.w / total }));
+
+  // Hard cap: before the group stage is mathematically over, no team can exceed 78%.
+  // Once all three group matches are played for a team, the cap can be higher.
+  const capped = probs.map(x => {
+    const profile = risks.find(r => r.team === x.team)?.profile;
+    const cap = profile && profile.played >= 3 ? 0.95 : 0.78;
+    return { team: x.team, p: Math.min(x.p, cap) };
+  });
+
+  const cappedTotal = capped.reduce((sum, x) => sum + x.p, 0) || 1;
+  return Object.fromEntries(capped.map(x => [x.team, x.p / cappedTotal]));
 }
 
 function conductProbabilities() {

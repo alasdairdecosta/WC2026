@@ -52,3 +52,20 @@ This version fixes two feed-through issues:
 
 - Live scores now map `Democratic Republic of the Congo` to `Congo DR`, so Congo DR fixtures no longer appear as unmatched.
 - Cards now use `scripts/update-cards.mjs` based on ESPN match-summary JSON endpoints, not the old ESPN discipline-table scraper. If ESPN exposes card events, this writes new totals to `cards.json`; otherwise it preserves the previous card totals and writes diagnostics.
+
+## Ordered worst-performing-team model
+
+The worst-performing-team prediction now follows the actual prize logic more closely:
+
+1. estimate likely final group points, especially the chance of losing all three matches;
+2. compare likely final goal difference among the lowest-points teams;
+3. use goals scored and team strength only as secondary uncertainty factors;
+4. cap probabilities before the group stage is complete so one result cannot show as a false 100%.
+
+A 7-1 defeat therefore makes a team a strong favourite for worst-performing team, but not mathematically certain while there are matches left.
+
+## Safer card parser
+
+The card updater no longer counts ESPN commentary, key events or play text. Those sources can duplicate the same incident and produced inflated totals such as 10 yellows for one team.
+
+The new updater only trusts explicit team statistics labelled Yellow Cards and Red Cards in ESPN match summaries. If ESPN does not expose those explicit team-card statistics, it writes a diagnostic warning rather than guessing from text.
