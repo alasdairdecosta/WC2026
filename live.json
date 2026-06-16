@@ -1,9 +1,9 @@
 {
   "source": "WorldCup26 API via GitHub Actions",
-  "updatedAt": "2026-06-16T20:21:23.368Z",
+  "updatedAt": "2026-06-16T20:27:48.504Z",
   "caveat": "Live scores are fetched server-side by GitHub Actions to avoid browser CORS failures.",
   "diagnostics": {
-    "updatedAt": "2026-06-16T20:21:04.695Z",
+    "updatedAt": "2026-06-16T20:27:30.807Z",
     "endpointsTried": [
       "https://worldcup26.ir/get/games",
       "https://www.worldcup26.ir/get/games"
