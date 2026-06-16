@@ -3856,27 +3856,27 @@ function renderNextFixturesStrip() {
   const el = document.getElementById("nextFixturesStrip");
   if (!el) return;
 
-  let next;
   try {
-    next = nextFixtureSet();
+    const next = nextFixtureSet();
+
+    if (!next || !next.fixtures || !next.fixtures.length) {
+      el.innerHTML = `<span class="nextFixturesStripLabel">Next</span><span>No remaining fixtures</span>`;
+      return;
+    }
+
+    const items = next.fixtures.slice(0, 4).map(f => {
+      const home = teamLabel(f.team1);
+      const away = teamLabel(f.team2);
+      return `<span class="nextFixturePill"><span>${home} v ${away}</span><span class="nfTime">${f.time}</span></span>`;
+    }).join("");
+
+    const extra = next.fixtures.length > 4 ? `<span class="nfTime">+${next.fixtures.length - 4} more</span>` : "";
+    el.innerHTML = `<span class="nextFixturesStripLabel">Next · ${next.label}</span>${items}${extra}`;
   } catch (e) {
+    // This strip is decorative. It must never stop the page rendering.
+    console.error("Next fixtures strip failed", e);
     el.innerHTML = "";
-    return;
   }
-
-  if (!next || !next.fixtures || !next.fixtures.length) {
-    el.innerHTML = `<span class="nextFixturesStripLabel">Next</span><span>No remaining fixtures</span>`;
-    return;
-  }
-
-  const items = next.fixtures.slice(0, 4).map(f => {
-    const home = teamFlag(f.team1) + " " + f.team1;
-    const away = teamFlag(f.team2) + " " + f.team2;
-    return `<span class="nextFixturePill"><span>${home} v ${away}</span><span class="nfTime">${f.time}</span></span>`;
-  }).join("");
-
-  const extra = next.fixtures.length > 4 ? `<span class="nfTime">+${next.fixtures.length - 4} more</span>` : "";
-  el.innerHTML = `<span class="nextFixturesStripLabel">Next · ${next.label}</span>${items}${extra}`;
 }
 
 
@@ -4237,7 +4237,12 @@ function safeRenderSection(id, fn, label) {
 function renderActiveView() {
   const lu = document.getElementById("lastUpdate");
   if (lu) lu.textContent = (typeof lastRefresh !== "undefined" && lastRefresh) ? lastRefresh : "Waiting for automatic update...";
-  renderNextFixturesStrip();
+
+  try {
+    renderNextFixturesStrip();
+  } catch (e) {
+    console.error("Next fixtures strip failed", e);
+  }
 
   if (currentView === "home") {
     safeRenderInto("homeView", renderHome, "Home");
@@ -4250,7 +4255,7 @@ function renderActiveView() {
   } else if (currentView === "owners") {
     safeRenderInto("ownersView", renderOwners, "Participants");
   } else if (currentView === "cards") {
-    safeRenderInto("cardsView", renderCards, "Cards leaderboard");
+    safeRenderInto("cardsView", renderCards, "Disciplinary leaderboard");
   } else if (currentView === "knockout") {
     safeRenderInto("knockoutView", renderKnockout, "Knockout");
   }
