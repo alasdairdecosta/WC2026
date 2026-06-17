@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-06-17T07:42:33.457Z",
+  "updatedAt": "2026-06-17T18:00:31.292Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-06-17T07:42:31.255Z",
+    "updatedAt": "2026-06-17T18:00:28.446Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,8 +54,8 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 20,
-    "summaryCallsSucceeded": 20,
+    "eventsChecked": 21,
+    "summaryCallsSucceeded": 21,
     "summaryCallsFailed": 0,
     "teamCardStats": [
       {
@@ -70,6 +70,20 @@
         "team": "Jordan",
         "rawTeam": "Jordan",
         "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760435",
+        "team": "Portugal",
+        "rawTeam": "Portugal",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760435",
+        "team": "Congo DR",
+        "rawTeam": "Congo DR",
+        "yellow": 1,
         "red": 0
       },
       {
@@ -341,8 +355,8 @@
     ],
     "teamStatBlocksWithoutCardStats": [],
     "warnings": [],
-    "rowsMapped": 25,
-    "nonZeroRows": 25
+    "rowsMapped": 27,
+    "nonZeroRows": 27
   },
   "cards": {
     "Mexico": {
@@ -546,7 +560,7 @@
       "straightRed": 0
     },
     "Portugal": {
-      "yellow": 0,
+      "yellow": 1,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -561,7 +575,7 @@
       "straightRed": 0
     },
     "Congo DR": {
-      "yellow": 0,
+      "yellow": 1,
       "secondYellow": 0,
       "straightRed": 0
     },
