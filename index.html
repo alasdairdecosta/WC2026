@@ -2203,6 +2203,79 @@ body {
   }
 }
 
+
+/* Next fixtures strip alignment fix */
+.nextFixturesStrip {
+  display:flex;
+  align-items:center;
+  flex-wrap:nowrap;
+  gap:0;
+  overflow:hidden;
+  white-space:nowrap;
+}
+
+.nextFixturesStripLabel {
+  display:inline-flex;
+  align-items:center;
+  flex:0 0 auto;
+  margin-right:18px;
+}
+
+.nextFixturePill {
+  display:inline-grid;
+  grid-template-columns:max-content 16px max-content max-content;
+  align-items:center;
+  column-gap:6px;
+  flex:0 0 auto;
+  min-width:0;
+  border-left:1px solid rgba(255,255,255,.22);
+  padding-left:14px;
+  margin-right:14px;
+}
+
+.nextFixturePill:first-of-type {
+  border-left:0;
+  padding-left:0;
+}
+
+.nextFixtureTeam {
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  min-width:0;
+}
+
+.nextFixtureVersus {
+  display:inline-block;
+  text-align:center;
+  color:rgba(255,255,255,.75);
+  font-weight:700;
+}
+
+.nextFixturePill .nfTime {
+  display:inline-flex;
+  align-items:center;
+  color:rgba(255,255,255,.68);
+  font-size:12px;
+  font-weight:800;
+  margin-left:4px;
+}
+
+@media (max-width:760px) {
+  .nextFixturesStrip {
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    white-space:nowrap;
+  }
+
+  .nextFixturePill {
+    grid-template-columns:max-content 14px max-content max-content;
+    column-gap:5px;
+    padding-left:10px;
+    margin-right:10px;
+  }
+}
+
 @media print {
   header {
     position:static;
@@ -4721,15 +4794,17 @@ function renderNextFixturesStrip() {
     }
 
     const items = next.fixtures.slice(0, 4).map(f => {
-      const home = teamLabel(f.team1);
-      const away = teamLabel(f.team2);
-      return `<span class="nextFixturePill"><span>${home} v ${away}</span><span class="nfTime">${f.time}</span></span>`;
+      return `<span class="nextFixturePill">
+        <span class="nextFixtureTeam">${teamLabel(f.team1)}</span>
+        <span class="nextFixtureVersus">v</span>
+        <span class="nextFixtureTeam">${teamLabel(f.team2)}</span>
+        <span class="nfTime">${f.time}</span>
+      </span>`;
     }).join("");
 
     const extra = next.fixtures.length > 4 ? `<span class="nfTime">+${next.fixtures.length - 4} more</span>` : "";
     el.innerHTML = `<span class="nextFixturesStripLabel">Next · ${next.label}</span>${items}${extra}`;
   } catch (e) {
-    // This strip is decorative. It must never stop the page rendering.
     console.error("Next fixtures strip failed", e);
     el.innerHTML = "";
   }
@@ -5325,8 +5400,15 @@ async function refreshLocalLiveJsonFeed() {
     }
 
     storeScores();
-    const updatedAt = data.updatedAt ? ` Updated ${new Date(data.updatedAt).toLocaleString()}.` : "";
-    return { ok: true, message: `Updated from local live.json. ${updated} score(s), ${statusesRead} status-only record(s).${updatedAt}${unmatched.length ? " Unmatched: " + unmatched.join("; ") + "." : ""}` };
+    const source = data.source || "local live.json";
+    const diag = data.diagnostics || {};
+    const updatedAt = data.updatedAt ? ` Data generated ${new Date(data.updatedAt).toLocaleString()}.` : "";
+    const warning = diag.warning || data.caveat || "";
+    const diagText = diag.matchesParsed !== undefined
+      ? ` Source: ${source}. Parsed ${diag.matchesParsed} match(es), including ${diag.scoreMatchesParsed || updated} scored/live result(s).`
+      : ` Source: ${source}.`;
+    const staleText = diag.stale ? " WARNING: live data may be stale." : "";
+    return { ok: true, message: `${updated} score(s), ${statusesRead} status-only record(s).${diagText}${updatedAt}${warning ? " Note: " + warning : ""}${staleText}${unmatched.length ? " Unmatched: " + unmatched.join("; ") + "." : ""}` };
   } catch (e) {
     return { ok: false, message: `local live.json failed: ${e.message}` };
   }
