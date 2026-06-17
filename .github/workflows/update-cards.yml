@@ -1,10 +1,8 @@
 name: Update World Cup card data
 
+# Scheduled updates now handled by update-world-cup-data.yml
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '*/5 * * * *'
-
 permissions:
   contents: write
 
