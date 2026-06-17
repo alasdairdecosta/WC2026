@@ -129,3 +129,7 @@ The live-score updater now writes diagnostics into live.json, including source a
 ## Extra live-score redundancy
 
 The live updater now uses several redundancy layers: optional live-override.json, WorldCup26 URL variants, ESPN broad scoreboard endpoints, ESPN date-window endpoints, previous live.json score preservation, and previous-file fallback if all live sources fail. Diagnostics in live.json list every source attempt and selected source.
+
+## Combined scheduled data workflow
+
+Scheduled data updates are consolidated into `.github/workflows/update-world-cup-data.yml`, which updates both `live.json` and `cards.json` every five minutes at offset minutes. The separate live/card workflows remain available for manual runs only. This makes it easier to verify whether scheduled GitHub Actions are actually firing.
