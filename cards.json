@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-06-18T08:34:02.094Z",
+  "updatedAt": "2026-06-18T12:15:23.366Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-06-18T08:33:58.946Z",
+    "updatedAt": "2026-06-18T12:15:21.294Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -51,8 +51,8 @@
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260718&limit=300",
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260719&limit=300"
     ],
-    "scoreboardCallsSucceeded": 40,
-    "scoreboardCallsFailed": 0,
+    "scoreboardCallsSucceeded": 39,
+    "scoreboardCallsFailed": 1,
     "eventsFound": 104,
     "eventsChecked": 24,
     "summaryCallsSucceeded": 24,
@@ -396,7 +396,9 @@
       }
     ],
     "teamStatBlocksWithoutCardStats": [],
-    "warnings": [],
+    "warnings": [
+      "Scoreboard fetch failed: https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260716&limit=300 :: HTTP 500 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260716&limit=300: {\"timestamp\":\"2026-06-18T09:23:47.277+00:00\",\"status\":500,\"error\":\"Internal Server Error\",\"message\":\"unexpected error\",\"path\":\"/apis/site/v2/sports/soccer/fifa.world/scoreboard\"}"
+    ],
     "rowsMapped": 31,
     "nonZeroRows": 31
   },
