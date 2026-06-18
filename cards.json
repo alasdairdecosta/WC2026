@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-06-18T12:15:23.366Z",
+  "updatedAt": "2026-06-18T21:27:25.980Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-06-18T12:15:21.294Z",
+    "updatedAt": "2026-06-18T21:27:23.039Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -51,13 +51,41 @@
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260718&limit=300",
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260719&limit=300"
     ],
-    "scoreboardCallsSucceeded": 39,
-    "scoreboardCallsFailed": 1,
+    "scoreboardCallsSucceeded": 40,
+    "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 24,
-    "summaryCallsSucceeded": 24,
+    "eventsChecked": 26,
+    "summaryCallsSucceeded": 26,
     "summaryCallsFailed": 0,
     "teamCardStats": [
+      {
+        "eventId": "760438",
+        "team": "Czechia",
+        "rawTeam": "Czechia",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760438",
+        "team": "South Africa",
+        "rawTeam": "South Africa",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760439",
+        "team": "Switzerland",
+        "rawTeam": "Switzerland",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760439",
+        "team": "Bosnia and Herzegovina",
+        "rawTeam": "Bosnia-Herzegovina",
+        "yellow": 2,
+        "red": 1
+      },
       {
         "eventId": "760415",
         "team": "Mexico",
@@ -396,11 +424,9 @@
       }
     ],
     "teamStatBlocksWithoutCardStats": [],
-    "warnings": [
-      "Scoreboard fetch failed: https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260716&limit=300 :: HTTP 500 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=20260716&limit=300: {\"timestamp\":\"2026-06-18T09:23:47.277+00:00\",\"status\":500,\"error\":\"Internal Server Error\",\"message\":\"unexpected error\",\"path\":\"/apis/site/v2/sports/soccer/fifa.world/scoreboard\"}"
-    ],
-    "rowsMapped": 31,
-    "nonZeroRows": 31
+    "warnings": [],
+    "rowsMapped": 32,
+    "nonZeroRows": 32
   },
   "cards": {
     "Mexico": {
@@ -409,7 +435,7 @@
       "straightRed": 1
     },
     "South Africa": {
-      "yellow": 2,
+      "yellow": 4,
       "secondYellow": 0,
       "straightRed": 2
     },
@@ -419,7 +445,7 @@
       "straightRed": 0
     },
     "Czechia": {
-      "yellow": 0,
+      "yellow": 1,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -429,9 +455,9 @@
       "straightRed": 0
     },
     "Bosnia and Herzegovina": {
-      "yellow": 3,
+      "yellow": 5,
       "secondYellow": 0,
-      "straightRed": 0
+      "straightRed": 1
     },
     "Qatar": {
       "yellow": 2,
@@ -439,7 +465,7 @@
       "straightRed": 0
     },
     "Switzerland": {
-      "yellow": 1,
+      "yellow": 2,
       "secondYellow": 0,
       "straightRed": 0
     },
