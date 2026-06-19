@@ -1,9 +1,9 @@
 {
   "source": "WorldCup26 + ESPN broad + ESPN date windows + previous live.json preservation",
-  "updatedAt": "2026-06-19T12:35:55.905Z",
+  "updatedAt": "2026-06-19T18:26:11.410Z",
   "caveat": "Multiple live data sources were merged for redundancy.",
   "diagnostics": {
-    "generatedAt": "2026-06-19T12:35:55.905Z",
+    "generatedAt": "2026-06-19T18:26:11.410Z",
     "strategy": [
       "manual override, if present",
       "WorldCup26 endpoint variants",
@@ -16,11 +16,20 @@
       {
         "source": "WorldCup26",
         "url": "https://worldcup26.ir/get/games",
+        "ok": false,
+        "rowsRead": 0,
+        "matchesParsed": 0,
+        "scoreMatchesParsed": 0,
+        "error": "fetch failed"
+      },
+      {
+        "source": "WorldCup26",
+        "url": "https://www.worldcup26.ir/get/games",
         "ok": true,
         "rowsRead": 104,
         "matchesParsed": 72,
         "scoreMatchesParsed": 28,
-        "ms": 12673,
+        "ms": 12291,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -34,21 +43,22 @@
       },
       {
         "source": "WorldCup26",
-        "url": "https://www.worldcup26.ir/get/games",
-        "ok": false,
-        "rowsRead": 0,
-        "matchesParsed": 0,
-        "scoreMatchesParsed": 0,
-        "error": "fetch failed"
-      },
-      {
-        "source": "WorldCup26",
         "url": "http://worldcup26.ir/get/games",
-        "ok": false,
-        "rowsRead": 0,
-        "matchesParsed": 0,
-        "scoreMatchesParsed": 0,
-        "error": "fetch failed"
+        "ok": true,
+        "rowsRead": 104,
+        "matchesParsed": 72,
+        "scoreMatchesParsed": 28,
+        "ms": 12938,
+        "sample": [
+          "Mexico 2-0 South Africa (finished)",
+          "Korea Republic 2-1 Czechia (finished)",
+          "Canada 1-1 Bosnia and Herzegovina (finished)",
+          "USA 4-1 Paraguay (finished)",
+          "Haiti 0-1 Scotland (finished)",
+          "Australia 2-0 Türkiye (finished)",
+          "Brazil 1-1 Morocco (finished)",
+          "Qatar 1-1 Switzerland (finished)"
+        ]
       },
       {
         "source": "WorldCup26",
@@ -66,7 +76,7 @@
         "rowsRead": 104,
         "matchesParsed": 104,
         "scoreMatchesParsed": 28,
-        "ms": 426,
+        "ms": 67,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -85,7 +95,7 @@
         "rowsRead": 104,
         "matchesParsed": 104,
         "scoreMatchesParsed": 28,
-        "ms": 517,
+        "ms": 194,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -104,7 +114,7 @@
         "rowsRead": 4,
         "matchesParsed": 4,
         "scoreMatchesParsed": 0,
-        "ms": 186,
+        "ms": 44,
         "sample": [
           "USA 0-0 Australia (scheduled)",
           "Scotland 0-0 Morocco (scheduled)",
@@ -119,7 +129,7 @@
         "rowsRead": 4,
         "matchesParsed": 4,
         "scoreMatchesParsed": 0,
-        "ms": 42,
+        "ms": 21,
         "sample": [
           "USA 0-0 Australia (scheduled)",
           "Scotland 0-0 Morocco (scheduled)",
@@ -134,7 +144,7 @@
         "rowsRead": 28,
         "matchesParsed": 28,
         "scoreMatchesParsed": 28,
-        "ms": 363,
+        "ms": 38,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -153,7 +163,7 @@
         "rowsRead": 28,
         "matchesParsed": 28,
         "scoreMatchesParsed": 28,
-        "ms": 57,
+        "ms": 22,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -172,7 +182,7 @@
         "rowsRead": 44,
         "matchesParsed": 44,
         "scoreMatchesParsed": 0,
-        "ms": 109,
+        "ms": 49,
         "sample": [
           "USA 0-0 Australia (scheduled)",
           "Scotland 0-0 Morocco (scheduled)",
@@ -191,7 +201,7 @@
         "rowsRead": 44,
         "matchesParsed": 44,
         "scoreMatchesParsed": 0,
-        "ms": 44,
+        "ms": 24,
         "sample": [
           "USA 0-0 Australia (scheduled)",
           "Scotland 0-0 Morocco (scheduled)",
@@ -210,7 +220,7 @@
         "rowsRead": 20,
         "matchesParsed": 20,
         "scoreMatchesParsed": 0,
-        "ms": 352,
+        "ms": 50,
         "sample": [
           "Group A 2nd Place 0-0 Group B 2nd Place (scheduled)",
           "Group C Winner 0-0 Group F 2nd Place (scheduled)",
@@ -229,7 +239,7 @@
         "rowsRead": 20,
         "matchesParsed": 20,
         "scoreMatchesParsed": 0,
-        "ms": 60,
+        "ms": 20,
         "sample": [
           "Group A 2nd Place 0-0 Group B 2nd Place (scheduled)",
           "Group C Winner 0-0 Group F 2nd Place (scheduled)",
@@ -248,7 +258,7 @@
         "rowsRead": 12,
         "matchesParsed": 12,
         "scoreMatchesParsed": 0,
-        "ms": 200,
+        "ms": 88,
         "sample": [
           "Round of 32 11 Winner 0-0 Round of 32 12 Winner (scheduled)",
           "Round of 32 9 Winner 0-0 Round of 32 10 Winner (scheduled)",
@@ -267,7 +277,7 @@
         "rowsRead": 12,
         "matchesParsed": 12,
         "scoreMatchesParsed": 0,
-        "ms": 59,
+        "ms": 21,
         "sample": [
           "Round of 32 11 Winner 0-0 Round of 32 12 Winner (scheduled)",
           "Round of 32 9 Winner 0-0 Round of 32 10 Winner (scheduled)",
@@ -281,12 +291,12 @@
       }
     ],
     "selectedSource": "WorldCup26 + ESPN broad + ESPN date windows + previous live.json preservation",
-    "rowsRead": 528,
+    "rowsRead": 632,
     "matchesParsed": 105,
     "scoreMatchesParsed": 28,
     "previousScoresPreserved": 0,
-    "previousScoresReplaced": 103,
-    "newScoreMatchesAdded": 1,
+    "previousScoresReplaced": 104,
+    "newScoreMatchesAdded": 0,
     "warning": "Multiple live data sources were merged for redundancy.",
     "stale": false
   },
