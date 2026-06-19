@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-06-18T21:27:25.980Z",
+  "updatedAt": "2026-06-19T12:36:25.439Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-06-18T21:27:23.039Z",
+    "updatedAt": "2026-06-19T12:36:17.089Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,38 +54,10 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 26,
-    "summaryCallsSucceeded": 26,
+    "eventsChecked": 28,
+    "summaryCallsSucceeded": 28,
     "summaryCallsFailed": 0,
     "teamCardStats": [
-      {
-        "eventId": "760438",
-        "team": "Czechia",
-        "rawTeam": "Czechia",
-        "yellow": 1,
-        "red": 0
-      },
-      {
-        "eventId": "760438",
-        "team": "South Africa",
-        "rawTeam": "South Africa",
-        "yellow": 2,
-        "red": 0
-      },
-      {
-        "eventId": "760439",
-        "team": "Switzerland",
-        "rawTeam": "Switzerland",
-        "yellow": 1,
-        "red": 0
-      },
-      {
-        "eventId": "760439",
-        "team": "Bosnia and Herzegovina",
-        "rawTeam": "Bosnia-Herzegovina",
-        "yellow": 2,
-        "red": 1
-      },
       {
         "eventId": "760415",
         "team": "Mexico",
@@ -421,6 +393,62 @@
         "rawTeam": "Colombia",
         "yellow": 1,
         "red": 0
+      },
+      {
+        "eventId": "760438",
+        "team": "Czechia",
+        "rawTeam": "Czechia",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760438",
+        "team": "South Africa",
+        "rawTeam": "South Africa",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760439",
+        "team": "Switzerland",
+        "rawTeam": "Switzerland",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760439",
+        "team": "Bosnia and Herzegovina",
+        "rawTeam": "Bosnia-Herzegovina",
+        "yellow": 2,
+        "red": 1
+      },
+      {
+        "eventId": "760440",
+        "team": "Canada",
+        "rawTeam": "Canada",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760440",
+        "team": "Qatar",
+        "rawTeam": "Qatar",
+        "yellow": 1,
+        "red": 2
+      },
+      {
+        "eventId": "760441",
+        "team": "Mexico",
+        "rawTeam": "Mexico",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760441",
+        "team": "Korea Republic",
+        "rawTeam": "South Korea",
+        "yellow": 2,
+        "red": 0
       }
     ],
     "teamStatBlocksWithoutCardStats": [],
@@ -440,7 +468,7 @@
       "straightRed": 2
     },
     "Korea Republic": {
-      "yellow": 1,
+      "yellow": 3,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -450,7 +478,7 @@
       "straightRed": 0
     },
     "Canada": {
-      "yellow": 2,
+      "yellow": 3,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -460,9 +488,9 @@
       "straightRed": 1
     },
     "Qatar": {
-      "yellow": 2,
+      "yellow": 3,
       "secondYellow": 0,
-      "straightRed": 0
+      "straightRed": 2
     },
     "Switzerland": {
       "yellow": 2,
