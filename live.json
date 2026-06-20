@@ -1,9 +1,9 @@
 {
   "source": "WorldCup26 + ESPN broad + ESPN date windows + previous live.json preservation",
-  "updatedAt": "2026-06-20T15:57:36.993Z",
+  "updatedAt": "2026-06-20T20:51:58.816Z",
   "caveat": "Multiple live data sources were merged for redundancy.",
   "diagnostics": {
-    "generatedAt": "2026-06-20T15:57:36.993Z",
+    "generatedAt": "2026-06-20T20:51:58.816Z",
     "strategy": [
       "manual override, if present",
       "WorldCup26 endpoint variants",
@@ -16,21 +16,11 @@
       {
         "source": "WorldCup26",
         "url": "https://worldcup26.ir/get/games",
-        "ok": true,
-        "rowsRead": 104,
-        "matchesParsed": 72,
-        "scoreMatchesParsed": 32,
-        "ms": 13959,
-        "sample": [
-          "Mexico 2-0 South Africa (finished)",
-          "Korea Republic 2-1 Czechia (finished)",
-          "Canada 1-1 Bosnia and Herzegovina (finished)",
-          "USA 4-1 Paraguay (finished)",
-          "Haiti 0-1 Scotland (finished)",
-          "Australia 2-0 Türkiye (finished)",
-          "Brazil 1-1 Morocco (finished)",
-          "Qatar 1-1 Switzerland (finished)"
-        ]
+        "ok": false,
+        "rowsRead": 0,
+        "matchesParsed": 0,
+        "scoreMatchesParsed": 0,
+        "error": "fetch failed"
       },
       {
         "source": "WorldCup26",
@@ -38,8 +28,8 @@
         "ok": true,
         "rowsRead": 104,
         "matchesParsed": 72,
-        "scoreMatchesParsed": 32,
-        "ms": 21525,
+        "scoreMatchesParsed": 33,
+        "ms": 13629,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -57,8 +47,8 @@
         "ok": true,
         "rowsRead": 104,
         "matchesParsed": 72,
-        "scoreMatchesParsed": 32,
-        "ms": 12888,
+        "scoreMatchesParsed": 33,
+        "ms": 20105,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -76,8 +66,8 @@
         "ok": true,
         "rowsRead": 104,
         "matchesParsed": 72,
-        "scoreMatchesParsed": 32,
-        "ms": 16899,
+        "scoreMatchesParsed": 33,
+        "ms": 13075,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -95,8 +85,8 @@
         "ok": true,
         "rowsRead": 104,
         "matchesParsed": 104,
-        "scoreMatchesParsed": 32,
-        "ms": 128,
+        "scoreMatchesParsed": 34,
+        "ms": 153,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -114,8 +104,8 @@
         "ok": true,
         "rowsRead": 104,
         "matchesParsed": 104,
-        "scoreMatchesParsed": 32,
-        "ms": 174,
+        "scoreMatchesParsed": 34,
+        "ms": 141,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -133,11 +123,11 @@
         "ok": true,
         "rowsRead": 3,
         "matchesParsed": 3,
-        "scoreMatchesParsed": 0,
-        "ms": 42,
+        "scoreMatchesParsed": 2,
+        "ms": 24,
         "sample": [
-          "Netherlands 0-0 Sweden (scheduled)",
-          "Germany 0-0 Côte d'Ivoire (scheduled)",
+          "Netherlands 5-1 Sweden (finished)",
+          "Germany 0-1 Côte d'Ivoire (live)",
           "Ecuador 0-0 Curaçao (scheduled)"
         ]
       },
@@ -147,11 +137,11 @@
         "ok": true,
         "rowsRead": 3,
         "matchesParsed": 3,
-        "scoreMatchesParsed": 0,
-        "ms": 25,
+        "scoreMatchesParsed": 2,
+        "ms": 6,
         "sample": [
-          "Netherlands 0-0 Sweden (scheduled)",
-          "Germany 0-0 Côte d'Ivoire (scheduled)",
+          "Netherlands 5-1 Sweden (finished)",
+          "Germany 0-1 Côte d'Ivoire (live)",
           "Ecuador 0-0 Curaçao (scheduled)"
         ]
       },
@@ -162,7 +152,7 @@
         "rowsRead": 28,
         "matchesParsed": 28,
         "scoreMatchesParsed": 28,
-        "ms": 43,
+        "ms": 49,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -181,7 +171,7 @@
         "rowsRead": 28,
         "matchesParsed": 28,
         "scoreMatchesParsed": 28,
-        "ms": 26,
+        "ms": 8,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -199,15 +189,15 @@
         "ok": true,
         "rowsRead": 44,
         "matchesParsed": 44,
-        "scoreMatchesParsed": 4,
-        "ms": 41,
+        "scoreMatchesParsed": 6,
+        "ms": 46,
         "sample": [
           "USA 2-0 Australia (finished)",
           "Scotland 0-1 Morocco (finished)",
           "Brazil 3-0 Haiti (finished)",
           "Türkiye 0-1 Paraguay (finished)",
-          "Netherlands 0-0 Sweden (scheduled)",
-          "Germany 0-0 Côte d'Ivoire (scheduled)",
+          "Netherlands 5-1 Sweden (finished)",
+          "Germany 0-1 Côte d'Ivoire (live)",
           "Ecuador 0-0 Curaçao (scheduled)",
           "Tunisia 0-0 Japan (scheduled)"
         ]
@@ -218,15 +208,15 @@
         "ok": true,
         "rowsRead": 44,
         "matchesParsed": 44,
-        "scoreMatchesParsed": 4,
-        "ms": 27,
+        "scoreMatchesParsed": 6,
+        "ms": 9,
         "sample": [
           "USA 2-0 Australia (finished)",
           "Scotland 0-1 Morocco (finished)",
           "Brazil 3-0 Haiti (finished)",
           "Türkiye 0-1 Paraguay (finished)",
-          "Netherlands 0-0 Sweden (scheduled)",
-          "Germany 0-0 Côte d'Ivoire (scheduled)",
+          "Netherlands 5-1 Sweden (finished)",
+          "Germany 0-1 Côte d'Ivoire (live)",
           "Ecuador 0-0 Curaçao (scheduled)",
           "Tunisia 0-0 Japan (scheduled)"
         ]
@@ -238,7 +228,7 @@
         "rowsRead": 20,
         "matchesParsed": 20,
         "scoreMatchesParsed": 0,
-        "ms": 55,
+        "ms": 45,
         "sample": [
           "Group A 2nd Place 0-0 Group B 2nd Place (scheduled)",
           "Group C Winner 0-0 Group F 2nd Place (scheduled)",
@@ -257,7 +247,7 @@
         "rowsRead": 20,
         "matchesParsed": 20,
         "scoreMatchesParsed": 0,
-        "ms": 24,
+        "ms": 5,
         "sample": [
           "Group A 2nd Place 0-0 Group B 2nd Place (scheduled)",
           "Group C Winner 0-0 Group F 2nd Place (scheduled)",
@@ -276,7 +266,7 @@
         "rowsRead": 12,
         "matchesParsed": 12,
         "scoreMatchesParsed": 0,
-        "ms": 55,
+        "ms": 62,
         "sample": [
           "Round of 32 11 Winner 0-0 Round of 32 12 Winner (scheduled)",
           "Round of 32 9 Winner 0-0 Round of 32 10 Winner (scheduled)",
@@ -295,7 +285,7 @@
         "rowsRead": 12,
         "matchesParsed": 12,
         "scoreMatchesParsed": 0,
-        "ms": 23,
+        "ms": 6,
         "sample": [
           "Round of 32 11 Winner 0-0 Round of 32 12 Winner (scheduled)",
           "Round of 32 9 Winner 0-0 Round of 32 10 Winner (scheduled)",
@@ -309,9 +299,9 @@
       }
     ],
     "selectedSource": "WorldCup26 + ESPN broad + ESPN date windows + previous live.json preservation",
-    "rowsRead": 838,
+    "rowsRead": 734,
     "matchesParsed": 106,
-    "scoreMatchesParsed": 32,
+    "scoreMatchesParsed": 34,
     "previousScoresPreserved": 0,
     "previousScoresReplaced": 104,
     "newScoreMatchesAdded": 0,
@@ -357,9 +347,9 @@
       "t1": "Germany",
       "t2": "Côte d'Ivoire",
       "score1": 0,
-      "score2": 0,
-      "status": "scheduled",
-      "rawStatus": "STATUS_SCHEDULED",
+      "score2": 1,
+      "status": "live",
+      "rawStatus": "STATUS_HALFTIME",
       "kickoff": "2026-06-20T20:00Z",
       "source": "ESPN"
     },
@@ -367,10 +357,10 @@
       "id": "760447",
       "t1": "Netherlands",
       "t2": "Sweden",
-      "score1": 0,
-      "score2": 0,
-      "status": "scheduled",
-      "rawStatus": "STATUS_SCHEDULED",
+      "score1": 5,
+      "score2": 1,
+      "status": "finished",
+      "rawStatus": "STATUS_FULL_TIME",
       "kickoff": "2026-06-20T17:00Z",
       "source": "ESPN"
     },
