@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-06-19T22:13:55.889Z",
+  "updatedAt": "2026-06-20T10:13:41.239Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-06-19T22:13:51.411Z",
+    "updatedAt": "2026-06-20T10:13:36.784Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,38 +54,10 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 30,
-    "summaryCallsSucceeded": 30,
+    "eventsChecked": 32,
+    "summaryCallsSucceeded": 32,
     "summaryCallsFailed": 0,
     "teamCardStats": [
-      {
-        "eventId": "760442",
-        "team": "USA",
-        "rawTeam": "United States",
-        "yellow": 3,
-        "red": 0
-      },
-      {
-        "eventId": "760442",
-        "team": "Australia",
-        "rawTeam": "Australia",
-        "yellow": 4,
-        "red": 0
-      },
-      {
-        "eventId": "760445",
-        "team": "Scotland",
-        "rawTeam": "Scotland",
-        "yellow": 0,
-        "red": 0
-      },
-      {
-        "eventId": "760445",
-        "team": "Morocco",
-        "rawTeam": "Morocco",
-        "yellow": 0,
-        "red": 0
-      },
       {
         "eventId": "760415",
         "team": "Mexico",
@@ -477,12 +449,68 @@
         "rawTeam": "South Korea",
         "yellow": 2,
         "red": 0
+      },
+      {
+        "eventId": "760442",
+        "team": "USA",
+        "rawTeam": "United States",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760442",
+        "team": "Australia",
+        "rawTeam": "Australia",
+        "yellow": 4,
+        "red": 0
+      },
+      {
+        "eventId": "760445",
+        "team": "Scotland",
+        "rawTeam": "Scotland",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760445",
+        "team": "Morocco",
+        "rawTeam": "Morocco",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760444",
+        "team": "Brazil",
+        "rawTeam": "Brazil",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760444",
+        "team": "Haiti",
+        "rawTeam": "Haiti",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760443",
+        "team": "Türkiye",
+        "rawTeam": "Türkiye",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760443",
+        "team": "Paraguay",
+        "rawTeam": "Paraguay",
+        "yellow": 1,
+        "red": 1
       }
     ],
     "teamStatBlocksWithoutCardStats": [],
     "warnings": [],
-    "rowsMapped": 33,
-    "nonZeroRows": 33
+    "rowsMapped": 34,
+    "nonZeroRows": 34
   },
   "cards": {
     "Mexico": {
@@ -526,22 +554,22 @@
       "straightRed": 0
     },
     "Brazil": {
-      "yellow": 2,
+      "yellow": 3,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Morocco": {
-      "yellow": 0,
-      "secondYellow": 0,
-      "straightRed": 0
-    },
-    "Haiti": {
       "yellow": 1,
       "secondYellow": 0,
       "straightRed": 0
     },
+    "Haiti": {
+      "yellow": 4,
+      "secondYellow": 0,
+      "straightRed": 0
+    },
     "Scotland": {
-      "yellow": 3,
+      "yellow": 4,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -551,9 +579,9 @@
       "straightRed": 0
     },
     "Paraguay": {
-      "yellow": 5,
+      "yellow": 6,
       "secondYellow": 0,
-      "straightRed": 0
+      "straightRed": 1
     },
     "Australia": {
       "yellow": 4,
@@ -561,7 +589,7 @@
       "straightRed": 0
     },
     "Türkiye": {
-      "yellow": 1,
+      "yellow": 2,
       "secondYellow": 0,
       "straightRed": 0
     },
