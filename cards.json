@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-06-20T20:52:54.201Z",
+  "updatedAt": "2026-06-21T09:48:49.054Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-06-20T20:52:51.409Z",
+    "updatedAt": "2026-06-21T09:48:39.093Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,35 +54,21 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 34,
-    "summaryCallsSucceeded": 34,
+    "eventsChecked": 36,
+    "summaryCallsSucceeded": 36,
     "summaryCallsFailed": 0,
     "teamCardStats": [
       {
-        "eventId": "760447",
-        "team": "Netherlands",
-        "rawTeam": "Netherlands",
+        "eventId": "760449",
+        "team": "Tunisia",
+        "rawTeam": "Tunisia",
         "yellow": 0,
         "red": 0
       },
       {
-        "eventId": "760447",
-        "team": "Sweden",
-        "rawTeam": "Sweden",
-        "yellow": 3,
-        "red": 0
-      },
-      {
-        "eventId": "760448",
-        "team": "Germany",
-        "rawTeam": "Germany",
-        "yellow": 0,
-        "red": 0
-      },
-      {
-        "eventId": "760448",
-        "team": "Côte d'Ivoire",
-        "rawTeam": "Ivory Coast",
+        "eventId": "760449",
+        "team": "Japan",
+        "rawTeam": "Japan",
         "yellow": 0,
         "red": 0
       },
@@ -533,12 +519,54 @@
         "rawTeam": "Paraguay",
         "yellow": 1,
         "red": 1
+      },
+      {
+        "eventId": "760447",
+        "team": "Netherlands",
+        "rawTeam": "Netherlands",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760447",
+        "team": "Sweden",
+        "rawTeam": "Sweden",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760448",
+        "team": "Germany",
+        "rawTeam": "Germany",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760448",
+        "team": "Côte d'Ivoire",
+        "rawTeam": "Ivory Coast",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760446",
+        "team": "Ecuador",
+        "rawTeam": "Ecuador",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760446",
+        "team": "Curaçao",
+        "rawTeam": "Curaçao",
+        "yellow": 5,
+        "red": 0
       }
     ],
     "teamStatBlocksWithoutCardStats": [],
     "warnings": [],
-    "rowsMapped": 35,
-    "nonZeroRows": 35
+    "rowsMapped": 36,
+    "nonZeroRows": 36
   },
   "cards": {
     "Mexico": {
@@ -627,7 +655,7 @@
       "straightRed": 0
     },
     "Curaçao": {
-      "yellow": 0,
+      "yellow": 5,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -637,7 +665,7 @@
       "straightRed": 0
     },
     "Ecuador": {
-      "yellow": 1,
+      "yellow": 2,
       "secondYellow": 0,
       "straightRed": 0
     },
