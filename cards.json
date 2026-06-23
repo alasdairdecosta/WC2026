@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-06-22T22:27:01.145Z",
+  "updatedAt": "2026-06-23T10:48:20.901Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-06-22T22:26:51.609Z",
+    "updatedAt": "2026-06-23T10:48:18.825Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,38 +54,10 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 42,
-    "summaryCallsSucceeded": 42,
+    "eventsChecked": 44,
+    "summaryCallsSucceeded": 44,
     "summaryCallsFailed": 0,
     "teamCardStats": [
-      {
-        "eventId": "760456",
-        "team": "Argentina",
-        "rawTeam": "Argentina",
-        "yellow": 2,
-        "red": 0
-      },
-      {
-        "eventId": "760456",
-        "team": "Austria",
-        "rawTeam": "Austria",
-        "yellow": 2,
-        "red": 0
-      },
-      {
-        "eventId": "760457",
-        "team": "France",
-        "rawTeam": "France",
-        "yellow": 0,
-        "red": 0
-      },
-      {
-        "eventId": "760457",
-        "team": "Iraq",
-        "rawTeam": "Iraq",
-        "yellow": 1,
-        "red": 0
-      },
       {
         "eventId": "760415",
         "team": "Mexico",
@@ -645,12 +617,68 @@
         "rawTeam": "Egypt",
         "yellow": 1,
         "red": 0
+      },
+      {
+        "eventId": "760456",
+        "team": "Argentina",
+        "rawTeam": "Argentina",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760456",
+        "team": "Austria",
+        "rawTeam": "Austria",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760457",
+        "team": "France",
+        "rawTeam": "France",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760457",
+        "team": "Iraq",
+        "rawTeam": "Iraq",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760454",
+        "team": "Norway",
+        "rawTeam": "Norway",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760454",
+        "team": "Senegal",
+        "rawTeam": "Senegal",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760455",
+        "team": "Jordan",
+        "rawTeam": "Jordan",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760455",
+        "team": "Algeria",
+        "rawTeam": "Algeria",
+        "yellow": 1,
+        "red": 0
       }
     ],
     "teamStatBlocksWithoutCardStats": [],
     "warnings": [],
-    "rowsMapped": 39,
-    "nonZeroRows": 39
+    "rowsMapped": 41,
+    "nonZeroRows": 41
   },
   "cards": {
     "Mexico": {
@@ -839,7 +867,7 @@
       "straightRed": 0
     },
     "Algeria": {
-      "yellow": 0,
+      "yellow": 1,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -849,7 +877,7 @@
       "straightRed": 0
     },
     "Jordan": {
-      "yellow": 0,
+      "yellow": 1,
       "secondYellow": 0,
       "straightRed": 0
     },
