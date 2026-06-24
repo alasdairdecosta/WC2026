@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-06-24T17:31:35.703Z",
+  "updatedAt": "2026-06-24T22:02:15.707Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-06-24T17:31:32.054Z",
+    "updatedAt": "2026-06-24T22:02:11.731Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,10 +54,52 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 48,
-    "summaryCallsSucceeded": 48,
+    "eventsChecked": 51,
+    "summaryCallsSucceeded": 51,
     "summaryCallsFailed": 0,
     "teamCardStats": [
+      {
+        "eventId": "760462",
+        "team": "Bosnia and Herzegovina",
+        "rawTeam": "Bosnia-Herzegovina",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760462",
+        "team": "Qatar",
+        "rawTeam": "Qatar",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760463",
+        "team": "Switzerland",
+        "rawTeam": "Switzerland",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760463",
+        "team": "Canada",
+        "rawTeam": "Canada",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760464",
+        "team": "Morocco",
+        "rawTeam": "Morocco",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760464",
+        "team": "Haiti",
+        "rawTeam": "Haiti",
+        "yellow": 0,
+        "red": 0
+      },
       {
         "eventId": "760415",
         "team": "Mexico",
@@ -758,22 +800,22 @@
       "straightRed": 0
     },
     "Canada": {
-      "yellow": 3,
+      "yellow": 5,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Bosnia and Herzegovina": {
-      "yellow": 5,
+      "yellow": 6,
       "secondYellow": 0,
       "straightRed": 1
     },
     "Qatar": {
-      "yellow": 3,
+      "yellow": 4,
       "secondYellow": 0,
       "straightRed": 2
     },
     "Switzerland": {
-      "yellow": 2,
+      "yellow": 3,
       "secondYellow": 0,
       "straightRed": 0
     },
