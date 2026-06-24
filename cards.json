@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-06-23T22:06:05.352Z",
+  "updatedAt": "2026-06-24T10:28:50.715Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-06-23T22:06:01.919Z",
+    "updatedAt": "2026-06-24T10:28:48.864Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,38 +54,10 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 46,
-    "summaryCallsSucceeded": 46,
+    "eventsChecked": 48,
+    "summaryCallsSucceeded": 48,
     "summaryCallsFailed": 0,
     "teamCardStats": [
-      {
-        "eventId": "760461",
-        "team": "Portugal",
-        "rawTeam": "Portugal",
-        "yellow": 1,
-        "red": 0
-      },
-      {
-        "eventId": "760461",
-        "team": "Uzbekistan",
-        "rawTeam": "Uzbekistan",
-        "yellow": 1,
-        "red": 0
-      },
-      {
-        "eventId": "760458",
-        "team": "England",
-        "rawTeam": "England",
-        "yellow": 1,
-        "red": 0
-      },
-      {
-        "eventId": "760458",
-        "team": "Ghana",
-        "rawTeam": "Ghana",
-        "yellow": 1,
-        "red": 0
-      },
       {
         "eventId": "760415",
         "team": "Mexico",
@@ -701,12 +673,68 @@
         "rawTeam": "Algeria",
         "yellow": 1,
         "red": 0
+      },
+      {
+        "eventId": "760461",
+        "team": "Portugal",
+        "rawTeam": "Portugal",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760461",
+        "team": "Uzbekistan",
+        "rawTeam": "Uzbekistan",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760458",
+        "team": "England",
+        "rawTeam": "England",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760458",
+        "team": "Ghana",
+        "rawTeam": "Ghana",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760460",
+        "team": "Panama",
+        "rawTeam": "Panama",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760460",
+        "team": "Croatia",
+        "rawTeam": "Croatia",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760459",
+        "team": "Colombia",
+        "rawTeam": "Colombia",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760459",
+        "team": "Congo DR",
+        "rawTeam": "Congo DR",
+        "yellow": 1,
+        "red": 0
       }
     ],
     "teamStatBlocksWithoutCardStats": [],
     "warnings": [],
-    "rowsMapped": 42,
-    "nonZeroRows": 42
+    "rowsMapped": 43,
+    "nonZeroRows": 43
   },
   "cards": {
     "Mexico": {
@@ -915,7 +943,7 @@
       "straightRed": 0
     },
     "Colombia": {
-      "yellow": 1,
+      "yellow": 3,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -925,7 +953,7 @@
       "straightRed": 0
     },
     "Congo DR": {
-      "yellow": 1,
+      "yellow": 2,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -935,7 +963,7 @@
       "straightRed": 0
     },
     "Croatia": {
-      "yellow": 0,
+      "yellow": 1,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -945,7 +973,7 @@
       "straightRed": 0
     },
     "Panama": {
-      "yellow": 2,
+      "yellow": 3,
       "secondYellow": 0,
       "straightRed": 0
     }
