@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-06-24T22:02:15.707Z",
+  "updatedAt": "2026-06-25T10:20:10.564Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-06-24T22:02:11.731Z",
+    "updatedAt": "2026-06-25T10:20:06.900Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,52 +54,10 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 51,
-    "summaryCallsSucceeded": 51,
+    "eventsChecked": 54,
+    "summaryCallsSucceeded": 54,
     "summaryCallsFailed": 0,
     "teamCardStats": [
-      {
-        "eventId": "760462",
-        "team": "Bosnia and Herzegovina",
-        "rawTeam": "Bosnia-Herzegovina",
-        "yellow": 1,
-        "red": 0
-      },
-      {
-        "eventId": "760462",
-        "team": "Qatar",
-        "rawTeam": "Qatar",
-        "yellow": 1,
-        "red": 0
-      },
-      {
-        "eventId": "760463",
-        "team": "Switzerland",
-        "rawTeam": "Switzerland",
-        "yellow": 1,
-        "red": 0
-      },
-      {
-        "eventId": "760463",
-        "team": "Canada",
-        "rawTeam": "Canada",
-        "yellow": 2,
-        "red": 0
-      },
-      {
-        "eventId": "760464",
-        "team": "Morocco",
-        "rawTeam": "Morocco",
-        "yellow": 0,
-        "red": 0
-      },
-      {
-        "eventId": "760464",
-        "team": "Haiti",
-        "rawTeam": "Haiti",
-        "yellow": 0,
-        "red": 0
-      },
       {
         "eventId": "760415",
         "team": "Mexico",
@@ -771,6 +729,90 @@
         "rawTeam": "Congo DR",
         "yellow": 1,
         "red": 0
+      },
+      {
+        "eventId": "760462",
+        "team": "Bosnia and Herzegovina",
+        "rawTeam": "Bosnia-Herzegovina",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760462",
+        "team": "Qatar",
+        "rawTeam": "Qatar",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760463",
+        "team": "Switzerland",
+        "rawTeam": "Switzerland",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760463",
+        "team": "Canada",
+        "rawTeam": "Canada",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760464",
+        "team": "Morocco",
+        "rawTeam": "Morocco",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760464",
+        "team": "Haiti",
+        "rawTeam": "Haiti",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760465",
+        "team": "Scotland",
+        "rawTeam": "Scotland",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760465",
+        "team": "Brazil",
+        "rawTeam": "Brazil",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760467",
+        "team": "Czechia",
+        "rawTeam": "Czechia",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760467",
+        "team": "Mexico",
+        "rawTeam": "Mexico",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760466",
+        "team": "South Africa",
+        "rawTeam": "South Africa",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760466",
+        "team": "Korea Republic",
+        "rawTeam": "South Korea",
+        "yellow": 1,
+        "red": 0
       }
     ],
     "teamStatBlocksWithoutCardStats": [],
@@ -780,17 +822,17 @@
   },
   "cards": {
     "Mexico": {
-      "yellow": 1,
+      "yellow": 2,
       "secondYellow": 0,
       "straightRed": 1
     },
     "South Africa": {
-      "yellow": 4,
+      "yellow": 5,
       "secondYellow": 0,
       "straightRed": 2
     },
     "Korea Republic": {
-      "yellow": 3,
+      "yellow": 4,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -820,7 +862,7 @@
       "straightRed": 0
     },
     "Brazil": {
-      "yellow": 3,
+      "yellow": 5,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -830,12 +872,12 @@
       "straightRed": 0
     },
     "Haiti": {
-      "yellow": 4,
+      "yellow": 7,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Scotland": {
-      "yellow": 4,
+      "yellow": 5,
       "secondYellow": 0,
       "straightRed": 0
     },
