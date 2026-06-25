@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-06-25T17:33:47.613Z",
+  "updatedAt": "2026-06-25T22:58:03.273Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-06-25T17:33:44.377Z",
+    "updatedAt": "2026-06-25T22:57:55.463Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,10 +54,38 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 54,
-    "summaryCallsSucceeded": 54,
+    "eventsChecked": 56,
+    "summaryCallsSucceeded": 56,
     "summaryCallsFailed": 0,
     "teamCardStats": [
+      {
+        "eventId": "760473",
+        "team": "Curaçao",
+        "rawTeam": "Curaçao",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760473",
+        "team": "Côte d'Ivoire",
+        "rawTeam": "Ivory Coast",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760468",
+        "team": "Ecuador",
+        "rawTeam": "Ecuador",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760468",
+        "team": "Germany",
+        "rawTeam": "Germany",
+        "yellow": 1,
+        "red": 0
+      },
       {
         "eventId": "760415",
         "team": "Mexico",
@@ -817,8 +845,8 @@
     ],
     "teamStatBlocksWithoutCardStats": [],
     "warnings": [],
-    "rowsMapped": 43,
-    "nonZeroRows": 43
+    "rowsMapped": 44,
+    "nonZeroRows": 44
   },
   "cards": {
     "Mexico": {
@@ -902,22 +930,22 @@
       "straightRed": 0
     },
     "Germany": {
-      "yellow": 0,
+      "yellow": 1,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Curaçao": {
-      "yellow": 5,
+      "yellow": 7,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Côte d'Ivoire": {
-      "yellow": 3,
+      "yellow": 4,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Ecuador": {
-      "yellow": 2,
+      "yellow": 5,
       "secondYellow": 0,
       "straightRed": 0
     },
