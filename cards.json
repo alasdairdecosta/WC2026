@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-06-25T22:58:03.273Z",
+  "updatedAt": "2026-06-26T10:37:43.720Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-06-25T22:57:55.463Z",
+    "updatedAt": "2026-06-26T10:37:41.547Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,38 +54,10 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 56,
-    "summaryCallsSucceeded": 56,
+    "eventsChecked": 60,
+    "summaryCallsSucceeded": 60,
     "summaryCallsFailed": 0,
     "teamCardStats": [
-      {
-        "eventId": "760473",
-        "team": "Curaçao",
-        "rawTeam": "Curaçao",
-        "yellow": 2,
-        "red": 0
-      },
-      {
-        "eventId": "760473",
-        "team": "Côte d'Ivoire",
-        "rawTeam": "Ivory Coast",
-        "yellow": 1,
-        "red": 0
-      },
-      {
-        "eventId": "760468",
-        "team": "Ecuador",
-        "rawTeam": "Ecuador",
-        "yellow": 3,
-        "red": 0
-      },
-      {
-        "eventId": "760468",
-        "team": "Germany",
-        "rawTeam": "Germany",
-        "yellow": 1,
-        "red": 0
-      },
       {
         "eventId": "760415",
         "team": "Mexico",
@@ -841,12 +813,96 @@
         "rawTeam": "South Korea",
         "yellow": 1,
         "red": 0
+      },
+      {
+        "eventId": "760473",
+        "team": "Curaçao",
+        "rawTeam": "Curaçao",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760473",
+        "team": "Côte d'Ivoire",
+        "rawTeam": "Ivory Coast",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760468",
+        "team": "Ecuador",
+        "rawTeam": "Ecuador",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760468",
+        "team": "Germany",
+        "rawTeam": "Germany",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760471",
+        "team": "Japan",
+        "rawTeam": "Japan",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760471",
+        "team": "Sweden",
+        "rawTeam": "Sweden",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760472",
+        "team": "Tunisia",
+        "rawTeam": "Tunisia",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760472",
+        "team": "Netherlands",
+        "rawTeam": "Netherlands",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760469",
+        "team": "Paraguay",
+        "rawTeam": "Paraguay",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760469",
+        "team": "Australia",
+        "rawTeam": "Australia",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760470",
+        "team": "Türkiye",
+        "rawTeam": "Türkiye",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760470",
+        "team": "USA",
+        "rawTeam": "United States",
+        "yellow": 1,
+        "red": 0
       }
     ],
     "teamStatBlocksWithoutCardStats": [],
     "warnings": [],
-    "rowsMapped": 44,
-    "nonZeroRows": 44
+    "rowsMapped": 45,
+    "nonZeroRows": 45
   },
   "cards": {
     "Mexico": {
@@ -910,17 +966,17 @@
       "straightRed": 0
     },
     "USA": {
-      "yellow": 4,
+      "yellow": 5,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Paraguay": {
-      "yellow": 6,
+      "yellow": 7,
       "secondYellow": 0,
       "straightRed": 1
     },
     "Australia": {
-      "yellow": 4,
+      "yellow": 5,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -955,12 +1011,12 @@
       "straightRed": 0
     },
     "Japan": {
-      "yellow": 0,
+      "yellow": 1,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Sweden": {
-      "yellow": 3,
+      "yellow": 5,
       "secondYellow": 0,
       "straightRed": 0
     },
