@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-06-26T21:50:36.928Z",
+  "updatedAt": "2026-06-27T08:10:05.947Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-06-26T21:50:33.738Z",
+    "updatedAt": "2026-06-27T08:09:57.459Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,38 +54,10 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 62,
-    "summaryCallsSucceeded": 62,
+    "eventsChecked": 66,
+    "summaryCallsSucceeded": 66,
     "summaryCallsFailed": 0,
     "teamCardStats": [
-      {
-        "eventId": "760475",
-        "team": "Norway",
-        "rawTeam": "Norway",
-        "yellow": 1,
-        "red": 0
-      },
-      {
-        "eventId": "760475",
-        "team": "France",
-        "rawTeam": "France",
-        "yellow": 1,
-        "red": 0
-      },
-      {
-        "eventId": "760474",
-        "team": "Senegal",
-        "rawTeam": "Senegal",
-        "yellow": 2,
-        "red": 0
-      },
-      {
-        "eventId": "760474",
-        "team": "Iraq",
-        "rawTeam": "Iraq",
-        "yellow": 2,
-        "red": 1
-      },
       {
         "eventId": "760415",
         "team": "Mexico",
@@ -925,6 +897,90 @@
         "rawTeam": "United States",
         "yellow": 1,
         "red": 0
+      },
+      {
+        "eventId": "760475",
+        "team": "Norway",
+        "rawTeam": "Norway",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760475",
+        "team": "France",
+        "rawTeam": "France",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760474",
+        "team": "Senegal",
+        "rawTeam": "Senegal",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760474",
+        "team": "Iraq",
+        "rawTeam": "Iraq",
+        "yellow": 2,
+        "red": 1
+      },
+      {
+        "eventId": "760478",
+        "team": "Cabo Verde",
+        "rawTeam": "Cape Verde",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760478",
+        "team": "Saudi Arabia",
+        "rawTeam": "Saudi Arabia",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760479",
+        "team": "Uruguay",
+        "rawTeam": "Uruguay",
+        "yellow": 3,
+        "red": 1
+      },
+      {
+        "eventId": "760479",
+        "team": "Spain",
+        "rawTeam": "Spain",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760476",
+        "team": "Egypt",
+        "rawTeam": "Egypt",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760476",
+        "team": "IR Iran",
+        "rawTeam": "Iran",
+        "yellow": 4,
+        "red": 0
+      },
+      {
+        "eventId": "760477",
+        "team": "New Zealand",
+        "rawTeam": "New Zealand",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760477",
+        "team": "Belgium",
+        "rawTeam": "Belgium",
+        "yellow": 0,
+        "red": 0
       }
     ],
     "teamStatBlocksWithoutCardStats": [],
@@ -1059,39 +1115,39 @@
       "straightRed": 1
     },
     "Egypt": {
-      "yellow": 3,
+      "yellow": 6,
       "secondYellow": 0,
       "straightRed": 0
     },
     "IR Iran": {
-      "yellow": 2,
+      "yellow": 6,
       "secondYellow": 0,
       "straightRed": 0
     },
     "New Zealand": {
-      "yellow": 2,
+      "yellow": 4,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Spain": {
-      "yellow": 1,
+      "yellow": 2,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Cabo Verde": {
-      "yellow": 3,
+      "yellow": 4,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Saudi Arabia": {
-      "yellow": 3,
+      "yellow": 6,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Uruguay": {
-      "yellow": 2,
+      "yellow": 5,
       "secondYellow": 0,
-      "straightRed": 0
+      "straightRed": 1
     },
     "France": {
       "yellow": 1,
