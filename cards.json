@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-06-28T15:06:54.177Z",
+  "updatedAt": "2026-06-28T19:57:56.667Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-06-28T15:06:44.029Z",
+    "updatedAt": "2026-06-28T19:57:46.150Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,10 +54,24 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 72,
-    "summaryCallsSucceeded": 72,
+    "eventsChecked": 73,
+    "summaryCallsSucceeded": 73,
     "summaryCallsFailed": 0,
     "teamCardStats": [
+      {
+        "eventId": "760486",
+        "team": "South Africa",
+        "rawTeam": "South Africa",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760486",
+        "team": "Canada",
+        "rawTeam": "Canada",
+        "yellow": 0,
+        "red": 0
+      },
       {
         "eventId": "760415",
         "team": "Mexico",
