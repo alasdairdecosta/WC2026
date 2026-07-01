@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-07-01T10:56:18.552Z",
+  "updatedAt": "2026-07-01T18:20:18.638Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-07-01T10:56:13.467Z",
+    "updatedAt": "2026-07-01T18:20:09.006Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,10 +54,24 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 79,
-    "summaryCallsSucceeded": 79,
+    "eventsChecked": 80,
+    "summaryCallsSucceeded": 80,
     "summaryCallsFailed": 0,
     "teamCardStats": [
+      {
+        "eventId": "760495",
+        "team": "England",
+        "rawTeam": "England",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760495",
+        "team": "Congo DR",
+        "rawTeam": "Congo DR",
+        "yellow": 1,
+        "red": 0
+      },
       {
         "eventId": "760415",
         "team": "Mexico",
@@ -1387,12 +1401,12 @@
       "straightRed": 0
     },
     "Congo DR": {
-      "yellow": 5,
+      "yellow": 6,
       "secondYellow": 0,
       "straightRed": 0
     },
     "England": {
-      "yellow": 2,
+      "yellow": 3,
       "secondYellow": 0,
       "straightRed": 0
     },
