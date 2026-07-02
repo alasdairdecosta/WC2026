@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-07-01T22:50:24.643Z",
+  "updatedAt": "2026-07-02T10:15:43.201Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-07-01T22:50:20.764Z",
+    "updatedAt": "2026-07-02T10:15:31.272Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,39 +54,11 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 81,
-    "summaryCallsSucceeded": 81,
+    "eventsChecked": 82,
+    "summaryCallsSucceeded": 82,
     "summaryCallsFailed": 0,
     "teamCardStats": [
       {
-        "eventId": "760495",
-        "team": "England",
-        "rawTeam": "England",
-        "yellow": 1,
-        "red": 0
-      },
-      {
-        "eventId": "760495",
-        "team": "Congo DR",
-        "rawTeam": "Congo DR",
-        "yellow": 1,
-        "red": 0
-      },
-      {
-        "eventId": "760493",
-        "team": "Belgium",
-        "rawTeam": "Belgium",
-        "yellow": 1,
-        "red": 0
-      },
-      {
-        "eventId": "760493",
-        "team": "Senegal",
-        "rawTeam": "Senegal",
-        "yellow": 1,
-        "red": 0
-      },
-      {
         "eventId": "760415",
         "team": "Mexico",
         "rawTeam": "Mexico",
@@ -1191,6 +1163,48 @@
         "rawTeam": "Ecuador",
         "yellow": 3,
         "red": 1
+      },
+      {
+        "eventId": "760495",
+        "team": "England",
+        "rawTeam": "England",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760495",
+        "team": "Congo DR",
+        "rawTeam": "Congo DR",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760493",
+        "team": "Belgium",
+        "rawTeam": "Belgium",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760493",
+        "team": "Senegal",
+        "rawTeam": "Senegal",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760494",
+        "team": "USA",
+        "rawTeam": "United States",
+        "yellow": 0,
+        "red": 1
+      },
+      {
+        "eventId": "760494",
+        "team": "Bosnia and Herzegovina",
+        "rawTeam": "Bosnia-Herzegovina",
+        "yellow": 1,
+        "red": 0
       }
     ],
     "teamStatBlocksWithoutCardStats": [],
@@ -1225,7 +1239,7 @@
       "straightRed": 0
     },
     "Bosnia and Herzegovina": {
-      "yellow": 6,
+      "yellow": 7,
       "secondYellow": 0,
       "straightRed": 1
     },
@@ -1262,7 +1276,7 @@
     "USA": {
       "yellow": 5,
       "secondYellow": 0,
-      "straightRed": 0
+      "straightRed": 1
     },
     "Paraguay": {
       "yellow": 9,
