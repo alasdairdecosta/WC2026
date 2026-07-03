@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-07-03T15:45:09.181Z",
+  "updatedAt": "2026-07-03T20:21:13.452Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-07-03T15:45:04.842Z",
+    "updatedAt": "2026-07-03T20:21:08.135Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,10 +54,24 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 85,
-    "summaryCallsSucceeded": 85,
+    "eventsChecked": 86,
+    "summaryCallsSucceeded": 86,
     "summaryCallsFailed": 0,
     "teamCardStats": [
+      {
+        "eventId": "760499",
+        "team": "Australia",
+        "rawTeam": "Australia",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760499",
+        "team": "Egypt",
+        "rawTeam": "Egypt",
+        "yellow": 1,
+        "red": 0
+      },
       {
         "eventId": "760415",
         "team": "Mexico",
@@ -1381,7 +1395,7 @@
       "straightRed": 1
     },
     "Egypt": {
-      "yellow": 6,
+      "yellow": 7,
       "secondYellow": 0,
       "straightRed": 0
     },
