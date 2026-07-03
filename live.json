@@ -1,9 +1,9 @@
 {
   "source": "WorldCup26 + ESPN broad + ESPN date windows + previous live.json preservation",
-  "updatedAt": "2026-07-02T20:43:16.283Z",
+  "updatedAt": "2026-07-03T08:36:59.385Z",
   "caveat": "Multiple live data sources were merged for redundancy.",
   "diagnostics": {
-    "generatedAt": "2026-07-02T20:43:16.283Z",
+    "generatedAt": "2026-07-03T08:36:59.385Z",
     "strategy": [
       "manual override, if present",
       "WorldCup26 endpoint variants",
@@ -18,9 +18,9 @@
         "url": "https://worldcup26.ir/get/games",
         "ok": true,
         "rowsRead": 104,
-        "matchesParsed": 93,
-        "scoreMatchesParsed": 82,
-        "ms": 721,
+        "matchesParsed": 94,
+        "scoreMatchesParsed": 85,
+        "ms": 941,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -37,9 +37,9 @@
         "url": "https://www.worldcup26.ir/get/games",
         "ok": true,
         "rowsRead": 104,
-        "matchesParsed": 93,
-        "scoreMatchesParsed": 82,
-        "ms": 561,
+        "matchesParsed": 94,
+        "scoreMatchesParsed": 85,
+        "ms": 768,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -56,9 +56,9 @@
         "url": "http://worldcup26.ir/get/games",
         "ok": true,
         "rowsRead": 104,
-        "matchesParsed": 93,
-        "scoreMatchesParsed": 82,
-        "ms": 557,
+        "matchesParsed": 94,
+        "scoreMatchesParsed": 85,
+        "ms": 752,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -75,9 +75,9 @@
         "url": "http://www.worldcup26.ir/get/games",
         "ok": true,
         "rowsRead": 104,
-        "matchesParsed": 93,
-        "scoreMatchesParsed": 82,
-        "ms": 644,
+        "matchesParsed": 94,
+        "scoreMatchesParsed": 85,
+        "ms": 690,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -95,8 +95,8 @@
         "ok": true,
         "rowsRead": 104,
         "matchesParsed": 104,
-        "scoreMatchesParsed": 83,
-        "ms": 224,
+        "scoreMatchesParsed": 85,
+        "ms": 408,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -114,8 +114,8 @@
         "ok": true,
         "rowsRead": 104,
         "matchesParsed": 104,
-        "scoreMatchesParsed": 83,
-        "ms": 130,
+        "scoreMatchesParsed": 85,
+        "ms": 420,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -133,12 +133,12 @@
         "ok": true,
         "rowsRead": 3,
         "matchesParsed": 3,
-        "scoreMatchesParsed": 1,
-        "ms": 175,
+        "scoreMatchesParsed": 0,
+        "ms": 72,
         "sample": [
-          "Spain 2-0 Austria (live)",
-          "Portugal 0-0 Croatia (scheduled)",
-          "Switzerland 0-0 Algeria (scheduled)"
+          "Australia 0-0 Egypt (scheduled)",
+          "Argentina 0-0 Cabo Verde (scheduled)",
+          "Colombia 0-0 Ghana (scheduled)"
         ]
       },
       {
@@ -147,12 +147,12 @@
         "ok": true,
         "rowsRead": 3,
         "matchesParsed": 3,
-        "scoreMatchesParsed": 1,
-        "ms": 22,
+        "scoreMatchesParsed": 0,
+        "ms": 42,
         "sample": [
-          "Spain 2-0 Austria (live)",
-          "Portugal 0-0 Croatia (scheduled)",
-          "Switzerland 0-0 Algeria (scheduled)"
+          "Australia 0-0 Egypt (scheduled)",
+          "Argentina 0-0 Cabo Verde (scheduled)",
+          "Colombia 0-0 Ghana (scheduled)"
         ]
       },
       {
@@ -162,7 +162,7 @@
         "rowsRead": 28,
         "matchesParsed": 28,
         "scoreMatchesParsed": 28,
-        "ms": 270,
+        "ms": 101,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -181,7 +181,7 @@
         "rowsRead": 28,
         "matchesParsed": 28,
         "scoreMatchesParsed": 28,
-        "ms": 24,
+        "ms": 45,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -200,7 +200,7 @@
         "rowsRead": 44,
         "matchesParsed": 44,
         "scoreMatchesParsed": 44,
-        "ms": 160,
+        "ms": 325,
         "sample": [
           "USA 2-0 Australia (finished)",
           "Scotland 0-1 Morocco (finished)",
@@ -219,7 +219,7 @@
         "rowsRead": 44,
         "matchesParsed": 44,
         "scoreMatchesParsed": 44,
-        "ms": 25,
+        "ms": 52,
         "sample": [
           "USA 2-0 Australia (finished)",
           "Scotland 0-1 Morocco (finished)",
@@ -237,8 +237,8 @@
         "ok": true,
         "rowsRead": 20,
         "matchesParsed": 20,
-        "scoreMatchesParsed": 11,
-        "ms": 229,
+        "scoreMatchesParsed": 13,
+        "ms": 79,
         "sample": [
           "South Africa 0-1 Canada (finished)",
           "Brazil 2-1 Japan (finished)",
@@ -256,8 +256,8 @@
         "ok": true,
         "rowsRead": 20,
         "matchesParsed": 20,
-        "scoreMatchesParsed": 11,
-        "ms": 23,
+        "scoreMatchesParsed": 13,
+        "ms": 64,
         "sample": [
           "South Africa 0-1 Canada (finished)",
           "Brazil 2-1 Japan (finished)",
@@ -276,12 +276,12 @@
         "rowsRead": 12,
         "matchesParsed": 12,
         "scoreMatchesParsed": 0,
-        "ms": 108,
+        "ms": 87,
         "sample": [
-          "Round of 32 11 Winner 0-0 Round of 32 12 Winner (scheduled)",
+          "Portugal 0-0 Spain (scheduled)",
           "USA 0-0 Belgium (scheduled)",
           "Round of 32 14 Winner 0-0 Round of 32 16 Winner (scheduled)",
-          "Round of 32 13 Winner 0-0 Round of 32 15 Winner (scheduled)",
+          "Switzerland 0-0 Round of 32 15 Winner (scheduled)",
           "Round of 16 1 Winner 0-0 Round of 16 2 Winner (scheduled)",
           "Round of 16 5 Winner 0-0 Round of 16 6 Winner (scheduled)",
           "Round of 16 3 Winner 0-0 Round of 16 4 Winner (scheduled)",
@@ -295,12 +295,12 @@
         "rowsRead": 12,
         "matchesParsed": 12,
         "scoreMatchesParsed": 0,
-        "ms": 22,
+        "ms": 65,
         "sample": [
-          "Round of 32 11 Winner 0-0 Round of 32 12 Winner (scheduled)",
+          "Portugal 0-0 Spain (scheduled)",
           "USA 0-0 Belgium (scheduled)",
           "Round of 32 14 Winner 0-0 Round of 32 16 Winner (scheduled)",
-          "Round of 32 13 Winner 0-0 Round of 32 15 Winner (scheduled)",
+          "Switzerland 0-0 Round of 32 15 Winner (scheduled)",
           "Round of 16 1 Winner 0-0 Round of 16 2 Winner (scheduled)",
           "Round of 16 5 Winner 0-0 Round of 16 6 Winner (scheduled)",
           "Round of 16 3 Winner 0-0 Round of 16 4 Winner (scheduled)",
@@ -310,11 +310,11 @@
     ],
     "selectedSource": "WorldCup26 + ESPN broad + ESPN date windows + previous live.json preservation",
     "rowsRead": 838,
-    "matchesParsed": 145,
-    "scoreMatchesParsed": 83,
+    "matchesParsed": 147,
+    "scoreMatchesParsed": 85,
     "previousScoresPreserved": 0,
-    "previousScoresReplaced": 104,
-    "newScoreMatchesAdded": 0,
+    "previousScoresReplaced": 102,
+    "newScoreMatchesAdded": 2,
     "warning": "Multiple live data sources were merged for redundancy.",
     "stale": false
   },
@@ -1764,10 +1764,10 @@
       "id": "760496",
       "t1": "Portugal",
       "t2": "Croatia",
-      "score1": 0,
-      "score2": 0,
-      "status": "scheduled",
-      "rawStatus": "STATUS_SCHEDULED",
+      "score1": 2,
+      "score2": 1,
+      "status": "finished",
+      "rawStatus": "STATUS_FULL_TIME",
       "kickoff": "2026-07-02T23:00Z",
       "source": "ESPN"
     },
@@ -1775,10 +1775,10 @@
       "id": "760498",
       "t1": "Switzerland",
       "t2": "Algeria",
-      "score1": 0,
+      "score1": 2,
       "score2": 0,
-      "status": "scheduled",
-      "rawStatus": "STATUS_SCHEDULED",
+      "status": "finished",
+      "rawStatus": "STATUS_FULL_TIME",
       "kickoff": "2026-07-03T03:00Z",
       "source": "ESPN"
     },
@@ -1786,10 +1786,10 @@
       "id": "760497",
       "t1": "Spain",
       "t2": "Austria",
-      "score1": 2,
+      "score1": 3,
       "score2": 0,
-      "status": "live",
-      "rawStatus": "STATUS_SECOND_HALF",
+      "status": "finished",
+      "rawStatus": "STATUS_FULL_TIME",
       "kickoff": "2026-07-02T19:00Z",
       "source": "ESPN"
     },
@@ -1912,6 +1912,28 @@
       "status": "scheduled",
       "rawStatus": "STATUS_SCHEDULED",
       "kickoff": "2026-07-07T00:00Z",
+      "source": "ESPN"
+    },
+    {
+      "id": "760506",
+      "t1": "Portugal",
+      "t2": "Spain",
+      "score1": 0,
+      "score2": 0,
+      "status": "scheduled",
+      "rawStatus": "STATUS_SCHEDULED",
+      "kickoff": "2026-07-06T19:00Z",
+      "source": "ESPN"
+    },
+    {
+      "id": "760508",
+      "t1": "Switzerland",
+      "t2": "Round of 32 15 Winner",
+      "score1": 0,
+      "score2": 0,
+      "status": "scheduled",
+      "rawStatus": "STATUS_SCHEDULED",
+      "kickoff": "2026-07-07T20:00Z",
       "source": "ESPN"
     }
   ]
