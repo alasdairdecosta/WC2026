@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-07-04T16:34:18.972Z",
+  "updatedAt": "2026-07-04T20:16:58.649Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-07-04T16:34:12.361Z",
+    "updatedAt": "2026-07-04T20:16:54.529Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,10 +54,24 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 88,
-    "summaryCallsSucceeded": 88,
+    "eventsChecked": 89,
+    "summaryCallsSucceeded": 89,
     "summaryCallsFailed": 0,
     "teamCardStats": [
+      {
+        "eventId": "760502",
+        "team": "Canada",
+        "rawTeam": "Canada",
+        "yellow": 4,
+        "red": 0
+      },
+      {
+        "eventId": "760502",
+        "team": "Morocco",
+        "rawTeam": "Morocco",
+        "yellow": 4,
+        "red": 0
+      },
       {
         "eventId": "760415",
         "team": "Mexico",
@@ -1318,7 +1332,7 @@
       "straightRed": 0
     },
     "Canada": {
-      "yellow": 7,
+      "yellow": 11,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -1343,7 +1357,7 @@
       "straightRed": 0
     },
     "Morocco": {
-      "yellow": 2,
+      "yellow": 6,
       "secondYellow": 0,
       "straightRed": 0
     },
