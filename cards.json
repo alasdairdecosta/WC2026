@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-07-05T18:46:14.603Z",
+  "updatedAt": "2026-07-05T22:15:35.633Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-07-05T18:46:06.023Z",
+    "updatedAt": "2026-07-05T22:15:28.125Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,10 +54,24 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 90,
-    "summaryCallsSucceeded": 90,
+    "eventsChecked": 91,
+    "summaryCallsSucceeded": 91,
     "summaryCallsFailed": 0,
     "teamCardStats": [
+      {
+        "eventId": "760504",
+        "team": "Brazil",
+        "rawTeam": "Brazil",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760504",
+        "team": "Norway",
+        "rawTeam": "Norway",
+        "yellow": 0,
+        "red": 0
+      },
       {
         "eventId": "760415",
         "team": "Mexico",
@@ -1366,7 +1380,7 @@
       "straightRed": 0
     },
     "Brazil": {
-      "yellow": 7,
+      "yellow": 8,
       "secondYellow": 0,
       "straightRed": 0
     },
