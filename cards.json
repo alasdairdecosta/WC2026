@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-07-04T23:46:22.023Z",
+  "updatedAt": "2026-07-05T09:46:38.588Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-07-04T23:46:15.328Z",
+    "updatedAt": "2026-07-05T09:46:35.137Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -59,34 +59,6 @@
     "summaryCallsFailed": 0,
     "teamCardStats": [
       {
-        "eventId": "760502",
-        "team": "Canada",
-        "rawTeam": "Canada",
-        "yellow": 4,
-        "red": 0
-      },
-      {
-        "eventId": "760502",
-        "team": "Morocco",
-        "rawTeam": "Morocco",
-        "yellow": 4,
-        "red": 0
-      },
-      {
-        "eventId": "760503",
-        "team": "Paraguay",
-        "rawTeam": "Paraguay",
-        "yellow": 0,
-        "red": 0
-      },
-      {
-        "eventId": "760503",
-        "team": "France",
-        "rawTeam": "France",
-        "yellow": 3,
-        "red": 0
-      },
-      {
         "eventId": "760415",
         "team": "Mexico",
         "rawTeam": "Mexico",
@@ -1315,6 +1287,34 @@
         "eventId": "760501",
         "team": "Ghana",
         "rawTeam": "Ghana",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760502",
+        "team": "Canada",
+        "rawTeam": "Canada",
+        "yellow": 4,
+        "red": 0
+      },
+      {
+        "eventId": "760502",
+        "team": "Morocco",
+        "rawTeam": "Morocco",
+        "yellow": 4,
+        "red": 0
+      },
+      {
+        "eventId": "760503",
+        "team": "Paraguay",
+        "rawTeam": "Paraguay",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760503",
+        "team": "France",
+        "rawTeam": "France",
         "yellow": 3,
         "red": 0
       }
