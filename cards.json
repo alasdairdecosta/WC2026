@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-07-05T22:15:35.633Z",
+  "updatedAt": "2026-07-06T12:32:01.872Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-07-05T22:15:28.125Z",
+    "updatedAt": "2026-07-06T12:31:56.235Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,25 +54,11 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 91,
-    "summaryCallsSucceeded": 91,
+    "eventsChecked": 92,
+    "summaryCallsSucceeded": 92,
     "summaryCallsFailed": 0,
     "teamCardStats": [
       {
-        "eventId": "760504",
-        "team": "Brazil",
-        "rawTeam": "Brazil",
-        "yellow": 1,
-        "red": 0
-      },
-      {
-        "eventId": "760504",
-        "team": "Norway",
-        "rawTeam": "Norway",
-        "yellow": 0,
-        "red": 0
-      },
-      {
         "eventId": "760415",
         "team": "Mexico",
         "rawTeam": "Mexico",
@@ -1331,6 +1317,34 @@
         "rawTeam": "France",
         "yellow": 3,
         "red": 0
+      },
+      {
+        "eventId": "760504",
+        "team": "Brazil",
+        "rawTeam": "Brazil",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760504",
+        "team": "Norway",
+        "rawTeam": "Norway",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760505",
+        "team": "Mexico",
+        "rawTeam": "Mexico",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760505",
+        "team": "England",
+        "rawTeam": "England",
+        "yellow": 4,
+        "red": 1
       }
     ],
     "teamStatBlocksWithoutCardStats": [],
@@ -1340,7 +1354,7 @@
   },
   "cards": {
     "Mexico": {
-      "yellow": 2,
+      "yellow": 4,
       "secondYellow": 0,
       "straightRed": 1
     },
@@ -1560,9 +1574,9 @@
       "straightRed": 0
     },
     "England": {
-      "yellow": 3,
+      "yellow": 7,
       "secondYellow": 0,
-      "straightRed": 0
+      "straightRed": 1
     },
     "Croatia": {
       "yellow": 4,
