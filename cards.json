@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-07-06T19:19:01.448Z",
+  "updatedAt": "2026-07-06T23:35:41.620Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-07-06T19:18:55.279Z",
+    "updatedAt": "2026-07-06T23:35:28.265Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -62,14 +62,14 @@
         "eventId": "760506",
         "team": "Portugal",
         "rawTeam": "Portugal",
-        "yellow": 0,
+        "yellow": 2,
         "red": 0
       },
       {
         "eventId": "760506",
         "team": "Spain",
         "rawTeam": "Spain",
-        "yellow": 0,
+        "yellow": 1,
         "red": 0
       },
       {
@@ -1508,7 +1508,7 @@
       "straightRed": 0
     },
     "Spain": {
-      "yellow": 2,
+      "yellow": 3,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -1568,7 +1568,7 @@
       "straightRed": 0
     },
     "Portugal": {
-      "yellow": 5,
+      "yellow": 7,
       "secondYellow": 0,
       "straightRed": 0
     },
