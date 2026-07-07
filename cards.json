@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-07-06T23:35:41.620Z",
+  "updatedAt": "2026-07-07T10:40:34.442Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-07-06T23:35:28.265Z",
+    "updatedAt": "2026-07-07T10:40:28.450Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,25 +54,11 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 93,
-    "summaryCallsSucceeded": 93,
+    "eventsChecked": 94,
+    "summaryCallsSucceeded": 94,
     "summaryCallsFailed": 0,
     "teamCardStats": [
       {
-        "eventId": "760506",
-        "team": "Portugal",
-        "rawTeam": "Portugal",
-        "yellow": 2,
-        "red": 0
-      },
-      {
-        "eventId": "760506",
-        "team": "Spain",
-        "rawTeam": "Spain",
-        "yellow": 1,
-        "red": 0
-      },
-      {
         "eventId": "760415",
         "team": "Mexico",
         "rawTeam": "Mexico",
@@ -1359,6 +1345,34 @@
         "rawTeam": "England",
         "yellow": 4,
         "red": 1
+      },
+      {
+        "eventId": "760506",
+        "team": "Portugal",
+        "rawTeam": "Portugal",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760506",
+        "team": "Spain",
+        "rawTeam": "Spain",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760507",
+        "team": "USA",
+        "rawTeam": "United States",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760507",
+        "team": "Belgium",
+        "rawTeam": "Belgium",
+        "yellow": 0,
+        "red": 0
       }
     ],
     "teamStatBlocksWithoutCardStats": [],
@@ -1428,7 +1442,7 @@
       "straightRed": 0
     },
     "USA": {
-      "yellow": 5,
+      "yellow": 7,
       "secondYellow": 0,
       "straightRed": 1
     },
