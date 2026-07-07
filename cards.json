@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-07-07T18:25:17.324Z",
+  "updatedAt": "2026-07-07T22:37:17.596Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-07-07T18:25:12.050Z",
+    "updatedAt": "2026-07-07T22:37:07.796Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,8 +54,8 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 95,
-    "summaryCallsSucceeded": 95,
+    "eventsChecked": 96,
+    "summaryCallsSucceeded": 96,
     "summaryCallsFailed": 0,
     "teamCardStats": [
       {
@@ -70,6 +70,20 @@
         "team": "Egypt",
         "rawTeam": "Egypt",
         "yellow": 4,
+        "red": 0
+      },
+      {
+        "eventId": "760508",
+        "team": "Switzerland",
+        "rawTeam": "Switzerland",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760508",
+        "team": "Colombia",
+        "rawTeam": "Colombia",
+        "yellow": 2,
         "red": 0
       },
       {
@@ -1431,7 +1445,7 @@
       "straightRed": 2
     },
     "Switzerland": {
-      "yellow": 3,
+      "yellow": 6,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -1601,7 +1615,7 @@
       "straightRed": 0
     },
     "Colombia": {
-      "yellow": 6,
+      "yellow": 8,
       "secondYellow": 0,
       "straightRed": 0
     },
