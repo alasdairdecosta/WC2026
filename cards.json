@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-07-07T22:37:17.596Z",
+  "updatedAt": "2026-07-08T07:42:33.485Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-07-07T22:37:07.796Z",
+    "updatedAt": "2026-07-08T07:42:27.012Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -59,34 +59,6 @@
     "summaryCallsFailed": 0,
     "teamCardStats": [
       {
-        "eventId": "760509",
-        "team": "Argentina",
-        "rawTeam": "Argentina",
-        "yellow": 0,
-        "red": 0
-      },
-      {
-        "eventId": "760509",
-        "team": "Egypt",
-        "rawTeam": "Egypt",
-        "yellow": 4,
-        "red": 0
-      },
-      {
-        "eventId": "760508",
-        "team": "Switzerland",
-        "rawTeam": "Switzerland",
-        "yellow": 3,
-        "red": 0
-      },
-      {
-        "eventId": "760508",
-        "team": "Colombia",
-        "rawTeam": "Colombia",
-        "yellow": 2,
-        "red": 0
-      },
-      {
         "eventId": "760415",
         "team": "Mexico",
         "rawTeam": "Mexico",
@@ -1400,6 +1372,34 @@
         "team": "Belgium",
         "rawTeam": "Belgium",
         "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760509",
+        "team": "Argentina",
+        "rawTeam": "Argentina",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760509",
+        "team": "Egypt",
+        "rawTeam": "Egypt",
+        "yellow": 4,
+        "red": 0
+      },
+      {
+        "eventId": "760508",
+        "team": "Switzerland",
+        "rawTeam": "Switzerland",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760508",
+        "team": "Colombia",
+        "rawTeam": "Colombia",
+        "yellow": 2,
         "red": 0
       }
     ],
