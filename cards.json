@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-07-09T22:45:29.125Z",
+  "updatedAt": "2026-07-10T10:35:43.918Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-07-09T22:45:23.885Z",
+    "updatedAt": "2026-07-10T10:35:35.935Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -59,20 +59,6 @@
     "summaryCallsFailed": 0,
     "teamCardStats": [
       {
-        "eventId": "760510",
-        "team": "France",
-        "rawTeam": "France",
-        "yellow": 0,
-        "red": 0
-      },
-      {
-        "eventId": "760510",
-        "team": "Morocco",
-        "rawTeam": "Morocco",
-        "yellow": 1,
-        "red": 0
-      },
-      {
         "eventId": "760415",
         "team": "Mexico",
         "rawTeam": "Mexico",
@@ -1414,6 +1400,20 @@
         "team": "Colombia",
         "rawTeam": "Colombia",
         "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760510",
+        "team": "France",
+        "rawTeam": "France",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760510",
+        "team": "Morocco",
+        "rawTeam": "Morocco",
+        "yellow": 1,
         "red": 0
       }
     ],
