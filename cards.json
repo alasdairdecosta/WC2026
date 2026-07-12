@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-07-12T00:06:08.772Z",
+  "updatedAt": "2026-07-12T03:50:59.350Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-07-12T00:06:00.163Z",
+    "updatedAt": "2026-07-12T03:50:51.829Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,8 +54,8 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 99,
-    "summaryCallsSucceeded": 99,
+    "eventsChecked": 100,
+    "summaryCallsSucceeded": 100,
     "summaryCallsFailed": 0,
     "teamCardStats": [
       {
@@ -71,6 +71,20 @@
         "rawTeam": "England",
         "yellow": 0,
         "red": 0
+      },
+      {
+        "eventId": "760513",
+        "team": "Argentina",
+        "rawTeam": "Argentina",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760513",
+        "team": "Switzerland",
+        "rawTeam": "Switzerland",
+        "yellow": 1,
+        "red": 1
       },
       {
         "eventId": "760415",
@@ -1487,9 +1501,9 @@
       "straightRed": 2
     },
     "Switzerland": {
-      "yellow": 6,
+      "yellow": 7,
       "secondYellow": 0,
-      "straightRed": 0
+      "straightRed": 1
     },
     "Brazil": {
       "yellow": 8,
@@ -1632,7 +1646,7 @@
       "straightRed": 0
     },
     "Argentina": {
-      "yellow": 3,
+      "yellow": 6,
       "secondYellow": 0,
       "straightRed": 0
     },
