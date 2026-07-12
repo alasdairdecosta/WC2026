@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-07-11T23:06:31.082Z",
+  "updatedAt": "2026-07-12T00:06:08.772Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-07-11T23:06:22.180Z",
+    "updatedAt": "2026-07-12T00:06:00.163Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -62,7 +62,7 @@
         "eventId": "760512",
         "team": "Norway",
         "rawTeam": "Norway",
-        "yellow": 0,
+        "yellow": 1,
         "red": 0
       },
       {
@@ -1627,7 +1627,7 @@
       "straightRed": 1
     },
     "Norway": {
-      "yellow": 2,
+      "yellow": 3,
       "secondYellow": 0,
       "straightRed": 0
     },
