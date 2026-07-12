@@ -1,9 +1,9 @@
 {
   "source": "WorldCup26 + ESPN broad + ESPN date windows + previous live.json preservation",
-  "updatedAt": "2026-07-12T03:50:48.686Z",
+  "updatedAt": "2026-07-12T06:22:37.444Z",
   "caveat": "Multiple live data sources were merged for redundancy.",
   "diagnostics": {
-    "generatedAt": "2026-07-12T03:50:48.686Z",
+    "generatedAt": "2026-07-12T06:22:37.444Z",
     "strategy": [
       "manual override, if present",
       "WorldCup26 endpoint variants",
@@ -18,9 +18,9 @@
         "url": "https://worldcup26.ir/get/games",
         "ok": true,
         "rowsRead": 104,
-        "matchesParsed": 101,
-        "scoreMatchesParsed": 99,
-        "ms": 716,
+        "matchesParsed": 102,
+        "scoreMatchesParsed": 100,
+        "ms": 4106,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -37,9 +37,9 @@
         "url": "https://www.worldcup26.ir/get/games",
         "ok": true,
         "rowsRead": 104,
-        "matchesParsed": 101,
-        "scoreMatchesParsed": 99,
-        "ms": 554,
+        "matchesParsed": 102,
+        "scoreMatchesParsed": 100,
+        "ms": 652,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -56,9 +56,9 @@
         "url": "http://worldcup26.ir/get/games",
         "ok": true,
         "rowsRead": 104,
-        "matchesParsed": 101,
-        "scoreMatchesParsed": 99,
-        "ms": 567,
+        "matchesParsed": 102,
+        "scoreMatchesParsed": 100,
+        "ms": 827,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -75,9 +75,9 @@
         "url": "http://www.worldcup26.ir/get/games",
         "ok": true,
         "rowsRead": 104,
-        "matchesParsed": 101,
-        "scoreMatchesParsed": 99,
-        "ms": 547,
+        "matchesParsed": 102,
+        "scoreMatchesParsed": 100,
+        "ms": 662,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -96,7 +96,7 @@
         "rowsRead": 104,
         "matchesParsed": 104,
         "scoreMatchesParsed": 100,
-        "ms": 58,
+        "ms": 138,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -115,7 +115,7 @@
         "rowsRead": 104,
         "matchesParsed": 104,
         "scoreMatchesParsed": 100,
-        "ms": 274,
+        "ms": 217,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -131,26 +131,24 @@
         "source": "ESPN broad",
         "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=500",
         "ok": true,
-        "rowsRead": 2,
-        "matchesParsed": 2,
-        "scoreMatchesParsed": 2,
-        "ms": 39,
+        "rowsRead": 1,
+        "matchesParsed": 1,
+        "scoreMatchesParsed": 0,
+        "ms": 22,
         "sample": [
-          "Norway 1-2 England (finished)",
-          "Argentina 3-1 Switzerland (finished)"
+          "France 0-0 Spain (scheduled)"
         ]
       },
       {
         "source": "ESPN broad",
         "url": "https://site.web.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=500",
         "ok": true,
-        "rowsRead": 2,
-        "matchesParsed": 2,
-        "scoreMatchesParsed": 2,
+        "rowsRead": 1,
+        "matchesParsed": 1,
+        "scoreMatchesParsed": 0,
         "ms": 7,
         "sample": [
-          "Norway 1-2 England (finished)",
-          "Argentina 3-1 Switzerland (finished)"
+          "France 0-0 Spain (scheduled)"
         ]
       },
       {
@@ -160,7 +158,7 @@
         "rowsRead": 28,
         "matchesParsed": 28,
         "scoreMatchesParsed": 28,
-        "ms": 97,
+        "ms": 27,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -198,7 +196,7 @@
         "rowsRead": 44,
         "matchesParsed": 44,
         "scoreMatchesParsed": 44,
-        "ms": 38,
+        "ms": 24,
         "sample": [
           "USA 2-0 Australia (finished)",
           "Scotland 0-1 Morocco (finished)",
@@ -217,7 +215,7 @@
         "rowsRead": 44,
         "matchesParsed": 44,
         "scoreMatchesParsed": 44,
-        "ms": 10,
+        "ms": 9,
         "sample": [
           "USA 2-0 Australia (finished)",
           "Scotland 0-1 Morocco (finished)",
@@ -236,7 +234,7 @@
         "rowsRead": 20,
         "matchesParsed": 20,
         "scoreMatchesParsed": 20,
-        "ms": 41,
+        "ms": 25,
         "sample": [
           "South Africa 0-1 Canada (finished)",
           "Brazil 2-1 Japan (finished)",
@@ -255,7 +253,7 @@
         "rowsRead": 20,
         "matchesParsed": 20,
         "scoreMatchesParsed": 20,
-        "ms": 9,
+        "ms": 8,
         "sample": [
           "South Africa 0-1 Canada (finished)",
           "Brazil 2-1 Japan (finished)",
@@ -273,8 +271,8 @@
         "ok": true,
         "rowsRead": 12,
         "matchesParsed": 12,
-        "scoreMatchesParsed": 7,
-        "ms": 88,
+        "scoreMatchesParsed": 8,
+        "ms": 24,
         "sample": [
           "Portugal 0-1 Spain (finished)",
           "USA 1-4 Belgium (finished)",
@@ -283,7 +281,7 @@
           "France 2-0 Morocco (finished)",
           "Spain 2-1 Belgium (finished)",
           "Norway 1-2 England (finished)",
-          "Argentina 0-0 Switzerland (scheduled)"
+          "Argentina 3-1 Switzerland (finished)"
         ]
       },
       {
@@ -307,12 +305,12 @@
       }
     ],
     "selectedSource": "WorldCup26 + ESPN broad + ESPN date windows + previous live.json preservation",
-    "rowsRead": 836,
+    "rowsRead": 834,
     "matchesParsed": 162,
     "scoreMatchesParsed": 100,
     "previousScoresPreserved": 0,
     "previousScoresReplaced": 104,
-    "newScoreMatchesAdded": 1,
+    "newScoreMatchesAdded": 0,
     "warning": "Multiple live data sources were merged for redundancy.",
     "stale": false
   },
