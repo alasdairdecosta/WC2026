@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-07-16T03:35:49.008Z",
+  "updatedAt": "2026-07-16T06:01:30.174Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-07-16T03:35:32.768Z",
+    "updatedAt": "2026-07-16T06:01:15.859Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -59,20 +59,6 @@
     "summaryCallsFailed": 0,
     "teamCardStats": [
       {
-        "eventId": "760515",
-        "team": "England",
-        "rawTeam": "England",
-        "yellow": 1,
-        "red": 0
-      },
-      {
-        "eventId": "760515",
-        "team": "Argentina",
-        "rawTeam": "Argentina",
-        "yellow": 3,
-        "red": 0
-      },
-      {
         "eventId": "760415",
         "team": "Mexico",
         "rawTeam": "Mexico",
@@ -1484,6 +1470,20 @@
         "team": "Spain",
         "rawTeam": "Spain",
         "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760515",
+        "team": "England",
+        "rawTeam": "England",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760515",
+        "team": "Argentina",
+        "rawTeam": "Argentina",
+        "yellow": 3,
         "red": 0
       }
     ],
