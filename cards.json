@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-07-18T20:31:19.376Z",
+  "updatedAt": "2026-07-18T21:27:54.985Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-07-18T20:31:13.983Z",
+    "updatedAt": "2026-07-18T21:27:45.705Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -54,10 +54,24 @@
     "scoreboardCallsSucceeded": 40,
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
-    "eventsChecked": 102,
-    "summaryCallsSucceeded": 102,
+    "eventsChecked": 103,
+    "summaryCallsSucceeded": 103,
     "summaryCallsFailed": 0,
     "teamCardStats": [
+      {
+        "eventId": "760516",
+        "team": "France",
+        "rawTeam": "France",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760516",
+        "team": "England",
+        "rawTeam": "England",
+        "yellow": 0,
+        "red": 0
+      },
       {
         "eventId": "760415",
         "team": "Mexico",
