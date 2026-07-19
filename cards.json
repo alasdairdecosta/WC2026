@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-07-19T21:08:47.370Z",
+  "updatedAt": "2026-07-19T22:07:01.697Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-07-19T21:08:32.085Z",
+    "updatedAt": "2026-07-19T22:06:54.014Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -69,8 +69,8 @@
         "eventId": "760517",
         "team": "Argentina",
         "rawTeam": "Argentina",
-        "yellow": 3,
-        "red": 0
+        "yellow": 4,
+        "red": 2
       },
       {
         "eventId": "760415",
@@ -1702,9 +1702,9 @@
       "straightRed": 0
     },
     "Argentina": {
-      "yellow": 12,
+      "yellow": 13,
       "secondYellow": 0,
-      "straightRed": 0
+      "straightRed": 2
     },
     "Algeria": {
       "yellow": 3,
