@@ -1,9 +1,9 @@
 {
   "source": "ESPN broad + ESPN date windows + previous live.json preservation",
-  "updatedAt": "2026-08-16T18:44:48.745Z",
+  "updatedAt": "2026-08-16T19:03:57.871Z",
   "caveat": "WorldCup26 returned no usable matches; fallback sources were used.",
   "diagnostics": {
-    "generatedAt": "2026-08-16T18:44:48.745Z",
+    "generatedAt": "2026-08-16T19:03:57.871Z",
     "strategy": [
       "manual override, if present",
       "WorldCup26 endpoint variants",
@@ -20,7 +20,7 @@
         "rowsRead": 0,
         "matchesParsed": 0,
         "scoreMatchesParsed": 0,
-        "error": "HTTP 404 after 1529ms: {\"error\":{\"message\":\"Route not found\"}}"
+        "error": "HTTP 404 after 917ms: {\"error\":{\"message\":\"Route not found\"}}"
       },
       {
         "source": "WorldCup26",
@@ -29,7 +29,7 @@
         "rowsRead": 0,
         "matchesParsed": 0,
         "scoreMatchesParsed": 0,
-        "error": "HTTP 404 after 999ms: {\"error\":{\"message\":\"Route not found\"}}"
+        "error": "HTTP 404 after 2748ms: {\"error\":{\"message\":\"Route not found\"}}"
       },
       {
         "source": "WorldCup26",
@@ -38,7 +38,7 @@
         "rowsRead": 0,
         "matchesParsed": 0,
         "scoreMatchesParsed": 0,
-        "error": "HTTP 404 after 621ms: {\"error\":{\"message\":\"Route not found\"}}"
+        "error": "HTTP 404 after 912ms: {\"error\":{\"message\":\"Route not found\"}}"
       },
       {
         "source": "WorldCup26",
@@ -47,7 +47,7 @@
         "rowsRead": 0,
         "matchesParsed": 0,
         "scoreMatchesParsed": 0,
-        "error": "HTTP 404 after 622ms: {\"error\":{\"message\":\"Route not found\"}}"
+        "error": "HTTP 404 after 988ms: {\"error\":{\"message\":\"Route not found\"}}"
       },
       {
         "source": "ESPN broad",
@@ -56,7 +56,7 @@
         "rowsRead": 104,
         "matchesParsed": 104,
         "scoreMatchesParsed": 104,
-        "ms": 165,
+        "ms": 72,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -75,7 +75,7 @@
         "rowsRead": 104,
         "matchesParsed": 104,
         "scoreMatchesParsed": 104,
-        "ms": 187,
+        "ms": 181,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -94,7 +94,7 @@
         "rowsRead": 1,
         "matchesParsed": 1,
         "scoreMatchesParsed": 1,
-        "ms": 170,
+        "ms": 49,
         "sample": [
           "Spain 1-0 Argentina (finished)"
         ]
@@ -118,7 +118,7 @@
         "rowsRead": 28,
         "matchesParsed": 28,
         "scoreMatchesParsed": 28,
-        "ms": 88,
+        "ms": 46,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -137,7 +137,7 @@
         "rowsRead": 28,
         "matchesParsed": 28,
         "scoreMatchesParsed": 28,
-        "ms": 27,
+        "ms": 28,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -156,7 +156,7 @@
         "rowsRead": 44,
         "matchesParsed": 44,
         "scoreMatchesParsed": 44,
-        "ms": 84,
+        "ms": 62,
         "sample": [
           "USA 2-0 Australia (finished)",
           "Scotland 0-1 Morocco (finished)",
@@ -175,7 +175,7 @@
         "rowsRead": 44,
         "matchesParsed": 44,
         "scoreMatchesParsed": 44,
-        "ms": 28,
+        "ms": 27,
         "sample": [
           "USA 2-0 Australia (finished)",
           "Scotland 0-1 Morocco (finished)",
@@ -194,7 +194,7 @@
         "rowsRead": 20,
         "matchesParsed": 20,
         "scoreMatchesParsed": 20,
-        "ms": 51,
+        "ms": 68,
         "sample": [
           "South Africa 0-1 Canada (finished)",
           "Brazil 2-1 Japan (finished)",
@@ -213,7 +213,7 @@
         "rowsRead": 20,
         "matchesParsed": 20,
         "scoreMatchesParsed": 20,
-        "ms": 25,
+        "ms": 28,
         "sample": [
           "South Africa 0-1 Canada (finished)",
           "Brazil 2-1 Japan (finished)",
@@ -232,7 +232,7 @@
         "rowsRead": 12,
         "matchesParsed": 12,
         "scoreMatchesParsed": 12,
-        "ms": 106,
+        "ms": 64,
         "sample": [
           "Portugal 0-1 Spain (finished)",
           "USA 1-4 Belgium (finished)",
@@ -251,7 +251,7 @@
         "rowsRead": 12,
         "matchesParsed": 12,
         "scoreMatchesParsed": 12,
-        "ms": 25,
+        "ms": 26,
         "sample": [
           "Portugal 0-1 Spain (finished)",
           "USA 1-4 Belgium (finished)",
