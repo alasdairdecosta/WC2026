@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-08-20T22:55:19.710Z",
+  "updatedAt": "2026-08-20T23:20:21.426Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-08-20T22:55:11.545Z",
+    "updatedAt": "2026-08-20T23:20:13.587Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
