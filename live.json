@@ -1,9 +1,9 @@
 {
   "source": "ESPN broad + ESPN date windows + previous live.json preservation",
-  "updatedAt": "2026-08-23T06:17:07.782Z",
+  "updatedAt": "2026-08-23T07:05:25.574Z",
   "caveat": "WorldCup26 returned no usable matches; fallback sources were used.",
   "diagnostics": {
-    "generatedAt": "2026-08-23T06:17:07.782Z",
+    "generatedAt": "2026-08-23T07:05:25.574Z",
     "strategy": [
       "manual override, if present",
       "WorldCup26 endpoint variants",
@@ -20,7 +20,7 @@
         "rowsRead": 0,
         "matchesParsed": 0,
         "scoreMatchesParsed": 0,
-        "error": "HTTP 404 after 1131ms: {\"error\":{\"message\":\"Route not found\"}}"
+        "error": "HTTP 404 after 856ms: {\"error\":{\"message\":\"Route not found\"}}"
       },
       {
         "source": "WorldCup26",
@@ -29,7 +29,7 @@
         "rowsRead": 0,
         "matchesParsed": 0,
         "scoreMatchesParsed": 0,
-        "error": "HTTP 404 after 861ms: {\"error\":{\"message\":\"Route not found\"}}"
+        "error": "HTTP 404 after 660ms: {\"error\":{\"message\":\"Route not found\"}}"
       },
       {
         "source": "WorldCup26",
@@ -38,7 +38,7 @@
         "rowsRead": 0,
         "matchesParsed": 0,
         "scoreMatchesParsed": 0,
-        "error": "HTTP 404 after 618ms: {\"error\":{\"message\":\"Route not found\"}}"
+        "error": "HTTP 404 after 568ms: {\"error\":{\"message\":\"Route not found\"}}"
       },
       {
         "source": "WorldCup26",
@@ -47,30 +47,11 @@
         "rowsRead": 0,
         "matchesParsed": 0,
         "scoreMatchesParsed": 0,
-        "error": "HTTP 404 after 996ms: {\"error\":{\"message\":\"Route not found\"}}"
+        "error": "HTTP 404 after 649ms: {\"error\":{\"message\":\"Route not found\"}}"
       },
       {
         "source": "ESPN broad",
         "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=500&dates=20260611-20260719",
-        "ok": true,
-        "rowsRead": 104,
-        "matchesParsed": 104,
-        "scoreMatchesParsed": 104,
-        "ms": 170,
-        "sample": [
-          "Mexico 2-0 South Africa (finished)",
-          "Korea Republic 2-1 Czechia (finished)",
-          "Canada 1-1 Bosnia and Herzegovina (finished)",
-          "USA 4-1 Paraguay (finished)",
-          "Qatar 1-1 Switzerland (finished)",
-          "Brazil 1-1 Morocco (finished)",
-          "Haiti 0-1 Scotland (finished)",
-          "Australia 2-0 Türkiye (finished)"
-        ]
-      },
-      {
-        "source": "ESPN broad",
-        "url": "https://site.web.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=500&dates=20260611-20260719",
         "ok": true,
         "rowsRead": 104,
         "matchesParsed": 104,
@@ -89,12 +70,31 @@
       },
       {
         "source": "ESPN broad",
+        "url": "https://site.web.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=500&dates=20260611-20260719",
+        "ok": true,
+        "rowsRead": 104,
+        "matchesParsed": 104,
+        "scoreMatchesParsed": 104,
+        "ms": 323,
+        "sample": [
+          "Mexico 2-0 South Africa (finished)",
+          "Korea Republic 2-1 Czechia (finished)",
+          "Canada 1-1 Bosnia and Herzegovina (finished)",
+          "USA 4-1 Paraguay (finished)",
+          "Qatar 1-1 Switzerland (finished)",
+          "Brazil 1-1 Morocco (finished)",
+          "Haiti 0-1 Scotland (finished)",
+          "Australia 2-0 Türkiye (finished)"
+        ]
+      },
+      {
+        "source": "ESPN broad",
         "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=500",
         "ok": true,
         "rowsRead": 1,
         "matchesParsed": 1,
         "scoreMatchesParsed": 1,
-        "ms": 25,
+        "ms": 26,
         "sample": [
           "Spain 1-0 Argentina (finished)"
         ]
@@ -106,7 +106,7 @@
         "rowsRead": 1,
         "matchesParsed": 1,
         "scoreMatchesParsed": 1,
-        "ms": 27,
+        "ms": 10,
         "sample": [
           "Spain 1-0 Argentina (finished)"
         ]
@@ -118,7 +118,7 @@
         "rowsRead": 28,
         "matchesParsed": 28,
         "scoreMatchesParsed": 28,
-        "ms": 59,
+        "ms": 24,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -137,7 +137,7 @@
         "rowsRead": 28,
         "matchesParsed": 28,
         "scoreMatchesParsed": 28,
-        "ms": 27,
+        "ms": 11,
         "sample": [
           "Mexico 2-0 South Africa (finished)",
           "Korea Republic 2-1 Czechia (finished)",
@@ -156,7 +156,7 @@
         "rowsRead": 44,
         "matchesParsed": 44,
         "scoreMatchesParsed": 44,
-        "ms": 69,
+        "ms": 24,
         "sample": [
           "USA 2-0 Australia (finished)",
           "Scotland 0-1 Morocco (finished)",
@@ -175,7 +175,7 @@
         "rowsRead": 44,
         "matchesParsed": 44,
         "scoreMatchesParsed": 44,
-        "ms": 28,
+        "ms": 12,
         "sample": [
           "USA 2-0 Australia (finished)",
           "Scotland 0-1 Morocco (finished)",
@@ -194,7 +194,7 @@
         "rowsRead": 20,
         "matchesParsed": 20,
         "scoreMatchesParsed": 20,
-        "ms": 60,
+        "ms": 22,
         "sample": [
           "South Africa 0-1 Canada (finished)",
           "Brazil 2-1 Japan (finished)",
@@ -213,7 +213,7 @@
         "rowsRead": 20,
         "matchesParsed": 20,
         "scoreMatchesParsed": 20,
-        "ms": 28,
+        "ms": 12,
         "sample": [
           "South Africa 0-1 Canada (finished)",
           "Brazil 2-1 Japan (finished)",
@@ -232,7 +232,7 @@
         "rowsRead": 12,
         "matchesParsed": 12,
         "scoreMatchesParsed": 12,
-        "ms": 96,
+        "ms": 48,
         "sample": [
           "Portugal 0-1 Spain (finished)",
           "USA 1-4 Belgium (finished)",
@@ -251,7 +251,7 @@
         "rowsRead": 12,
         "matchesParsed": 12,
         "scoreMatchesParsed": 12,
-        "ms": 26,
+        "ms": 10,
         "sample": [
           "Portugal 0-1 Spain (finished)",
           "USA 1-4 Belgium (finished)",
