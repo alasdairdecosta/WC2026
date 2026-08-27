@@ -1,13 +1,13 @@
 {
   "source": "ESPN explicit team statistics",
-  "updatedAt": "2026-08-27T05:00:30.920Z",
+  "updatedAt": "2026-08-27T16:20:52.996Z",
   "scoring": {
     "yellow": 1,
     "red": 3
   },
   "caveat": "Cards are parsed only from explicit ESPN team statistics. Yellow cards are worth 1 point and red cards are worth 3 points. Commentary/key-event text is deliberately ignored to avoid double-counting.",
   "diagnostics": {
-    "updatedAt": "2026-08-27T05:00:23.567Z",
+    "updatedAt": "2026-08-27T16:20:47.381Z",
     "source": "ESPN site API scoreboard + match summaries, explicit team statistics only",
     "scoreboardUrlsTried": [
       "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=300",
@@ -55,8 +55,8 @@
     "scoreboardCallsFailed": 0,
     "eventsFound": 104,
     "eventsChecked": 104,
-    "summaryCallsSucceeded": 67,
-    "summaryCallsFailed": 37,
+    "summaryCallsSucceeded": 104,
+    "summaryCallsFailed": 0,
     "teamCardStats": [
       {
         "eventId": "760517",
@@ -927,6 +927,20 @@
         "red": 0
       },
       {
+        "eventId": "760474",
+        "team": "Senegal",
+        "rawTeam": "Senegal",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760474",
+        "team": "Iraq",
+        "rawTeam": "Iraq",
+        "yellow": 2,
+        "red": 1
+      },
+      {
         "eventId": "760478",
         "team": "Cabo Verde",
         "rawTeam": "Cape Verde",
@@ -938,6 +952,34 @@
         "team": "Saudi Arabia",
         "rawTeam": "Saudi Arabia",
         "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760479",
+        "team": "Uruguay",
+        "rawTeam": "Uruguay",
+        "yellow": 3,
+        "red": 1
+      },
+      {
+        "eventId": "760479",
+        "team": "Spain",
+        "rawTeam": "Spain",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760476",
+        "team": "Egypt",
+        "rawTeam": "Egypt",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760476",
+        "team": "IR Iran",
+        "rawTeam": "Iran",
+        "yellow": 4,
         "red": 0
       },
       {
@@ -955,6 +997,34 @@
         "red": 0
       },
       {
+        "eventId": "760480",
+        "team": "Croatia",
+        "rawTeam": "Croatia",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760480",
+        "team": "Ghana",
+        "rawTeam": "Ghana",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760485",
+        "team": "Panama",
+        "rawTeam": "Panama",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760485",
+        "team": "England",
+        "rawTeam": "England",
+        "yellow": 1,
+        "red": 0
+      },
+      {
         "eventId": "760481",
         "team": "Colombia",
         "rawTeam": "Colombia",
@@ -966,6 +1036,34 @@
         "team": "Portugal",
         "rawTeam": "Portugal",
         "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760482",
+        "team": "Congo DR",
+        "rawTeam": "Congo DR",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760482",
+        "team": "Uzbekistan",
+        "rawTeam": "Uzbekistan",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760484",
+        "team": "Algeria",
+        "rawTeam": "Algeria",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760484",
+        "team": "Austria",
+        "rawTeam": "Austria",
+        "yellow": 1,
         "red": 0
       },
       {
@@ -983,6 +1081,34 @@
         "red": 0
       },
       {
+        "eventId": "760486",
+        "team": "South Africa",
+        "rawTeam": "South Africa",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760486",
+        "team": "Canada",
+        "rawTeam": "Canada",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760487",
+        "team": "Brazil",
+        "rawTeam": "Brazil",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760487",
+        "team": "Japan",
+        "rawTeam": "Japan",
+        "yellow": 3,
+        "red": 0
+      },
+      {
         "eventId": "760489",
         "team": "Germany",
         "rawTeam": "Germany",
@@ -995,54 +1121,408 @@
         "rawTeam": "Paraguay",
         "yellow": 2,
         "red": 0
+      },
+      {
+        "eventId": "760488",
+        "team": "Netherlands",
+        "rawTeam": "Netherlands",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760488",
+        "team": "Morocco",
+        "rawTeam": "Morocco",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760490",
+        "team": "Côte d'Ivoire",
+        "rawTeam": "Ivory Coast",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760490",
+        "team": "Norway",
+        "rawTeam": "Norway",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760492",
+        "team": "France",
+        "rawTeam": "France",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760492",
+        "team": "Sweden",
+        "rawTeam": "Sweden",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760491",
+        "team": "Mexico",
+        "rawTeam": "Mexico",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760491",
+        "team": "Ecuador",
+        "rawTeam": "Ecuador",
+        "yellow": 3,
+        "red": 1
+      },
+      {
+        "eventId": "760495",
+        "team": "England",
+        "rawTeam": "England",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760495",
+        "team": "Congo DR",
+        "rawTeam": "Congo DR",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760493",
+        "team": "Belgium",
+        "rawTeam": "Belgium",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760493",
+        "team": "Senegal",
+        "rawTeam": "Senegal",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760494",
+        "team": "USA",
+        "rawTeam": "United States",
+        "yellow": 0,
+        "red": 1
+      },
+      {
+        "eventId": "760494",
+        "team": "Bosnia and Herzegovina",
+        "rawTeam": "Bosnia-Herzegovina",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760497",
+        "team": "Spain",
+        "rawTeam": "Spain",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760497",
+        "team": "Austria",
+        "rawTeam": "Austria",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760496",
+        "team": "Portugal",
+        "rawTeam": "Portugal",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760496",
+        "team": "Croatia",
+        "rawTeam": "Croatia",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760498",
+        "team": "Switzerland",
+        "rawTeam": "Switzerland",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760498",
+        "team": "Algeria",
+        "rawTeam": "Algeria",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760499",
+        "team": "Australia",
+        "rawTeam": "Australia",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760499",
+        "team": "Egypt",
+        "rawTeam": "Egypt",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760500",
+        "team": "Argentina",
+        "rawTeam": "Argentina",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760500",
+        "team": "Cabo Verde",
+        "rawTeam": "Cape Verde",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760501",
+        "team": "Colombia",
+        "rawTeam": "Colombia",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760501",
+        "team": "Ghana",
+        "rawTeam": "Ghana",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760502",
+        "team": "Canada",
+        "rawTeam": "Canada",
+        "yellow": 4,
+        "red": 0
+      },
+      {
+        "eventId": "760502",
+        "team": "Morocco",
+        "rawTeam": "Morocco",
+        "yellow": 4,
+        "red": 0
+      },
+      {
+        "eventId": "760503",
+        "team": "Paraguay",
+        "rawTeam": "Paraguay",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760503",
+        "team": "France",
+        "rawTeam": "France",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760504",
+        "team": "Brazil",
+        "rawTeam": "Brazil",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760504",
+        "team": "Norway",
+        "rawTeam": "Norway",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760505",
+        "team": "Mexico",
+        "rawTeam": "Mexico",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760505",
+        "team": "England",
+        "rawTeam": "England",
+        "yellow": 4,
+        "red": 1
+      },
+      {
+        "eventId": "760506",
+        "team": "Portugal",
+        "rawTeam": "Portugal",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760506",
+        "team": "Spain",
+        "rawTeam": "Spain",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760507",
+        "team": "USA",
+        "rawTeam": "United States",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760507",
+        "team": "Belgium",
+        "rawTeam": "Belgium",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760509",
+        "team": "Argentina",
+        "rawTeam": "Argentina",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760509",
+        "team": "Egypt",
+        "rawTeam": "Egypt",
+        "yellow": 4,
+        "red": 0
+      },
+      {
+        "eventId": "760508",
+        "team": "Switzerland",
+        "rawTeam": "Switzerland",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760508",
+        "team": "Colombia",
+        "rawTeam": "Colombia",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760510",
+        "team": "France",
+        "rawTeam": "France",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760510",
+        "team": "Morocco",
+        "rawTeam": "Morocco",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760511",
+        "team": "Spain",
+        "rawTeam": "Spain",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760511",
+        "team": "Belgium",
+        "rawTeam": "Belgium",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760512",
+        "team": "Norway",
+        "rawTeam": "Norway",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760512",
+        "team": "England",
+        "rawTeam": "England",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760513",
+        "team": "Argentina",
+        "rawTeam": "Argentina",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760513",
+        "team": "Switzerland",
+        "rawTeam": "Switzerland",
+        "yellow": 1,
+        "red": 1
+      },
+      {
+        "eventId": "760514",
+        "team": "France",
+        "rawTeam": "France",
+        "yellow": 2,
+        "red": 0
+      },
+      {
+        "eventId": "760514",
+        "team": "Spain",
+        "rawTeam": "Spain",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760515",
+        "team": "England",
+        "rawTeam": "England",
+        "yellow": 1,
+        "red": 0
+      },
+      {
+        "eventId": "760515",
+        "team": "Argentina",
+        "rawTeam": "Argentina",
+        "yellow": 3,
+        "red": 0
+      },
+      {
+        "eventId": "760516",
+        "team": "France",
+        "rawTeam": "France",
+        "yellow": 0,
+        "red": 0
+      },
+      {
+        "eventId": "760516",
+        "team": "England",
+        "rawTeam": "England",
+        "yellow": 0,
+        "red": 0
       }
     ],
     "teamStatBlocksWithoutCardStats": [],
-    "warnings": [
-      "Summary fetch failed for 760474 Iraq at Senegal: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760474: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d5ed",
-      "Summary fetch failed for 760479 Spain at Uruguay: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760479: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d9ed",
-      "Summary fetch failed for 760476 Iran at Egypt: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760476: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d5ed",
-      "Summary fetch failed for 760480 Ghana at Croatia: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760480: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d9ed",
-      "Summary fetch failed for 760485 England at Panama: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760485: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d5ed",
-      "Summary fetch failed for 760482 Uzbekistan at Congo DR: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760482: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d5ed",
-      "Summary fetch failed for 760484 Austria at Algeria: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760484: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d5ed",
-      "Summary fetch failed for 760486 Canada at South Africa: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760486: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;daed",
-      "Summary fetch failed for 760487 Japan at Brazil: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760487: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d9ed",
-      "Summary fetch failed for 760488 Morocco at Netherlands: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760488: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d5ed",
-      "Summary fetch failed for 760490 Norway at Ivory Coast: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760490: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;caed",
-      "Summary fetch failed for 760492 Sweden at France: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760492: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;c8ed",
-      "Summary fetch failed for 760491 Ecuador at Mexico: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760491: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d5ed",
-      "Summary fetch failed for 760495 Congo DR at England: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760495: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;caed",
-      "Summary fetch failed for 760493 Senegal at Belgium: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760493: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;c8ed",
-      "Summary fetch failed for 760494 Bosnia-Herzegovina at United States: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760494: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d5ed",
-      "Summary fetch failed for 760497 Austria at Spain: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760497: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;daed",
-      "Summary fetch failed for 760496 Croatia at Portugal: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760496: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;caed",
-      "Summary fetch failed for 760498 Algeria at Switzerland: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760498: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;c8ed",
-      "Summary fetch failed for 760499 Egypt at Australia: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760499: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d9ed",
-      "Summary fetch failed for 760500 Cape Verde at Argentina: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760500: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d5ed",
-      "Summary fetch failed for 760501 Ghana at Colombia: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760501: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;caed",
-      "Summary fetch failed for 760502 Morocco at Canada: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760502: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;daed",
-      "Summary fetch failed for 760503 France at Paraguay: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760503: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;caed",
-      "Summary fetch failed for 760504 Norway at Brazil: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760504: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d9ed",
-      "Summary fetch failed for 760505 England at Mexico: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760505: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d9ed",
-      "Summary fetch failed for 760506 Spain at Portugal: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760506: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d5ed",
-      "Summary fetch failed for 760507 Belgium at United States: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760507: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;daed",
-      "Summary fetch failed for 760509 Egypt at Argentina: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760509: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d5ed",
-      "Summary fetch failed for 760508 Colombia at Switzerland: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760508: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d9ed",
-      "Summary fetch failed for 760510 Morocco at France: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760510: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;c8ed",
-      "Summary fetch failed for 760511 Belgium at Spain: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760511: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;cfed",
-      "Summary fetch failed for 760512 England at Norway: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760512: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d5ed",
-      "Summary fetch failed for 760513 Switzerland at Argentina: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760513: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;c8ed",
-      "Summary fetch failed for 760514 Spain at France: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760514: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d9ed",
-      "Summary fetch failed for 760515 Argentina at England: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760515: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d9ed",
-      "Summary fetch failed for 760516 England at France: HTTP 403 for https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event=760516: <HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;site&#46;api&#46;espn&#46;com&#47;apis&#47;site&#47;v2&#47;sports&#47;soccer&#47;fifa&#46;world&#47;summary&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;d5ed"
-    ],
-    "rowsMapped": 47,
-    "nonZeroRows": 47
+    "warnings": [],
+    "rowsMapped": 48,
+    "nonZeroRows": 48
   },
   "cards": {
     "Mexico": {
-      "yellow": 2,
+      "yellow": 4,
       "secondYellow": 0,
       "straightRed": 1
     },
@@ -1062,12 +1542,12 @@
       "straightRed": 0
     },
     "Canada": {
-      "yellow": 5,
+      "yellow": 11,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Bosnia and Herzegovina": {
-      "yellow": 6,
+      "yellow": 7,
       "secondYellow": 0,
       "straightRed": 1
     },
@@ -1077,17 +1557,17 @@
       "straightRed": 2
     },
     "Switzerland": {
-      "yellow": 3,
+      "yellow": 7,
       "secondYellow": 0,
-      "straightRed": 0
+      "straightRed": 1
     },
     "Brazil": {
-      "yellow": 5,
+      "yellow": 8,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Morocco": {
-      "yellow": 1,
+      "yellow": 7,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -1102,9 +1582,9 @@
       "straightRed": 0
     },
     "USA": {
-      "yellow": 5,
+      "yellow": 7,
       "secondYellow": 0,
-      "straightRed": 0
+      "straightRed": 1
     },
     "Paraguay": {
       "yellow": 9,
@@ -1137,9 +1617,9 @@
       "straightRed": 0
     },
     "Ecuador": {
-      "yellow": 5,
+      "yellow": 8,
       "secondYellow": 0,
-      "straightRed": 0
+      "straightRed": 1
     },
     "Netherlands": {
       "yellow": 3,
@@ -1147,7 +1627,7 @@
       "straightRed": 0
     },
     "Japan": {
-      "yellow": 1,
+      "yellow": 4,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -1162,17 +1642,17 @@
       "straightRed": 0
     },
     "Belgium": {
-      "yellow": 3,
+      "yellow": 6,
       "secondYellow": 0,
       "straightRed": 1
     },
     "Egypt": {
-      "yellow": 3,
+      "yellow": 12,
       "secondYellow": 0,
       "straightRed": 0
     },
     "IR Iran": {
-      "yellow": 2,
+      "yellow": 6,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -1182,12 +1662,12 @@
       "straightRed": 0
     },
     "Spain": {
-      "yellow": 1,
+      "yellow": 6,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Cabo Verde": {
-      "yellow": 4,
+      "yellow": 5,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -1197,42 +1677,42 @@
       "straightRed": 0
     },
     "Uruguay": {
-      "yellow": 2,
+      "yellow": 5,
       "secondYellow": 0,
-      "straightRed": 0
+      "straightRed": 1
     },
     "France": {
-      "yellow": 1,
+      "yellow": 6,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Senegal": {
-      "yellow": 0,
+      "yellow": 3,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Iraq": {
-      "yellow": 2,
+      "yellow": 4,
       "secondYellow": 0,
-      "straightRed": 0
+      "straightRed": 1
     },
     "Norway": {
-      "yellow": 1,
+      "yellow": 3,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Argentina": {
-      "yellow": 6,
+      "yellow": 13,
       "secondYellow": 0,
       "straightRed": 1
     },
     "Algeria": {
-      "yellow": 1,
+      "yellow": 3,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Austria": {
-      "yellow": 3,
+      "yellow": 5,
       "secondYellow": 0,
       "straightRed": 0
     },
@@ -1242,42 +1722,42 @@
       "straightRed": 0
     },
     "Portugal": {
-      "yellow": 4,
+      "yellow": 7,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Colombia": {
-      "yellow": 4,
+      "yellow": 8,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Uzbekistan": {
-      "yellow": 2,
+      "yellow": 4,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Congo DR": {
-      "yellow": 2,
+      "yellow": 6,
       "secondYellow": 0,
       "straightRed": 0
     },
     "England": {
-      "yellow": 1,
+      "yellow": 8,
       "secondYellow": 0,
-      "straightRed": 0
+      "straightRed": 1
     },
     "Croatia": {
-      "yellow": 1,
+      "yellow": 4,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Ghana": {
-      "yellow": 2,
+      "yellow": 6,
       "secondYellow": 0,
       "straightRed": 0
     },
     "Panama": {
-      "yellow": 3,
+      "yellow": 5,
       "secondYellow": 0,
       "straightRed": 0
     }
