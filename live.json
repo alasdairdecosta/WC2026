@@ -1,9 +1,9 @@
 {
   "source": "ESPN broad + previous live.json preservation",
-  "updatedAt": "2026-10-08T14:40:08.036Z",
+  "updatedAt": "2026-10-08T20:07:53.920Z",
   "caveat": "WorldCup26 returned no usable matches; fallback sources were used.",
   "diagnostics": {
-    "generatedAt": "2026-10-08T14:40:08.036Z",
+    "generatedAt": "2026-10-08T20:07:53.920Z",
     "strategy": [
       "manual override, if present",
       "WorldCup26 endpoint variants",
@@ -29,7 +29,7 @@
         "rowsRead": 0,
         "matchesParsed": 0,
         "scoreMatchesParsed": 0,
-        "error": "HTTP 404 after 761ms: {\"error\":{\"message\":\"Route not found\"}}"
+        "error": "HTTP 404 after 1050ms: {\"error\":{\"message\":\"Route not found\"}}"
       },
       {
         "source": "WorldCup26",
@@ -38,7 +38,7 @@
         "rowsRead": 0,
         "matchesParsed": 0,
         "scoreMatchesParsed": 0,
-        "error": "HTTP 404 after 602ms: {\"error\":{\"message\":\"Route not found\"}}"
+        "error": "HTTP 404 after 721ms: {\"error\":{\"message\":\"Route not found\"}}"
       },
       {
         "source": "WorldCup26",
@@ -47,7 +47,7 @@
         "rowsRead": 0,
         "matchesParsed": 0,
         "scoreMatchesParsed": 0,
-        "error": "HTTP 404 after 632ms: {\"error\":{\"message\":\"Route not found\"}}"
+        "error": "HTTP 404 after 946ms: {\"error\":{\"message\":\"Route not found\"}}"
       },
       {
         "source": "ESPN broad",
@@ -56,7 +56,7 @@
         "rowsRead": 0,
         "matchesParsed": 0,
         "scoreMatchesParsed": 0,
-        "error": "HTTP 400 after 94ms: {\"code\":400,\"message\":\"Failed to get events endpoint.\"}"
+        "error": "HTTP 400 after 394ms: {\"code\":400,\"message\":\"Failed to get events endpoint.\"}"
       },
       {
         "source": "ESPN broad",
@@ -65,7 +65,7 @@
         "rowsRead": 0,
         "matchesParsed": 0,
         "scoreMatchesParsed": 0,
-        "error": "HTTP 400 after 112ms: {\"code\":400,\"message\":\"Failed to get events endpoint.\"}"
+        "error": "HTTP 400 after 218ms: {\"code\":400,\"message\":\"Failed to get events endpoint.\"}"
       },
       {
         "source": "ESPN broad",
@@ -74,7 +74,7 @@
         "rowsRead": 1,
         "matchesParsed": 1,
         "scoreMatchesParsed": 1,
-        "ms": 31,
+        "ms": 73,
         "sample": [
           "Spain 1-0 Argentina (finished)"
         ]
@@ -86,7 +86,7 @@
         "rowsRead": 1,
         "matchesParsed": 1,
         "scoreMatchesParsed": 1,
-        "ms": 7,
+        "ms": 39,
         "sample": [
           "Spain 1-0 Argentina (finished)"
         ]
@@ -98,7 +98,7 @@
         "rowsRead": 0,
         "matchesParsed": 0,
         "scoreMatchesParsed": 0,
-        "error": "HTTP 400 after 81ms: {\"code\":400,\"message\":\"Failed to get events endpoint.\"}"
+        "error": "HTTP 400 after 73ms: {\"code\":400,\"message\":\"Failed to get events endpoint.\"}"
       },
       {
         "source": "ESPN date windows",
@@ -107,7 +107,7 @@
         "rowsRead": 0,
         "matchesParsed": 0,
         "scoreMatchesParsed": 0,
-        "error": "HTTP 400 after 8ms: {\"code\":400,\"message\":\"Failed to get events endpoint.\"}"
+        "error": "HTTP 400 after 40ms: {\"code\":400,\"message\":\"Failed to get events endpoint.\"}"
       },
       {
         "source": "ESPN date windows",
@@ -116,7 +116,7 @@
         "rowsRead": 0,
         "matchesParsed": 0,
         "scoreMatchesParsed": 0,
-        "error": "HTTP 400 after 101ms: {\"code\":400,\"message\":\"Failed to get events endpoint.\"}"
+        "error": "HTTP 400 after 78ms: {\"code\":400,\"message\":\"Failed to get events endpoint.\"}"
       },
       {
         "source": "ESPN date windows",
@@ -125,7 +125,7 @@
         "rowsRead": 0,
         "matchesParsed": 0,
         "scoreMatchesParsed": 0,
-        "error": "HTTP 400 after 6ms: {\"code\":400,\"message\":\"Failed to get events endpoint.\"}"
+        "error": "HTTP 400 after 39ms: {\"code\":400,\"message\":\"Failed to get events endpoint.\"}"
       },
       {
         "source": "ESPN date windows",
@@ -134,7 +134,7 @@
         "rowsRead": 0,
         "matchesParsed": 0,
         "scoreMatchesParsed": 0,
-        "error": "HTTP 400 after 93ms: {\"code\":400,\"message\":\"Failed to get events endpoint.\"}"
+        "error": "HTTP 400 after 78ms: {\"code\":400,\"message\":\"Failed to get events endpoint.\"}"
       },
       {
         "source": "ESPN date windows",
@@ -143,7 +143,7 @@
         "rowsRead": 0,
         "matchesParsed": 0,
         "scoreMatchesParsed": 0,
-        "error": "HTTP 400 after 7ms: {\"code\":400,\"message\":\"Failed to get events endpoint.\"}"
+        "error": "HTTP 400 after 38ms: {\"code\":400,\"message\":\"Failed to get events endpoint.\"}"
       },
       {
         "source": "ESPN date windows",
@@ -152,7 +152,7 @@
         "rowsRead": 0,
         "matchesParsed": 0,
         "scoreMatchesParsed": 0,
-        "error": "HTTP 400 after 88ms: {\"code\":400,\"message\":\"Failed to get events endpoint.\"}"
+        "error": "HTTP 400 after 72ms: {\"code\":400,\"message\":\"Failed to get events endpoint.\"}"
       },
       {
         "source": "ESPN date windows",
@@ -161,7 +161,7 @@
         "rowsRead": 0,
         "matchesParsed": 0,
         "scoreMatchesParsed": 0,
-        "error": "HTTP 400 after 7ms: {\"code\":400,\"message\":\"Failed to get events endpoint.\"}"
+        "error": "HTTP 400 after 39ms: {\"code\":400,\"message\":\"Failed to get events endpoint.\"}"
       }
     ],
     "selectedSource": "ESPN broad + previous live.json preservation",
